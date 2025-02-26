@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Get the branch name and build the URL for Jenkins
+      # Step 1: Get the branch name and build the URL for Jenkins.
       - name: Get branch name and build Jenkins URL
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}  # Remove 'refs/heads/' from GITHUB_REF
