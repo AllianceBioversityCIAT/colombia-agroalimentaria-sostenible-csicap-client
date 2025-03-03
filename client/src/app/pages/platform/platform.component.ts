@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-platform',
   imports: [],
-  templateUrl: './platform.component.html',
-  styleUrl: './platform.component.scss'
+  templateUrl: './platform.component.html'
 })
 export class PlatformComponent {
 
