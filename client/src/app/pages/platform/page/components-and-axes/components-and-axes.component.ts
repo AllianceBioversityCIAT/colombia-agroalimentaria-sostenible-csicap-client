@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './components-and-axes.component.html'
 })
-export class ComponentsAndAxesComponent {
+export default class ComponentsAndAxesComponent {
 
 }

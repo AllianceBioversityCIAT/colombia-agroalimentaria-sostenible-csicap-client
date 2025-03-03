@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './architecture.component.html'
 })
-export class ArchitectureComponent {
+export default class ArchitectureComponent {
 
 }

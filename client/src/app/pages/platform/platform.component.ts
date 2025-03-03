@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './platform.component.html'
 })
-export class PlatformComponent {
+ export default class PlatformComponent {
 
 }

@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './toolbar.component.html'
 })
-export class ToolbarComponent {
+export default class ToolbarComponent {
 
 }
