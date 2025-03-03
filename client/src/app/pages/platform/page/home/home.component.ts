@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './home.component.html'
 })
-export default class HomeComponent {
-
-}
+export default class HomeComponent {}
