@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComponentsAndAxesComponent } from './components-and-axes.component';
+import  ComponentsAndAxesComponent  from './components-and-axes.component';
 
 describe('ComponentsAndAxesComponent', () => {
   let component: ComponentsAndAxesComponent;
