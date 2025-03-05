@@ -1,1 +1,24 @@
-<p>toolbar works!</p>
+<div class="flex items-center h-[70px] mx-8 justify-between">
+  <!-- Title -->
+  <div class="font-inter font-semibold text-[20px] text-[#024955]">Menu principal</div>
+  <div class="flex gap-x-8 items-center">
+    <p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" (completeMethod)="search($event)" placeholder="Search" />
+
+    <!-- Icon -->
+    <div class="relative w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full">
+    <p-overlay-badge value="" severity="danger" class="inline-flex">
+        <i class="pi pi-bell text-gray-500 text-3xl"></i>
+      </p-overlay-badge>
+    </div>
+    <div class="border-l h-10 border-gray-300">
+    </div>
+    <!-- Avatar -->
+      <div class="flex items-center justify-center gap-x-4">
+        <p-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle"/>
+        <div class="grid gap-0">
+          <div class="font-inter font-semibold text-[14px] leading-[21px] text-[#A47D06]">Carlos Cárdenas</div>
+          <div class="font-inter font-normal text-[12px] leading-[18px] text-[#9E9E9E]">Administrador</div>
+        </div>
+      </div>
+  </div>
+</div>
