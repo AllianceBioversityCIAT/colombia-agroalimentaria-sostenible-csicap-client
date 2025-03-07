@@ -3,7 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/landing/landing.component'),
+    loadComponent: () => import('./pages/landing/landing.component')
+  },
+  {
+    path: 'auth',
+    loadComponent: () => import('./pages/auth/auth.component')
   },
   {
     path: 'platform',
@@ -11,7 +15,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/platform/page/home/home.component'),
+        loadComponent: () => import('./pages/platform/page/home/home.component')
       }
     ]
   }
