@@ -19,6 +19,9 @@ describe('AuthComponent', () => {
             snapshot: {
               paramMap: {
                 get: () => null
+              },
+              queryParamMap: {
+                get: () => null
               }
             }
           }
