@@ -11,16 +11,25 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-toolbar',
-  imports: [FormsModule, AutoCompleteModule, AvatarModule, OverlayBadgeModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule],
+  imports: [
+    FormsModule,
+    AutoCompleteModule,
+    AvatarModule,
+    OverlayBadgeModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputTextModule,
+    SelectModule,
+    InputNumberModule
+  ],
   templateUrl: './toolbar.component.html'
 })
 export default class ToolbarComponent {
-  items: any[] | undefined;
-  selectedItem: any;
-  suggestions: any[] | undefined;
+  items: [] | undefined;
+  selectedItem: string | undefined;
+  suggestions: string[] | undefined;
   text1: string | undefined;
   search(event: AutoCompleteCompleteEvent) {
-      this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+    this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
   }
-
 }
