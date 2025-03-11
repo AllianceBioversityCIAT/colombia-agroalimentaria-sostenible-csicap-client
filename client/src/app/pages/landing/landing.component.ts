@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-landing',
   standalone: true,
@@ -10,5 +10,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './landing.component.scss'
 })
 export default class LandingComponent {
-
+  cognitoUrl = environment.cognitoUrl;
 }

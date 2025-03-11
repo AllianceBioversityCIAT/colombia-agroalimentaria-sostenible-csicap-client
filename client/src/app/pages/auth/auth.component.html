@@ -1,1 +1,171 @@
-<p>auth works!</p>
+<!-- Pantalla de carga animada para CAS Reporting Tool -->
+<div
+  class="relative flex flex-col items-center justify-center w-full h-screen bg-gradient-to-b from-green-100 via-green-200 to-emerald-200 overflow-hidden">
+  <!-- Fondo natural con superposición -->
+  <div
+    class="absolute inset-0 opacity-50 bg-center bg-cover"
+    style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832')"></div>
+
+  <!-- Patrón sutil de hojas -->
+  <div
+    class="absolute inset-0 opacity-40 bg-center bg-repeat"
+    style="background-image: url('https://www.transparenttextures.com/patterns/leaves.png')"></div>
+
+  <!-- Overlay con degradado oscuro para profundidad -->
+  <div class="absolute inset-0 bg-gradient-to-t from-green-900/40 via-green-800/20 to-transparent"></div>
+
+  <!-- Contenido principal -->
+  <div class="z-20 flex flex-col items-center justify-center text-center px-4 max-w-xl mx-auto">
+    <!-- Logo o título con sombra sutil -->
+    <div class="mb-10">
+      <h1 class="text-4xl md:text-6xl font-bold text-green-800 drop-shadow-sm"><span class="text-green-600">CAS</span> Reporting Tool</h1>
+      <p class="text-green-700 mt-2 text-lg font-light">Centro para la Agricultura Sostenible</p>
+      <div class="h-1 w-32 bg-green-600 mx-auto mt-3 rounded-full"></div>
+    </div>
+
+    <!-- Spinner personalizado de agricultura -->
+    <div class="relative w-44 h-44 mb-10">
+      <!-- Círculos concéntricos -->
+      <div
+        class="absolute inset-0 border-4 border-green-400 rounded-full animate-spin"
+        style="border-top-color: transparent; animation-duration: 1.5s"></div>
+
+      <div
+        class="absolute inset-2 border-4 border-green-500 rounded-full animate-spin"
+        style="border-top-color: transparent; animation-duration: 2s; animation-direction: reverse"></div>
+
+      <!-- Círculo interior con ícono de Google Fonts Material Symbols -->
+      <div class="absolute inset-4 border-4 border-green-600 rounded-full flex items-center justify-center bg-green-50/80 backdrop-blur-sm">
+        <!-- Icono de psychiatry de Google Fonts -->
+        <span
+          class="material-symbols-rounded text-5xl text-green-600 animate-pulse"
+          style="font-size: 4rem; font-variation-settings: 'FILL' 1, 'wght' 500">
+          psychiatry
+        </span>
+      </div>
+    </div>
+
+    <!-- Texto de autenticación - diseño elegante con fondo oscuro -->
+    <div
+      class="text-center py-4 px-8 rounded-2xl bg-gradient-to-r from-green-900/60 to-black/40 backdrop-blur-md shadow-lg border border-green-800/20 transform hover:scale-105 transition-transform duration-300">
+      <p class="text-xl text-green-100 mb-2 font-medium tracking-wide">Welcome Researcher</p>
+      <p class="text-green-200 text-lg font-light">Authenticating<span class="dots">...</span></p>
+    </div>
+
+    <!-- Ilustraciones de campo agrícola (rediseñadas) -->
+    <div class="absolute bottom-0 w-full">
+      <!-- Silueta de campo agrícola -->
+      <div class="w-full h-20 relative">
+        <!-- Colinas onduladas -->
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute bottom-0 left-0 w-full h-20 text-green-800 opacity-80">
+          <path
+            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+            fill="currentColor"></path>
+        </svg>
+
+        <!-- Árboles y plantas -->
+        <div class="absolute bottom-10 left-1/6 transform -translate-x-1/2">
+          <i class="pi pi-tree text-green-700 text-4xl"></i>
+        </div>
+        <div class="absolute bottom-14 left-1/3 transform -translate-x-1/2">
+          <i class="pi pi-tree text-green-800 text-3xl"></i>
+        </div>
+        <div class="absolute bottom-12 right-1/4 transform -translate-x-1/2">
+          <i class="pi pi-tree text-green-700 text-4xl"></i>
+        </div>
+        <div class="absolute bottom-16 right-1/6 transform -translate-x-1/2">
+          <i class="pi pi-tree text-green-800 text-3xl"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos flotantes - partículas naturales (reposicionados) -->
+  <div class="absolute top-1/4 right-1/5 w-16 h-16 flex items-center justify-center z-10">
+    <div class="absolute w-full h-full bg-green-200/40 rounded-full animate-pulse backdrop-blur-sm"></div>
+    <i class="pi pi-chart-bar text-2xl text-green-700"></i>
+  </div>
+
+  <div class="absolute bottom-1/3 left-1/5 w-16 h-16 flex items-center justify-center z-10">
+    <div class="absolute w-full h-full bg-green-200/40 rounded-full animate-pulse backdrop-blur-sm" style="animation-delay: 0.5s"></div>
+    <i class="pi pi-database text-2xl text-green-700"></i>
+  </div>
+
+  <div class="absolute top-1/3 left-1/2 w-14 h-14 flex items-center justify-center z-10">
+    <div class="absolute w-full h-full bg-green-200/40 rounded-full animate-pulse backdrop-blur-sm" style="animation-delay: 0.7s"></div>
+    <i class="pi pi-file-excel text-2xl text-green-700"></i>
+  </div>
+
+  <div class="absolute top-2/3 right-1/3 w-12 h-12 flex items-center justify-center z-10">
+    <div class="absolute w-full h-full bg-green-200/40 rounded-full animate-pulse backdrop-blur-sm" style="animation-delay: 1.2s"></div>
+    <i class="pi pi-chart-line text-xl text-green-700"></i>
+  </div>
+
+  <div class="absolute bottom-1/4 right-1/6 w-14 h-14 flex items-center justify-center z-10">
+    <div class="absolute w-full h-full bg-green-200/40 rounded-full animate-pulse backdrop-blur-sm" style="animation-delay: 0.9s"></div>
+    <i class="pi pi-globe text-2xl text-green-700"></i>
+  </div>
+
+  <!-- Partículas flotantes adicionales (reposicionadas) -->
+  <div class="absolute animate-float-slow z-10" style="top: 8%; left: 10%">
+    <i class="pi pi-apple text-green-400/70 text-2xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="top: 55%; right: 15%; animation-delay: 1.5s">
+    <i class="pi pi-apple text-green-500/70 text-2xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="bottom: 40%; left: 25%; animation-delay: 2.5s">
+    <i class="pi pi-apple text-green-400/70 text-2xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="top: 15%; left: 35%; animation-delay: 3.5s">
+    <i class="pi pi-star text-green-500/70 text-xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="bottom: 30%; right: 25%; animation-delay: 2s">
+    <i class="pi pi-star text-green-600/70 text-xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="top: 40%; right: 30%; animation-delay: 4s">
+    <i class="pi pi-star text-green-500/70 text-xl"></i>
+  </div>
+
+  <!-- Iconos adicionales más prominentes -->
+  <div class="absolute animate-float-slow z-10" style="top: 60%; left: 8%; animation-delay: 3.2s">
+    <i class="pi pi-chart-pie text-green-600/80 text-3xl"></i>
+  </div>
+  <div class="absolute animate-float-slow z-10" style="top: 25%; right: 8%; animation-delay: 5s">
+    <i class="pi pi-calendar text-green-600/80 text-3xl"></i>
+  </div>
+</div>
+
+<style>
+  @keyframes dots {
+    0%,
+    20% {
+      content: '.';
+    }
+    40% {
+      content: '..';
+    }
+    60%,
+    100% {
+      content: '...';
+    }
+  }
+
+  .dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+  }
+
+  @keyframes float-slow {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-15px) rotate(5deg);
+    }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+</style>
