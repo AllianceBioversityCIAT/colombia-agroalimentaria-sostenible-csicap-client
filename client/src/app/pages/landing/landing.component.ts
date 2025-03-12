@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-landing',
   standalone: true,
@@ -10,5 +11,6 @@ import { environment } from '../../../environments/environment';
   styleUrl: './landing.component.scss'
 })
 export default class LandingComponent {
-  cognitoUrl = environment.cognitoUrl;
+  public cognitoUrl = environment.cognitoUrl;
+  public currentYear: number = new Date().getFullYear();
 }
