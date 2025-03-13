@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CognitoService } from '../../shared/services/cognito.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,18 +9,8 @@ import { CommonModule } from '@angular/common';
   standalone: true
 })
 export default class AuthComponent implements OnInit {
-  code: string | null = null;
-  copied = false;
-
-  constructor(private route: ActivatedRoute, private clipboard: Clipboard) {}
-
+  cognito = inject(CognitoService);
   ngOnInit(): void {
-    // Extraer el código de la URL usando snapshot
-    this.code = this.route.snapshot.queryParamMap.get('code');
-    if (this.code) {
-      // Copiar el código al portapapeles
-      this.clipboard.copy(this.code);
-      this.copied = true;
-    }
+    this.cognito.validateCognitoCode();
   }
 }

@@ -4,7 +4,7 @@ import { Observable, firstValueFrom, map, catchError, finalize } from 'rxjs';
 import { MainResponse } from '../interfaces/responses.interface';
 import { environment } from '../../../environments/environment';
 import { CacheService } from './cache/cache.service';
-import { GreenChecks } from '../interfaces/get-green-checks.interface';
+import { GreenChecks } from '../interfaces/get/get-green-checks.interface';
 @Injectable({
   providedIn: 'root'
 })

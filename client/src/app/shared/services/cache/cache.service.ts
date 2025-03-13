@@ -1,5 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { ToPromiseService } from '../to-promise.service';
+import { DataCache } from '../../interfaces/cache.interface';
+import { GreenChecks } from '../../interfaces/get/get-green-checks.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +9,11 @@ import { ToPromiseService } from '../to-promise.service';
 export class CacheService {
   TP = inject(ToPromiseService);
 
-  login = (awsToken: string): Promise<MainResponse<LoginRes>> => {
-    const url = () => `authorization/login`;
-    return this.TP.post(url(), {}, { token: awsToken, isAuth: true });
-  };
+  isLoggedIn = signal(false);
+  isValidatingToken = signal(false);
+  dataCache: WritableSignal<DataCache> = signal(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data') ?? '') : {});
+  windowHeight = signal(window.innerHeight);
+  greenChecks = signal<GreenChecks>({});
+  currentResultIsLoading = signal(false);
+  currentResultId: WritableSignal<number> = signal(0);
 }

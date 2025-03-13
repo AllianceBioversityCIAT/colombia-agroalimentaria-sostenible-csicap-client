@@ -1,7 +1,7 @@
 import { Injectable, WritableSignal, inject } from '@angular/core';
 import { ToPromiseService } from './to-promise.service';
 import { CacheService } from './cache/cache.service';
-
+import { MainResponse, LoginRes } from '../interfaces/responses.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,15 +9,15 @@ export class ApiService {
   TP = inject(ToPromiseService);
   cache = inject(CacheService);
   //? >>>>>>>>>>>> Endpoints <<<<<<<<<<<<<<<<<
-  // login = (awsToken: string): Promise<MainResponse<LoginRes>> => {
-  //   const url = () => `authorization/login`;
-  //   return this.TP.post(url(), {}, { token: awsToken, isAuth: true });
-  // };
+  login = (awsToken: string): Promise<MainResponse<LoginRes>> => {
+    const url = () => `authorization/login`;
+    return this.TP.post(url(), {}, { token: awsToken, isAuth: true });
+  };
 
-  // refreshToken = (refreshToken: string): Promise<MainResponse<LoginRes>> => {
-  //   const url = () => `authorization/refresh-token`;
-  //   return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, isAuth: true });
-  // };
+  refreshToken = (refreshToken: string): Promise<MainResponse<LoginRes>> => {
+    const url = () => `authorization/refresh-token`;
+    return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, isAuth: true });
+  };
 
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {
   //   const url = () => `indicator-types`;
