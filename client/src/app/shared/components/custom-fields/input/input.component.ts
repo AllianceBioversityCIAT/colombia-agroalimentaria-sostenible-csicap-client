@@ -3,14 +3,13 @@
 import { Component, computed, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { SaveOnWritingDirective } from '../../../directives/save-on-writing.directive';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CacheService } from '../../../services/cache/cache.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UtilsService } from '../../../services/utils.service';
 @Component({
   selector: 'app-input',
-  imports: [FormsModule, InputTextModule, SaveOnWritingDirective, SkeletonModule, InputNumberModule],
+  imports: [FormsModule, InputTextModule, SkeletonModule, InputNumberModule],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss'
 })

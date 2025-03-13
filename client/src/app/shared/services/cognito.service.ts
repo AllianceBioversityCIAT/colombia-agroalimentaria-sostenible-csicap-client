@@ -27,6 +27,7 @@ export class CognitoService {
     this.cache.isValidatingToken.set(true);
     const loginResponse = await this.api.login(code);
     if (!loginResponse.successfulRequest) {
+      console.log('show aler');
       this.actions.showGlobalAlert({
         severity: 'error',
         summary: 'Error authenticating',
