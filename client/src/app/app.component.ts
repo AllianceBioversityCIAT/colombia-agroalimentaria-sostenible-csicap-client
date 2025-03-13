@@ -7,5 +7,5 @@ import { GlobalAlertComponent } from './shared/components/global-alert/global-al
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'client';
+  title = 'CAS Reporting Tool';
 }

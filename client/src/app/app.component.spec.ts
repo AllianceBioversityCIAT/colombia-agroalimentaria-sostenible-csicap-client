@@ -1,10 +1,42 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CacheService } from '@services/cache/cache.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
+import { ActionsService } from './shared/services/actions.service';
+import { signal } from '@angular/core';
 
 describe('AppComponent', () => {
+  let mockActionsService: Partial<ActionsService>;
+
   beforeEach(async () => {
+    const mockSocket = {
+      fromEvent: jest.fn().mockReturnValue(of({})),
+      emit: jest.fn()
+    };
+
+    const mockWebsocketService = {
+      runsockets: jest.fn(),
+      listen: jest.fn().mockReturnValue(of({}))
+    };
+
+    const mockCacheService = {
+      dataCache: signal({ access_token: 'mock-token' }),
+      isLoggedIn: { set: jest.fn() }
+    };
+
+    mockActionsService = {
+      isTokenExpired: jest.fn()
+    };
+
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [RouterTestingModule, AppComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: CacheService, useValue: mockCacheService },
+        { provide: ActionsService, useValue: mockActionsService }
+      ]
     }).compileComponents();
   });
 
@@ -14,16 +46,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'client' title`, () => {
+  it(`should have the 'CAS Reporting Tool' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('client');
+    expect(app.title).toEqual('CAS Reporting Tool');
   });
-
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('h1')?.textContent).toContain('Hello, client');
-  // });
 });
