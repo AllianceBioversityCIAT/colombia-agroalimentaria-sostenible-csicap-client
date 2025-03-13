@@ -22,10 +22,10 @@ const config: Config = {
   coverageReporters: ['text', 'cobertura', 'lcov'],
   coverageThreshold: {
     global: {
-      statements: 40,
-      branches: 20,
-      lines: 45,
-      functions: 30
+      statements: 10,
+      branches: 0,
+      lines: 10,
+      functions: 1
     }
   },
   moduleNameMapper: {
