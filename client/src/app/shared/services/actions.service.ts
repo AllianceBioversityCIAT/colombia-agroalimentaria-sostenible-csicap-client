@@ -149,7 +149,8 @@ export class ActionsService {
       }));
       localStorage.setItem('data', JSON.stringify(this.cache.dataCache()));
     } else {
-      loginResponse.data.user.roleName = loginResponse.data.user?.user_role_list[0]?.role?.name ?? '';
+      console.log('loginResponse', loginResponse);
+      // loginResponse.data.user.roleName = loginResponse.data.user?.user_role_list[0]?.role?.name ?? '';
       localStorage.setItem('data', JSON.stringify({ ...loginResponse.data, exp }));
     }
   }
