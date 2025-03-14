@@ -1,6 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-
+import { ActionsService } from '../../services/actions.service';
+interface SidebarItem {
+  icon: string;
+  label: string;
+  action?: () => void;
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -8,8 +13,9 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
   templateUrl: './sidebar.component.html'
 })
 export default class SidebarComponent {
+  actions = inject(ActionsService);
 
-  menuItems = signal([
+  menuItems = signal<SidebarItem[]>([
     { icon: 'pi-home', label: 'Menu principal' },
     { icon: 'pi-sitemap', label: 'Arquitectura' },
     { icon: 'pi-chart-line', label: 'Planes operativos' },
@@ -18,8 +24,8 @@ export default class SidebarComponent {
     { icon: 'pi-calendar', label: 'Fechas clave' }
   ]);
 
-  accountItems = signal([
+  accountItems = signal<SidebarItem[]>([
     { icon: 'pi-cog', label: 'Ajustes' },
-    { icon: 'pi-sign-out', label: 'Cerrar sesión' }
+    { icon: 'pi-sign-out', label: 'Cerrar sesión', action: () => this.actions.logOut() }
   ]);
 }
