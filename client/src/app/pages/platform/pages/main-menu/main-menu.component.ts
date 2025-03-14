@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss'
 })
-export class MainMenuComponent {
-
-}
+export default class MainMenuComponent {}

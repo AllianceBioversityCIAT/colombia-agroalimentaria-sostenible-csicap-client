@@ -16,12 +16,32 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'menu-principal',
         pathMatch: 'full'
       },
       {
-        path: 'home',
-        loadComponent: () => import('./pages/platform/pages/home/home.component')
+        path: 'menu-principal',
+        loadComponent: () => import('./pages/platform/pages/main-menu/main-menu.component')
+      },
+      {
+        path: 'arquitectura',
+        loadComponent: () => import('./pages/platform/pages/architecture/architecture.component')
+      },
+      {
+        path: 'planes-operativos',
+        loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
+      },
+      {
+        path: 'gestion-usuarios',
+        loadComponent: () => import('./pages/platform/pages/user-management/user-management.component')
+      },
+      {
+        path: 'acerca-roles',
+        loadComponent: () => import('./pages/platform/pages/about-roles/about-roles.component')
+      },
+      {
+        path: 'fechas-clave',
+        loadComponent: () => import('./pages/platform/pages/key-dates/key-dates.component')
       }
     ]
   },

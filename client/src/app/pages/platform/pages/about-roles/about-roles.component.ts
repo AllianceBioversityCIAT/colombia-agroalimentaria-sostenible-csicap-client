@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './about-roles.component.html',
   styleUrl: './about-roles.component.scss'
 })
-export class AboutRolesComponent {
-
-}
+export default class AboutRolesComponent {}

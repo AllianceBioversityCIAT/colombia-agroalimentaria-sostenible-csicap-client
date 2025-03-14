@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './operational-plans.component.html',
   styleUrl: './operational-plans.component.scss'
 })
-export class OperationalPlansComponent {
-
-}
+export default class OperationalPlansComponent {}

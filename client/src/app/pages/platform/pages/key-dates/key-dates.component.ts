@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './key-dates.component.html',
   styleUrl: './key-dates.component.scss'
 })
-export class KeyDatesComponent {
-
-}
+export default class KeyDatesComponent {}

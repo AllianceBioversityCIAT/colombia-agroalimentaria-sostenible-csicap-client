@@ -3,7 +3,7 @@
 </div>
 <div class="font-inter font-medium pl-8 pt-8 text-[14px] leading-[21px] text-[#BDBDBD]">Explorar</div>
 @for (item of menuItems(); track item.label) {
-<div class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer" (click)="item.action?.()">
+<div class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer" [routerLink]="item.path">
   <div class="pi {{ item.icon }}"></div>
   <div>{{ item.label }}</div>
 </div>
@@ -11,7 +11,10 @@
 <div class="border-b pb-4 mx-8" style="border-color: #047f94"></div>
 <div class="font-inter font-medium pl-8 pt-4 text-[14px] leading-[21px] mt-4 text-[#BDBDBD]">Cuenta</div>
 @for (item of accountItems(); track item.label) {
-<div class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer" (click)="item.action?.()">
+<div
+  class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
+  [routerLink]="item.path"
+  (click)="item.action?.()">
   <div class="pi {{ item.icon }}"></div>
   <div>{{ item.label }}</div>
 </div>
