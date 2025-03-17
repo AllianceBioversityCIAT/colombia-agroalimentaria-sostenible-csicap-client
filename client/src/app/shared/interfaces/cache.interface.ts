@@ -14,6 +14,8 @@ export interface UserCache {
   email: string;
   status_id: number;
   user_role_list: Userrolelist[];
+  nombre: string;
+  apellido: string;
 }
 
 interface Userrolelist {
