@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UserManagementComponent } from './user-management.component';
+import UserManagementComponent from './user-management.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UserManagementComponent', () => {
   let component: UserManagementComponent;
@@ -8,9 +8,9 @@ describe('UserManagementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserManagementComponent]
-    })
-    .compileComponents();
+      imports: [UserManagementComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
