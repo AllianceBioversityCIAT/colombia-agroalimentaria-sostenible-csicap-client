@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { OperationalPlansComponent } from './operational-plans.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import OperationalPlansComponent from './operational-plans.component';
 
 describe('OperationalPlansComponent', () => {
   let component: OperationalPlansComponent;
@@ -8,9 +8,9 @@ describe('OperationalPlansComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OperationalPlansComponent]
-    })
-    .compileComponents();
+      imports: [OperationalPlansComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(OperationalPlansComponent);
     component = fixture.componentInstance;
