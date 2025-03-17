@@ -12,12 +12,8 @@
     </div>
 
     <!-- Content Area -->
-    <div class="flex-1 p-6">
-      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
-
-      <div class="flex-1 p-6 bg-white">
-        <router-outlet />
-      </div>
+    <div class="flex-1 p-6 overflow-auto">
+      <router-outlet />
     </div>
   </div>
 </div>
