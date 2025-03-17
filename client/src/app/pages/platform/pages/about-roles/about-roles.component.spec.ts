@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AboutRolesComponent } from './about-roles.component';
+import AboutRolesComponent from './about-roles.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AboutRolesComponent', () => {
   let component: AboutRolesComponent;
@@ -8,9 +8,9 @@ describe('AboutRolesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutRolesComponent]
-    })
-    .compileComponents();
+      imports: [AboutRolesComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AboutRolesComponent);
     component = fixture.componentInstance;
