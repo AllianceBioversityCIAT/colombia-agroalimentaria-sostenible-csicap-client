@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
+// PrimeNG
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'app-architecture',
-  imports: [],
+  standalone: true,
+  imports: [ButtonModule],
   templateUrl: './architecture.component.html'
 })
-export default class ArchitectureComponent {
-
-}
+export default class ArchitectureComponent {}
