@@ -14,7 +14,7 @@ interface Organization {
 })
 export default class OperationalPlansComponent {
   organizations = signal<Organization[]>([
-    { name: 'Alianza Bioversity & CGIAR', logoUrl: '/organizations/Logo Alianza CGIAR.png' },
+    { name: 'Alianza Bioversity & CIAT', logoUrl: '/organizations/Logo Alianza CGIAR.png' },
     { name: 'Agrosavia', logoUrl: '/organizations/Logo Agrosavia.png' },
     { name: 'Asbama', logoUrl: '/organizations/Logo Asbama.png' },
     { name: 'Asohofrucol', logoUrl: '/organizations/Logo Asohofrucol.png' },
