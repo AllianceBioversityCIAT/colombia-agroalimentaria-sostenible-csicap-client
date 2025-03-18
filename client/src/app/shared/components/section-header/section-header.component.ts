@@ -7,5 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './section-header.component.scss'
 })
 export class SectionHeaderComponent {
+  @Input() header = '';
   @Input() title = '';
+  @Input() description = '';
 }

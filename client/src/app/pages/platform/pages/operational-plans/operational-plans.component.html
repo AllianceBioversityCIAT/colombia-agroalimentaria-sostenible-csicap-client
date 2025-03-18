@@ -1,1 +1,15 @@
-<app-section-header [title]="'Organizaciones'"></app-section-header>
+<app-section-header
+  [header]="'Organizaciones'"
+  [title]="'Planes operativos'"
+  [description]="'Selecciona una organización para explorar su plan operativo y conocer más sobre sus productos, hitos y entregables.'">
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (org of organizations(); track org.name) {
+      <div class="p-6 cursor-pointer">
+        <img [src]="org.logoUrl" [alt]="org.name" class="h-[150px] object-contain mx-auto mb-10" />
+        <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.name }}</h3>
+      </div>
+      }
+    </div>
+  </div>
+</app-section-header>

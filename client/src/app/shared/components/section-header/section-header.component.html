@@ -1,4 +1,9 @@
-<div class="bg-white rounded-xl relative h-full shadow-xs">
-  <h2 class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4">{{ title }}</h2>
+<div class="bg-white rounded-xl relative shadow-xs">
+  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4">{{ header }}</div>
   <div class="border-b border-gray-300"></div>
+  <div class="grid place-items-center py-10">
+    <span class="font-inter font-semibold text-[30px] leading-[150%] text-[#024955] pb-6">{{ title }}</span>
+    <span class="font-inter font-normal text-base leading-6 text-[#4B5563] pb-6">{{ description }}</span>
+    <ng-content></ng-content>
+  </div>
 </div>
