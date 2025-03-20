@@ -1,7 +1,10 @@
 <div class="flex items-center justify-center h-[70px] border-b" style="border-color: #047f94">
   <img src="logo.png" alt="" class="h-[80px]" />
 </div>
-<div class="font-inter font-medium pl-8 pt-8 text-[14px] leading-[21px] text-[#BDBDBD]">Explorar</div>
+<div class="flex items-center pl-8 pt-8 gap-4 mb-2">
+  <div class="font-inter font-medium text-[14px] leading-[21px] text-[#BDBDBD]">Explorar</div>
+  <i class="pi pi-chevron-left bg-white text-[#EAB308] rounded-full p-2 cursor-pointer" style="font-size: 10px"></i>
+</div>
 @for (item of menuItems(); track item.label) {
 <div
   class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
@@ -12,7 +15,7 @@
 </div>
 }
 <div class="border-b pb-4 mx-8" style="border-color: #047f94"></div>
-<div class="font-inter font-medium pl-8 pt-4 text-[14px] leading-[21px] mt-4 text-[#BDBDBD]">Cuenta</div>
+<div class="font-inter font-medium pl-8 pt-4 text-[14px] leading-[21px] mt-4 mb-2 text-[#BDBDBD]">Cuenta</div>
 @for (item of accountItems(); track item.label) {
 <div
   class="flex items-center gap-2 pl-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
