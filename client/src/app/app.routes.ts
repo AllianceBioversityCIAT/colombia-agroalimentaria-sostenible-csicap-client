@@ -28,6 +28,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/architecture/architecture.component')
       },
       {
+        path: 'arquitectura/componentes-y-ejes',
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/components-and-axes/components-and-axes.component')
+      },
+      {
+        path: 'arquitectura/ficha-bpin',
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/bpin-form/bpin-form.component')
+      },
+      {
         path: 'planes-operativos',
         loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
       },
