@@ -1,1 +1,26 @@
-<p>components-and-axes works!</p>
+<app-section-header [header]="'Componentes y ejes'">
+  <div class="card">
+    <p-table [value]="components">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-base">Componentes</th>
+          <th class="text-base">Descripción del componente</th>
+          <th class="text-base">Ejes del componente</th>
+          <th class="text-base">Descripción del eje</th>
+          <th class="text-base">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-component>
+        <tr>
+          <td>{{ component.component }}</td>
+          <td>{{ component.componentDescription }}</td>
+          <td>{{ component.axis }}</td>
+          <td>{{ component.axisDescription }}</td>
+          <td>
+            <p-button icon="pi pi-eye" styleClass="p-button-text p-button-success" label="Ver equipos del eje"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</app-section-header>

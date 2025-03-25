@@ -5,8 +5,8 @@
   <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       @for (org of organizations(); track org.name) {
-      <div class="p-6 cursor-pointer">
-        <img [src]="org.logoUrl" [alt]="org.name" class="h-[150px] object-contain mx-auto mb-10" />
+      <div class="grid p-6 justify-center items-end cursor-pointer">
+        <img [src]="org.logoUrl" [alt]="org.name" class="w-[200px] object-contain mb-10" />
         <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.name }}</h3>
       </div>
       }
