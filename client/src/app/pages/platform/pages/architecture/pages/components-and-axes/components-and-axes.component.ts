@@ -15,7 +15,7 @@ interface ComponentAxis {
   standalone: true,
   imports: [TableModule, ButtonModule, SectionHeaderComponent],
   templateUrl: './components-and-axes.component.html',
-  styleUrls: ['./components-and-axes.component.scss']
+  styleUrls: []
 })
 export default class ComponentsAndAxesComponent implements OnInit {
   components: ComponentAxis[] = [];
