@@ -1,6 +1,6 @@
 <app-section-header [header]="'Componentes y ejes'">
   <div class="mx-10">
-    <p-table [value]="components">
+    <p-table [value]="components" showGridlines>
       <ng-template pTemplate="header">
         <tr>
           <th class="text-base">Componentes</th>
@@ -17,7 +17,7 @@
           <td>{{ component.axis }}</td>
           <td>{{ component.axisDescription }}</td>
           <td>
-            <p-button icon="pi pi-users" styleClass=" p-button-success" label="Ver equipos del eje"></p-button>
+            <p-button icon="pi pi-users" styleClass="p-button-success" label="Ver equipos del eje"></p-button>
           </td>
         </tr>
       </ng-template>
