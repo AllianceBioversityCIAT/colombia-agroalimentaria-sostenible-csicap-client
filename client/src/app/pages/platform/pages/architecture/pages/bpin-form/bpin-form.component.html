@@ -1,5 +1,14 @@
-<app-section-header [header]="'Ficha BPIN'">
-  <div class="flex font-inter font-normal leading-6 text-[#6B7280]">
+<app-section-header [header]="'Ficha BPIN'" [centered]="false">
+  <div class="flex font-inter font-normal leading-6 text-[#6B7280] mx-8">
     Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+  </div>
+  <div class="mx-8">
+    <p-tabView [(activeIndex)]="activeIndex">
+      @for (tab of tabs; track tab.value) {
+      <p-tabPanel [header]="tab.title">
+        <p class="m-0">{{ tab.content }}</p>
+      </p-tabPanel>
+      }
+    </p-tabView>
   </div>
 </app-section-header>
