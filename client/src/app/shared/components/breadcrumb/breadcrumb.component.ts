@@ -5,8 +5,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-breadcrumb',
   imports: [Breadcrumb],
-  templateUrl: './breadcrumb.component.html',
-  styleUrl: './breadcrumb.component.scss'
+  templateUrl: './breadcrumb.component.html'
 })
 export class BreadcrumbComponent implements OnInit {
   items: MenuItem[] | undefined;

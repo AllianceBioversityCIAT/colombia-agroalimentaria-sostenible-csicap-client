@@ -11,7 +11,10 @@ const config: Config = {
     '<rootDir>/src/app/pages/landing',
     '<rootDir>/src/app/shared/services',
     '<rootDir>/src/app/shared/components/custom-fields',
-    '<rootDir>/src/app/shared/components/alert/alert.component.spec.ts'
+    '<rootDir>/src/app/shared/components/alert/alert.component.spec.ts',
+    '<rootDir>/src/app/pages/platform/pages/architecture/pages/bpin-form',
+    '<rootDir>/src/app/shared/components/breadcrumb/breadcrumb',
+    '<rootDir>/src/app/pages/platform/pages/architecture'
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/src/app/app.config.ts',
