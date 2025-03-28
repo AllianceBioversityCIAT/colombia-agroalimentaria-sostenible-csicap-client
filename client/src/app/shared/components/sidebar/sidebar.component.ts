@@ -8,6 +8,7 @@ interface SidebarItem {
   label: string;
   action?: () => void;
   path?: string;
+  disabled?: boolean;
 }
 
 @Component({
@@ -22,13 +23,13 @@ export default class SidebarComponent {
     { icon: 'pi-home', label: 'Menú principal', path: 'menu-principal' },
     { icon: 'pi-sitemap', label: 'Arquitectura', path: 'arquitectura' },
     { icon: 'pi-chart-line', label: 'Planes operativos', path: 'planes-operativos' },
-    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios' },
-    { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles' },
-    { icon: 'pi-calendar', label: 'Fechas clave', path: 'fechas-clave' }
+    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios', disabled: true },
+    { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
+    { icon: 'pi-calendar', label: 'Fechas clave', path: 'fechas-clave', disabled: true }
   ]);
 
   accountItems = signal<SidebarItem[]>([
-    { icon: 'pi-cog', label: 'Ajustes' },
+    { icon: 'pi-cog', label: 'Ajustes', disabled: true },
     { icon: 'pi-sign-out', label: 'Cerrar sesión', action: () => this.actions.logOut() }
   ]);
 }
