@@ -19,6 +19,11 @@ export class ApiService {
     return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, isAuth: true });
   };
 
+  getGCFComponentes = (): Promise<MainResponse<any[]>> => {
+    const url = () => `gcf-componentes`;
+    return this.TP.get(url(), {});
+  };
+
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {
   //   const url = () => `indicator-types`;
   //   return this.TP.get(url(), {});
