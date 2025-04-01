@@ -1,0 +1,33 @@
+<app-section-header [header]="'Plan Operativo - '" [centered]="false">
+  <div class="flex font-inter font-normal leading-6 text-[#6B7280] mx-8">
+    Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+  </div>
+  <div class="mx-8">
+    <p-tabView [(activeIndex)]="activeIndex">
+      @for (tab of tabs; track tab.value) {
+      <p-tabPanel [header]="tab.title">
+        <div class="card">
+          <p-table [value]="tab.activities" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines rounded-table" showGridlines>
+            <ng-template pTemplate="header">
+              <tr class="bg-[#024955]">
+                <th class="bg-[#024955] bg-primary text-white">Código actividad</th>
+                <th class="bg-primary text-white">Actividad</th>
+                <th class="bg-primary text-white">Código subactividad</th>
+                <th class="bg-primary text-white">Subactividad</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-activity>
+              <tr>
+                <td>{{ activity.activityCode }}</td>
+                <td>{{ activity.activity }}</td>
+                <td>{{ activity.subActivityCode }}</td>
+                <td>{{ activity.subActivity }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+      }
+    </p-tabView>
+  </div>
+</app-section-header>

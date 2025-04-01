@@ -40,6 +40,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
       },
       {
+        path: 'planes-operativos/plan-operativo',
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan/operational-plan.component')
+      },
+      {
         path: 'gestion-usuarios',
         loadComponent: () => import('./pages/platform/pages/user-management/user-management.component')
       },
