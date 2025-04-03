@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SectionHeaderComponent } from '@shared/components/section-header/section-header.component';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { ApiService } from '../../../../../../shared/services/api.service';
 
 interface Activity {
   activityCode: string;
@@ -24,10 +25,12 @@ interface Tabs {
   styleUrls: []
 })
 export default class BpinFormComponent implements OnInit {
+  api = inject(ApiService);
   tabs: Tabs[] = [];
   activeIndex = 0;
 
   ngOnInit() {
+    this.getFichaBpin();
     this.tabs = [
       {
         title: 'Objetivo 1',
@@ -127,5 +130,10 @@ export default class BpinFormComponent implements OnInit {
         ]
       }
     ];
+  }
+
+  async getFichaBpin() {
+    const res = await this.api.getFichaBpin();
+    console.log(res);
   }
 }

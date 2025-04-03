@@ -24,6 +24,11 @@ export class ApiService {
     return this.TP.get(url(), {});
   };
 
+  getFichaBpin = (): Promise<MainResponse<any[]>> => {
+    const url = () => `bpin-objetivos/ficha-bpin`;
+    return this.TP.get(url(), {});
+  };
+
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {
   //   const url = () => `indicator-types`;
   //   return this.TP.get(url(), {});
