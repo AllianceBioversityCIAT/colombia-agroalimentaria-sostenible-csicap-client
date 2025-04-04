@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center justify-center mx-10">
   <p-table
-    [value]="data"
+    [value]="mappedData()"
     [tableStyle]="{ 'min-width': '50rem', 'max-width': '100rem' }"
     styleClass="p-datatable-gridlines rounded-table"
     showGridlines>
@@ -17,7 +17,7 @@
     <ng-template pTemplate="body" let-rowData>
       <tr>
         @if (rowData.rowspan > 0) {
-        <td [attr.rowspan]="rowData.rowspan">{{ rowData.component }}</td>
+        <td [attr.rowspan]="rowData.rowspan">{{ rowData.componentName }}</td>
         <td [attr.rowspan]="rowData.rowspan">{{ rowData.componentDescription }}</td>
         }
         <td>{{ rowData.axis }}</td>

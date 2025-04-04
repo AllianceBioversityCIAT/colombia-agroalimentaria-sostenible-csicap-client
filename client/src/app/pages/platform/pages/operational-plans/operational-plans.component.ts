@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
+import { ApiService } from '../../../../shared/services/api.service';
 
 interface Organization {
   name: string;
@@ -12,7 +13,8 @@ interface Organization {
   templateUrl: './operational-plans.component.html',
   styleUrl: './operational-plans.component.scss'
 })
-export default class OperationalPlansComponent {
+export default class OperationalPlansComponent implements OnInit {
+  api = inject(ApiService);
   organizations = signal<Organization[]>([
     { name: 'Alianza Bioversity & CIAT', logoUrl: '/organizations/Logo Alianza CGIAR.png' },
     { name: 'Agrosavia', logoUrl: '/organizations/Logo Agrosavia.png' },
@@ -29,4 +31,11 @@ export default class OperationalPlansComponent {
     { name: 'Fedepapa', logoUrl: '/organizations/Logo Fedepapa.png' },
     { name: 'Fenalce', logoUrl: '/organizations/Logo Fenalce.png' }
   ]);
+  ngOnInit() {
+    this.getOrganizations();
+  }
+  async getOrganizations() {
+    const res = await this.api.getOrganizations();
+    console.log(res);
+  }
 }

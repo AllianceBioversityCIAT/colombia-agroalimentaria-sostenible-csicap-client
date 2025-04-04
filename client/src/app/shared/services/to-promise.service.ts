@@ -36,7 +36,7 @@ export class ToPromiseService {
   };
 
   delete = <T>(url: string, config?: Config) => {
-    return this.TP(this.http.delete<T>(this.getEnv(config?.isAuth) + url));
+    return this.TP(this.http.delete<T>(this.getEnv(config?.useManagementApi) + url));
   };
 
   post = <T, B>(url: string, body: B, config?: Config) => {
@@ -47,24 +47,24 @@ export class ToPromiseService {
     if (config?.isRefreshToken) {
       headers = headers.set('refresh-token', `${config.token}`);
     }
-    return this.TP(this.http.post<T>(this.getEnv(config?.isAuth) + url, body, { headers }));
+    return this.TP(this.http.post<T>(this.getEnv(config?.useManagementApi) + url, body, { headers }));
   };
 
   put = <T, B>(url: string, body: B, config?: Config) => {
-    return this.TP(this.http.put<T>(this.getEnv(config?.isAuth) + url, body));
+    return this.TP(this.http.put<T>(this.getEnv(config?.useManagementApi) + url, body));
   };
 
   get = <T>(url: string, config?: Config) => {
-    return this.TP(this.http.get<T>(this.getEnv(config?.isAuth) + url), config?.loadingTrigger);
+    return this.TP(this.http.get<T>(this.getEnv(config?.useManagementApi) + url), config?.loadingTrigger);
   };
 
   patch = <T, B>(url: string, body: B, config?: Config) => {
-    return this.TP(this.http.patch<T>(this.getEnv(config?.isAuth) + url, body));
+    return this.TP(this.http.patch<T>(this.getEnv(config?.useManagementApi) + url, body));
   };
 
-  getEnv = (isAuth: boolean | string | undefined) => {
-    if (typeof isAuth === 'string') return isAuth;
-    return isAuth ? environment.managementApiUrl : environment.mainApiUrl;
+  getEnv = (useManagementApi: boolean | string | undefined) => {
+    if (typeof useManagementApi === 'string') return useManagementApi;
+    return useManagementApi ? environment.managementApiUrl : environment.mainApiUrl;
   };
 
   getGreenChecks = (): Promise<MainResponse<GreenChecks>> => {
@@ -80,7 +80,7 @@ export class ToPromiseService {
 
 interface Config {
   token?: string;
-  isAuth?: boolean | string;
+  useManagementApi?: boolean | string;
   isRefreshToken?: boolean;
   loadingTrigger?: boolean;
 }

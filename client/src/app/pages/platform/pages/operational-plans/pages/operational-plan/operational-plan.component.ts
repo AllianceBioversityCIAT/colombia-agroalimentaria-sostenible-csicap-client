@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SectionHeaderComponent } from '@shared/components/section-header/section-header.component';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { ApiService } from '../../../../../../shared/services/api.service';
 
 interface Activity {
   activityCode: string;
@@ -25,6 +26,7 @@ interface Tabs {
 export default class OperationalPlanComponent implements OnInit {
   tabs: Tabs[] = [];
   activeIndex = 0;
+  api = inject(ApiService);
   ngOnInit() {
     this.tabs = [
       {

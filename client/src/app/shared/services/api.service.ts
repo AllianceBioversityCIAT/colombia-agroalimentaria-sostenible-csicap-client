@@ -11,12 +11,12 @@ export class ApiService {
   //? >>>>>>>>>>>> Endpoints <<<<<<<<<<<<<<<<<
   login = (awsToken: string): Promise<MainResponse<LoginRes>> => {
     const url = () => `authorization/login`;
-    return this.TP.post(url(), {}, { token: awsToken, isAuth: true });
+    return this.TP.post(url(), {}, { token: awsToken, useManagementApi: true });
   };
 
   refreshToken = (refreshToken: string): Promise<MainResponse<LoginRes>> => {
     const url = () => `authorization/refresh-token`;
-    return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, isAuth: true });
+    return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, useManagementApi: true });
   };
 
   getGCFComponentes = (): Promise<MainResponse<any[]>> => {
@@ -27,6 +27,11 @@ export class ApiService {
   getFichaBpin = (): Promise<MainResponse<any[]>> => {
     const url = () => `bpin-objetivos/ficha-bpin`;
     return this.TP.get(url(), {});
+  };
+
+  getOrganizations = (): Promise<MainResponse<any[]>> => {
+    const url = () => `organizations/nombres`;
+    return this.TP.get(url(), { useManagementApi: true });
   };
 
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {
