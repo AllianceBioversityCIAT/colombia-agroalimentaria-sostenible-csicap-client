@@ -46,7 +46,9 @@
         <div class="p-5 flex flex-col flex-grow items-center justify-center">
           <h2 class="text-base font-semibold text-[#036475] mb-2">Ficha GCF</h2>
           <div class="text-xs text-gray-600 mb-4 text-center">Actividades y subactividades esperadas por el GCF.</div>
-          <button pButton type="button" class="w-full" style="background-color: #1da750; border-color: #1da750" [disabled]="true">Ver ficha</button>
+          <button pButton type="button" class="w-full" style="background-color: #1da750; border-color: #1da750" routerLink="/arquitectura/ficha-gcf">
+            Ver ficha
+          </button>
         </div>
       </div>
 
@@ -56,7 +58,12 @@
         <div class="p-5 flex flex-col flex-grow items-center justify-center">
           <h2 class="text-base font-semibold text-[#036475] mb-2">Organizaciones</h2>
           <span class="text-xs text-gray-600 mb-4 flex-grow text-center">Entidades responsables de la ejecución y actividades del proyecto.</span>
-          <button pButton type="button" class="w-full" style="background-color: #1da750; border-color: #1da750" [disabled]="true">
+          <button
+            pButton
+            type="button"
+            class="w-full"
+            style="background-color: #1da750; border-color: #1da750"
+            routerLink="/arquitectura/organizaciones">
             Ver organizaciones
           </button>
         </div>

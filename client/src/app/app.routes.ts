@@ -36,6 +36,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/architecture/pages/bpin-form/bpin-form.component')
       },
       {
+        path: 'arquitectura/ficha-gcf',
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/gcf-form/gcf-form.component')
+      },
+      {
+        path: 'arquitectura/organizaciones',
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/organizations/organizations.component')
+      },
+      {
         path: 'planes-operativos',
         loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
       },
