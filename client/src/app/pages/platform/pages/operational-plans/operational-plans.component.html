@@ -4,10 +4,10 @@
   [description]="'Selecciona una organización para explorar su plan operativo y conocer más sobre sus productos, hitos y entregables.'">
   <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      @for (org of organizations(); track org.name) {
+      @for (org of organizations(); track org.org_id) {
       <div class="grid p-6 justify-center items-end cursor-pointer">
-        <img [src]="org.logoUrl" [alt]="org.name" class="w-[200px] object-contain mb-10" />
-        <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.name }}</h3>
+        <img [src]="org.org_logo" [alt]="org.org_nombre_corto" class="w-[200px] object-contain mb-10" />
+        <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.org_nombre_corto }}</h3>
       </div>
       }
     </div>

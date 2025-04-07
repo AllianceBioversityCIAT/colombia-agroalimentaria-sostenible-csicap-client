@@ -12,9 +12,16 @@ export const jWtInterceptor: HttpInterceptorFn = (req, next) => {
   const actionsService = inject(ActionsService);
   const jwtToken = cacheService.dataCache().access_token;
 
+  console.log('interceptor');
   // if the url is in the noTokenUrls list, don't add the token
+
   if (environment.noTokenUrls.some(url => req.url.includes(url))) return next(req);
 
+  console.log(environment.noTokenUrls);
+  console.log(req.url);
+  console.log(environment.noTokenUrls.some(url => req.url.includes(url)));
+
+  console.log('interceptor 2');
   // Proactive token validation
   return from(actionsService.isTokenExpired()).pipe(
     switchMap(tokenValidation => {

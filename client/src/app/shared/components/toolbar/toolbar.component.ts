@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
@@ -31,6 +31,13 @@ export default class ToolbarComponent {
   suggestions: string[] | undefined;
   text1: string | undefined;
   cache = inject(CacheService);
+  getNameInitiales = computed(() => {
+    const userData = this.cache.dataCache()?.user;
+    if (!userData?.nombre || !userData?.apellido) {
+      return '';
+    }
+    return userData.nombre.charAt(0) + userData.apellido.charAt(0);
+  });
   search(event: AutoCompleteCompleteEvent) {
     this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
   }

@@ -2,6 +2,7 @@ import { Injectable, WritableSignal, inject } from '@angular/core';
 import { ToPromiseService } from './to-promise.service';
 import { CacheService } from './cache/cache.service';
 import { MainResponse, LoginRes } from '../interfaces/responses.interface';
+import { GetOrganizations } from '../interfaces/get/get-organizations.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +30,7 @@ export class ApiService {
     return this.TP.get(url(), {});
   };
 
-  getOrganizations = (): Promise<MainResponse<any[]>> => {
+  getOrganizations = (): Promise<MainResponse<GetOrganizations[]>> => {
     const url = () => `organizations/nombres`;
     return this.TP.get(url(), { useManagementApi: true });
   };

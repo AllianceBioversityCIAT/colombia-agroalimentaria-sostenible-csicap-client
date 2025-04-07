@@ -13,12 +13,7 @@
     <div class="border-l h-10 border-gray-300"></div>
     <!-- Avatar -->
     <div class="flex items-center justify-center gap-x-4">
-      <p-avatar
-        class="p-overlay-badge"
-        [label]="this.cache.dataCache().user.nombre.charAt(0) + this.cache.dataCache().user.apellido.charAt(0)"
-        size="normal"
-        shape="circle"
-        styleClass="p-5" />
+      <p-avatar class="p-overlay-badge" [label]="getNameInitiales()" size="normal" shape="circle" styleClass="p-5" />
       <div class="grid gap-0">
         <div class="font-inter font-semibold text-[14px] leading-[21px] text-[#A47D06]">
           {{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}
