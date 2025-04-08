@@ -35,6 +35,16 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
+  getUsers = (): Promise<MainResponse<any[]>> => {
+    const url = () => `users/list`;
+    return this.TP.get(url(), { useManagementApi: true });
+  };
+
+  getRoles = (): Promise<MainResponse<any[]>> => {
+    const url = () => `roles/roles_id`;
+    return this.TP.get(url(), { useManagementApi: true });
+  };
+
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {
   //   const url = () => `indicator-types`;
   //   return this.TP.get(url(), {});

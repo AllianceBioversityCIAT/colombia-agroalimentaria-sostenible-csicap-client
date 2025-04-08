@@ -23,7 +23,7 @@ export default class SidebarComponent {
     { icon: 'pi-home', label: 'Menú principal', path: 'menu-principal' },
     { icon: 'pi-sitemap', label: 'Arquitectura', path: 'arquitectura' },
     { icon: 'pi-chart-line', label: 'Planes operativos', path: 'planes-operativos' },
-    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios', disabled: true },
+    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios' },
     { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
     { icon: 'pi-calendar', label: 'Fechas clave', path: 'fechas-clave', disabled: true }
   ]);
