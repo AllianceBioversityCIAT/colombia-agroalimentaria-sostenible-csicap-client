@@ -23,7 +23,18 @@
         <td>{{ rowData.axis }}</td>
         <td>{{ rowData.axisDescription }}</td>
         <td class="flex items-center justify-center">
-          <p-button icon="pi pi-users" styleClass="p-button-success" label="Ver equipos del eje"></p-button>
+          <p-button
+            icon="pi pi-users"
+            size="small"
+            [style]="{
+              'background-color': '#CAF1D8',
+              border: 'none',
+              color: '#136C34',
+              'white-space': 'nowrap',
+              'min-width': 'fit-content',
+              cursor: 'pointer'
+            }"
+            label="Ver equipos del eje"></p-button>
         </td>
       </tr>
     </ng-template>
