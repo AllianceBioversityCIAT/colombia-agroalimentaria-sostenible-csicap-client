@@ -3,6 +3,7 @@ import { ToPromiseService } from './to-promise.service';
 import { CacheService } from './cache/cache.service';
 import { MainResponse, LoginRes } from '../interfaces/responses.interface';
 import { GetOrganizations } from '../interfaces/get/get-organizations.interface';
+import { GetUsers } from '../interfaces/get/get-users-interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +36,7 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getUsers = (): Promise<MainResponse<any[]>> => {
+  getUsers = (): Promise<MainResponse<GetUsers[]>> => {
     const url = () => `users/list`;
     return this.TP.get(url(), { useManagementApi: true });
   };
