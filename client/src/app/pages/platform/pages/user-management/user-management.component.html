@@ -1,4 +1,4 @@
-<p-table [value]="users()" [tableStyle]="{ 'min-width': '60rem' }">
+<p-table [value]="users()" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [tableStyle]="{ 'min-width': '60rem' }">
   <ng-template #header>
     <tr>
       @for (col of columns(); track col['field']) {
