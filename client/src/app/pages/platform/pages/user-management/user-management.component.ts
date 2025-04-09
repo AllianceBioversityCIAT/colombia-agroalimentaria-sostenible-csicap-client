@@ -41,7 +41,7 @@ export default class UserManagementComponent implements OnInit {
   }
 
   async getGCFComponentesIds() {
-    const gcfComponentesIds = await this.api.getGCFComponentesIds();
+    const gcfComponentesIds = await this.api.getGCFComponentesIds({});
     console.log(gcfComponentesIds);
   }
 

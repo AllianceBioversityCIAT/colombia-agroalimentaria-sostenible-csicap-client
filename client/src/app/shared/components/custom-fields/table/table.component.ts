@@ -29,13 +29,13 @@ export class TableComponent<T extends Record<string, any>> {
       }
       result.push(
         ...item[this.subListAttribute].map((subItem: any) => {
-          console.log(subItem);
-          console.log(Object.keys(subItem));
+          // console.log(subItem);
+          // console.log(Object.keys(subItem));
           const rr: any = {};
           Object.keys(subItem).map(key => {
             rr[this.subListAttribute + key] = subItem[key];
           });
-          console.log(rr);
+          // console.log(rr);
           return rr;
         })
       );

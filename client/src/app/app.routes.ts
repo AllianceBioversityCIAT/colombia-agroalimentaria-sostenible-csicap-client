@@ -25,7 +25,10 @@ export const routes: Routes = [
       },
       {
         path: 'arquitectura',
-        loadComponent: () => import('./pages/platform/pages/architecture/architecture.component')
+        loadComponent: () => import('./pages/platform/pages/architecture/architecture.component'),
+        data: {
+          breadcrumb: [{ path: 'arquitectura', label: 'Arquitectura' }]
+        }
       },
       {
         path: 'arquitectura/componentes-y-ejes',
@@ -39,35 +42,71 @@ export const routes: Routes = [
       },
       {
         path: 'arquitectura/ficha-bpin',
-        loadComponent: () => import('./pages/platform/pages/architecture/pages/bpin-form/bpin-form.component')
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/bpin-form/bpin-form.component'),
+        data: {
+          breadcrumb: [
+            { path: 'arquitectura', label: 'Arquitectura' },
+            { path: 'ficha-bpin', label: 'Ficha BPIN' }
+          ]
+        }
       },
       {
         path: 'arquitectura/ficha-gcf',
-        loadComponent: () => import('./pages/platform/pages/architecture/pages/gcf-form/gcf-form.component')
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/gcf-form/gcf-form.component'),
+        data: {
+          breadcrumb: [
+            { path: 'arquitectura', label: 'Arquitectura' },
+            { path: 'ficha-gcf', label: 'Ficha GCFE' }
+          ]
+        }
       },
       {
         path: 'arquitectura/organizaciones',
-        loadComponent: () => import('./pages/platform/pages/architecture/pages/organizations/organizations.component')
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/organizations/organizations.component'),
+        data: {
+          breadcrumb: [
+            { path: 'arquitectura', label: 'Arquitectura' },
+            { path: 'organizaciones', label: 'Organizaciones' }
+          ]
+        }
       },
       {
         path: 'planes-operativos',
-        loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
+        loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component'),
+        data: {
+          breadcrumb: [{ path: 'planes-operativos', label: 'Planes operativos' }]
+        }
       },
       {
         path: 'planes-operativos/ciat',
-        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan/operational-plan.component')
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan/operational-plan.component'),
+        data: {
+          breadcrumb: [
+            { path: 'planes-operativos', label: 'Planes operativos' },
+            { path: 'ciat', label: 'CIAT' }
+          ]
+        }
       },
       {
         path: 'gestion-usuarios',
-        loadComponent: () => import('./pages/platform/pages/user-management/user-management.component')
+        loadComponent: () => import('./pages/platform/pages/user-management/user-management.component'),
+        data: {
+          breadcrumb: [{ path: 'gestion-usuarios', label: 'Gestión de usuarios' }]
+        }
       },
       {
         path: 'acerca-roles',
-        loadComponent: () => import('./pages/platform/pages/about-roles/about-roles.component')
+        loadComponent: () => import('./pages/platform/pages/about-roles/about-roles.component'),
+        data: {
+          breadcrumb: [{ path: 'acerca-roles', label: 'Acerca de roles' }]
+        }
       },
       {
         path: 'fechas-clave',
-        loadComponent: () => import('./pages/platform/pages/key-dates/key-dates.component')
+        loadComponent: () => import('./pages/platform/pages/key-dates/key-dates.component'),
+        data: {
+          breadcrumb: [{ path: 'fechas-clave', label: 'Fechas clave' }]
+        }
       }
     ]
   },

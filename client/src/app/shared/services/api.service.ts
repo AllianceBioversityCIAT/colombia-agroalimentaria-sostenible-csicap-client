@@ -58,8 +58,15 @@ export class ApiService {
   };
 
   getGCFComponentesIds = ({ eje, rol, organizacion }: { eje?: string; rol?: string; organizacion?: string }): Promise<MainResponse<any[]>> => {
-    // const query = `${}`;
-    const url = () => `gcf-ejes/ejes_id?${query}`;
+    const params = new URLSearchParams();
+
+    if (eje) params.append('eje', eje);
+    if (rol) params.append('rol', rol);
+    if (organizacion) params.append('organizacion', organizacion);
+
+    const query = params.toString();
+    const url = () => `gcf-ejes/ejes_id${query ? `?${query}` : ''}`;
+
     return this.TP.get(url(), {});
   };
 
