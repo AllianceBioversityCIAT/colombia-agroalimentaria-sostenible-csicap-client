@@ -79,6 +79,16 @@ export const routes: Routes = [
       },
       {
         path: 'planes-operativos/ciat',
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan-ciat/operational-plan-ciat.component'),
+        data: {
+          breadcrumb: [
+            { path: 'planes-operativos', label: 'Planes operativos' },
+            { path: 'ciat', label: 'CIAT' }
+          ]
+        }
+      },
+      {
+        path: 'planes-operativos/op',
         loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan/operational-plan.component'),
         data: {
           breadcrumb: [

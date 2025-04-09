@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { SectionHeaderComponent } from '@shared/components/section-header/section-header.component';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ApiService } from '../../../../../../shared/services/api.service';
 
@@ -43,6 +43,8 @@ export default class OperationalPlanComponent implements OnInit {
     { field: 'deliveryDate', header: 'Fecha de entrega' }
   ];
 
+  currentActivities = signal<Activity[]>([]);
+
   ngOnInit() {
     this.getPlanOperativoCiat();
     this.tabs = [
@@ -71,6 +73,6 @@ export default class OperationalPlanComponent implements OnInit {
 
   async getPlanOperativoCiat() {
     const response = await this.api.getPlanOperativoCiat();
-    console.log(response);
+    console.log(response.data);
   }
 }

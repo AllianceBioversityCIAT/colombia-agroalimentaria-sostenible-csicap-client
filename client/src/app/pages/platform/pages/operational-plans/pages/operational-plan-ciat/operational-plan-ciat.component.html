@@ -1,0 +1,46 @@
+<app-section-header [header]="'Plan Operativo - '" [centered]="false">
+  <div class="flex font-inter font-normal leading-6 text-[#6B7280] mx-8">
+    Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+  </div>
+  <div class="mx-8">
+    <p-tabs [value]="1">
+      <p-tablist>
+        @for (objective of objectives(); track objective.id_obj) {
+          @let index = $index + 1;
+          <p-tab [value]="index">Objetivo {{ index }} </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+    <div class="card">
+      <p-table
+        [value]="currentActivitiesWithRowspan()"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-gridlines rounded-table"
+        showGridlines>
+        <ng-template pTemplate="header">
+          <tr>
+            @for (col of columns; track $index) {
+              <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+                {{ col.header }}
+              </th>
+            }
+            <!-- <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-activity>
+          <tr>
+            @if (activity.rowspan) {
+              <td [rowSpan]="activity.rowspan">
+                {{ activity.nombre_actv }}
+              </td>
+            }
+
+            <td>{{ activity.subActivity?.nombre_subActv }}</td>
+
+            <!-- <td>suave</td> -->
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</app-section-header>

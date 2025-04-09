@@ -4,6 +4,7 @@ import { CacheService } from './cache/cache.service';
 import { MainResponse, LoginRes } from '../interfaces/responses.interface';
 import { GetOrganizations } from '../interfaces/get/get-organizations.interface';
 import { GetUsers } from '../interfaces/get/get-users-interface';
+import { GetOperationalPlanCiat } from '../interfaces/get/get-operational-plan-ciat.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -72,7 +73,7 @@ export class ApiService {
 
   //? >>>>>>>>>>>> end Filters <<<<<<<<<<<<<<<<<
 
-  getPlanOperativoCiat = (): Promise<MainResponse<any[]>> => {
+  getPlanOperativoCiat = (): Promise<MainResponse<GetOperationalPlanCiat[]>> => {
     const url = () => `bpin-objetivos/plan-operativo-ciat`;
     return this.TP.get(url(), {});
   };
