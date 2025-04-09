@@ -11,4 +11,5 @@ export class SectionHeaderComponent {
   @Input() title = '';
   @Input() description = '';
   @Input() centered = true;
+  @Input() tagName = '';
 }

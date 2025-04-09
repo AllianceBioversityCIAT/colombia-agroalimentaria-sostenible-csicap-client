@@ -1,5 +1,10 @@
 <div class="bg-white rounded-xl relative shadow-xs">
-  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4">{{ header }}</div>
+  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4">
+    {{ header }}
+    @if (tagName) {
+      <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full ml-2"> {{ tagName }} </span>
+    }
+  </div>
   <div class="border-b border-gray-300"></div>
   <div class="flex flex-col py-10" [class.items-start]="!centered" [class.items-center]="centered">
     <span class="font-inter font-semibold text-[30px] leading-[150%] text-[#024955] mb-6">{{ title }}</span>
