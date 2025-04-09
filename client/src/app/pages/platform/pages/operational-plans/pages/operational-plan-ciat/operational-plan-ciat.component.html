@@ -12,15 +12,14 @@
       </p-tablist>
     </p-tabs>
     <div class="card">
-      <p-table
-        [value]="currentActivitiesWithRowspan()"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        styleClass="p-datatable-gridlines rounded-table"
-        showGridlines>
+      <p-table [value]="currentActivitiesWithRowspan()" [scrollable]="true" styleClass="p-datatable-gridlines rounded-table" showGridlines>
         <ng-template pTemplate="header">
           <tr>
             @for (col of columns; track $index) {
-              <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+              <th
+                class="text-base p-3 text-white"
+                [class.rounded-tl-lg]="$index === 0"
+                style="min-width: 200px !important; background-color: #f5f6fa">
                 {{ col.header }}
               </th>
             }
