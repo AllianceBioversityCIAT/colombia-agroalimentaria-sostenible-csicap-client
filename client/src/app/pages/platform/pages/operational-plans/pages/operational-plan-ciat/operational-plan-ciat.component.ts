@@ -18,6 +18,20 @@ interface Activity {
   subActivityCode: string;
   subActivity: string;
 }
+
+interface TableActivity {
+  nombre_actv: string;
+  rowspan: number;
+  nombre_subActv: string;
+  codigo_subActv: string;
+  axis: string;
+  responsible: string;
+  productNumber: string;
+  product: string;
+  productDescription: string;
+  deliveryDate: string;
+}
+
 @Component({
   selector: 'app-operational-plan-ciat',
   imports: [SectionHeaderComponent, TabsModule, TableModule],
@@ -31,27 +45,41 @@ export default class OperationalPlanCiatComponent implements OnInit {
 
   columns: TableColumn[] = [
     { field: 'activity', header: 'Actividad' },
-    { field: 'subActivity', header: 'Subactividad' }
-    // { field: 'axis', header: 'Eje' },
-    // { field: 'responsible', header: 'Responsable' },
-    // { field: 'productNumber', header: 'Numero de producto' },
-    // { field: 'product', header: 'Producto' },
-    // { field: 'productDescription', header: 'Descripcion de producto' },
-    // { field: 'deliveryDate', header: 'Fecha de entrega' }
+    { field: 'subActivity', header: 'Subactividad' },
+    { field: 'axis', header: 'Eje' },
+    { field: 'responsible', header: 'Responsable' },
+    { field: 'productNumber', header: 'Numero de producto' },
+    { field: 'product', header: 'Producto' },
+    { field: 'productDescription', header: 'Descripcion de producto' },
+    { field: 'deliveryDate', header: 'Fecha de entrega' }
   ];
 
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
-  currentActivitiesWithRowspan = computed(() => {
-    const elements: any = [];
+  currentActivitiesWithRowspan = computed<TableActivity[]>(() => {
+    const elements: TableActivity[] = [];
     this.currentActivities().forEach(activity => {
-      for (let index = 0; index < activity.rowspan; index++) {
-        if (index === 0) elements.push({ ...activity, subActivity: activity.subactividades[index] });
-        else elements.push({ subActivity: activity.subactividades[index] });
+      if (activity.subactividades) {
+        activity.subactividades.forEach((subactivity, index) => {
+          if (subactivity.productos) {
+            subactivity.productos.forEach((product, productIndex) => {
+              elements.push({
+                nombre_actv: index === 0 && productIndex === 0 ? activity.nombre_actv : '',
+                rowspan: index === 0 && productIndex === 0 ? activity.rowspan : 0,
+                nombre_subActv: productIndex === 0 ? subactivity.nombre_subActv : '',
+                codigo_subActv: subactivity.codigo_subActv,
+                axis: product.ejes ? product.ejes.join(', ') : '',
+                responsible: product.responsables ? product.responsables.join(', ') : '',
+                productNumber: product.id_prod ? product.id_prod.toString() : '',
+                product: product.nombre_prod || '',
+                productDescription: product.descripcion || '',
+                deliveryDate: product.fechaEntrega || ''
+              });
+            });
+          }
+        });
       }
     });
-    console.log(this.currentActivities());
-    console.log(elements);
     return elements;
   });
 

@@ -26,4 +26,5 @@ interface Producto {
   fechaEntrega: string;
   ejes: string[];
   responsables: string[];
+  rowSpan: number;
 }
