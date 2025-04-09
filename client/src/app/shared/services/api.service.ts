@@ -36,14 +36,38 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
+  getOrganizationDetails = (): Promise<MainResponse<any[]>> => {
+    const url = () => `organizations/detalle`;
+    return this.TP.get(url(), { useManagementApi: true });
+  };
+
   getUsers = (): Promise<MainResponse<GetUsers[]>> => {
     const url = () => `users/list`;
     return this.TP.get(url(), { useManagementApi: true });
   };
 
+  //? >>>>>>>>>>>> Filters <<<<<<<<<<<<<<<<<
   getRoles = (): Promise<MainResponse<any[]>> => {
     const url = () => `roles/roles_id`;
     return this.TP.get(url(), { useManagementApi: true });
+  };
+
+  getOrganizationsIds = (): Promise<MainResponse<any[]>> => {
+    const url = () => `organizations/id`;
+    return this.TP.get(url(), { useManagementApi: true });
+  };
+
+  getGCFComponentesIds = ({ eje, rol, organizacion }: { eje?: string; rol?: string; organizacion?: string }): Promise<MainResponse<any[]>> => {
+    // const query = `${}`;
+    const url = () => `gcf-ejes/ejes_id?${query}`;
+    return this.TP.get(url(), {});
+  };
+
+  //? >>>>>>>>>>>> end Filters <<<<<<<<<<<<<<<<<
+
+  getPlanOperativoCiat = (): Promise<MainResponse<any[]>> => {
+    const url = () => `bpin-objetivos/plan-operativo-ciat`;
+    return this.TP.get(url(), {});
   };
 
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {

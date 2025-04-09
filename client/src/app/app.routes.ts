@@ -29,7 +29,13 @@ export const routes: Routes = [
       },
       {
         path: 'arquitectura/componentes-y-ejes',
-        loadComponent: () => import('./pages/platform/pages/architecture/pages/components-and-axes/components-and-axes.component')
+        loadComponent: () => import('./pages/platform/pages/architecture/pages/components-and-axes/components-and-axes.component'),
+        data: {
+          breadcrumb: [
+            { path: 'arquitectura', label: 'Arquitectura' },
+            { path: 'componentes-y-ejes', label: 'Componentes y ejes' }
+          ]
+        }
       },
       {
         path: 'arquitectura/ficha-bpin',
@@ -48,7 +54,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component')
       },
       {
-        path: 'planes-operativos/plan-operativo',
+        path: 'planes-operativos/ciat',
         loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan/operational-plan.component')
       },
       {

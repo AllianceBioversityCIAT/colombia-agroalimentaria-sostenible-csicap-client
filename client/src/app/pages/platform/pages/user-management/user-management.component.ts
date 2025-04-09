@@ -26,6 +26,8 @@ export default class UserManagementComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.getRoles();
+    this.getOrganizationsIds();
+    this.getGCFComponentesIds();
   }
 
   async getUsers() {
@@ -33,8 +35,18 @@ export default class UserManagementComponent implements OnInit {
     this.users.set(users.data);
   }
 
+  async getOrganizationsIds() {
+    const organizationsIds = await this.api.getOrganizationsIds();
+    console.log(organizationsIds);
+  }
+
+  async getGCFComponentesIds() {
+    const gcfComponentesIds = await this.api.getGCFComponentesIds();
+    console.log(gcfComponentesIds);
+  }
+
   async getRoles() {
-    // const roles = await this.api.getRoles();
-    // console.log(roles);
+    const roles = await this.api.getRoles();
+    console.log(roles);
   }
 }

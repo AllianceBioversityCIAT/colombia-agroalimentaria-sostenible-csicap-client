@@ -28,6 +28,7 @@ export default class OperationalPlanComponent implements OnInit {
   activeIndex = 0;
   api = inject(ApiService);
   ngOnInit() {
+    this.getPlanOperativoCiat();
     this.tabs = [
       {
         title: 'Objetivo 1',
@@ -50,5 +51,10 @@ export default class OperationalPlanComponent implements OnInit {
         activities: []
       }
     ];
+  }
+
+  async getPlanOperativoCiat() {
+    const response = await this.api.getPlanOperativoCiat();
+    console.log(response);
   }
 }
