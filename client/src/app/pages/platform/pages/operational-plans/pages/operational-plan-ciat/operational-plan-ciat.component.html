@@ -7,7 +7,7 @@
       <p-tablist>
         @for (objective of objectives(); track objective.id_obj) {
           @let index = $index + 1;
-          <p-tab [value]="index">Objetivo {{ index }} </p-tab>
+          <p-tab (click)="setCurrentActivities(index)" [value]="index">Objetivo {{ index }} </p-tab>
         }
       </p-tablist>
     </p-tabs>

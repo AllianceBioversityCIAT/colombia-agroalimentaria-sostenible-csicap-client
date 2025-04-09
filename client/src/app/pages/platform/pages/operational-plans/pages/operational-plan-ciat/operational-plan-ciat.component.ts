@@ -87,6 +87,8 @@ export default class OperationalPlanCiatComponent implements OnInit {
     this.getPlanOperativoCiat();
   }
 
+  setCurrentActivities = (index: number) => this.currentActivities.set(this.objectives()[index]?.actividades || []);
+
   async getPlanOperativoCiat() {
     const response = await this.api.getPlanOperativoCiat();
     console.log(response);
