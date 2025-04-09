@@ -25,8 +25,7 @@ interface Tabs {
 @Component({
   selector: 'app-operational-plan',
   imports: [SectionHeaderComponent, TabViewModule, TableModule],
-  templateUrl: './operational-plan.component.html',
-  styleUrl: './operational-plan.component.scss'
+  templateUrl: './operational-plan.component.html'
 })
 export default class OperationalPlanComponent implements OnInit {
   tabs: Tabs[] = [];

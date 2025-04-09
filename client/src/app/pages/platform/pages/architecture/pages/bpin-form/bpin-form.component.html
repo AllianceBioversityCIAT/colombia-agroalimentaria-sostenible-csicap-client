@@ -6,26 +6,7 @@
     <p-tabView [(activeIndex)]="activeIndex">
       @for (tab of tabs; track tab.value) {
       <p-tabPanel [header]="tab.title">
-        <div class="card">
-          <p-table [value]="tab.activities" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines rounded-table" showGridlines>
-            <ng-template pTemplate="header">
-              <tr class="bg-[#024955]">
-                <th class="bg-[#024955] bg-primary text-white">Código actividad</th>
-                <th class="bg-primary text-white">Actividad</th>
-                <th class="bg-primary text-white">Código subactividad</th>
-                <th class="bg-primary text-white">Subactividad</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-activity>
-              <tr>
-                <td>{{ activity.activityCode }}</td>
-                <td>{{ activity.activity }}</td>
-                <td>{{ activity.subActivityCode }}</td>
-                <td>{{ activity.subActivity }}</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+        <app-table-ficha-bpin [activities]="tab.activities"></app-table-ficha-bpin>
       </p-tabPanel>
       }
     </p-tabView>
