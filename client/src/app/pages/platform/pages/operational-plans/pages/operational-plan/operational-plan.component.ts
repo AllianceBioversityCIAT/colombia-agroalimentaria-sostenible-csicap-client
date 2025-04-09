@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SectionHeaderComponent } from '@shared/components/section-header/section-header.component';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ApiService } from '../../../../../../shared/services/api.service';
 
@@ -9,6 +9,11 @@ interface Activity {
   activity: string;
   subActivityCode: string;
   subActivity: string;
+}
+
+interface TableColumn {
+  field: string;
+  header: string;
 }
 
 interface Tabs {
@@ -20,13 +25,24 @@ interface Tabs {
 @Component({
   selector: 'app-operational-plan',
   imports: [SectionHeaderComponent, TabViewModule, TableModule],
-  templateUrl: './operational-plan.component.html',
-  styleUrl: './operational-plan.component.scss'
+  templateUrl: './operational-plan.component.html'
 })
 export default class OperationalPlanComponent implements OnInit {
   tabs: Tabs[] = [];
   activeIndex = 0;
   api = inject(ApiService);
+
+  columns: TableColumn[] = [
+    { field: 'activity', header: 'Actividad' },
+    { field: 'subActivity', header: 'Subactividad' },
+    { field: 'axis', header: 'Eje' },
+    { field: 'responsible', header: 'Responsable' },
+    { field: 'productNumber', header: 'Numero de producto' },
+    { field: 'product', header: 'Producto' },
+    { field: 'productDescription', header: 'Descripcion de producto' },
+    { field: 'deliveryDate', header: 'Fecha de entrega' }
+  ];
+
   ngOnInit() {
     this.getPlanOperativoCiat();
     this.tabs = [

@@ -1,0 +1,28 @@
+<div class="card">
+  <p-table
+    [value]="activities"
+    [columns]="tableColumns"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="p-datatable-gridlines rounded-table"
+    showGridlines>
+    <ng-template pTemplate="header">
+      <tr>
+        @for (col of tableColumns; track col.field) {
+        <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+          {{ col.header }}
+        </th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-activity let-rowIndex="rowIndex">
+      <tr>
+        @if (activity.activityCode) {
+        <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activityCode }}</td>
+        <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activity }}</td>
+        }
+        <td>{{ activity.subActivityCode }}</td>
+        <td>{{ activity.subActivity }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

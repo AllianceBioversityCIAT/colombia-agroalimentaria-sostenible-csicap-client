@@ -3,6 +3,7 @@ import { SectionHeaderComponent } from '@shared/components/section-header/sectio
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ApiService } from '../../../../../../shared/services/api.service';
+import { TableFichaBpinComponent } from '../../../../../../shared/components/custom-fields/table-ficha-bpin/table-ficha-bpin.component';
 
 interface Activity {
   activityCode: string;
@@ -20,7 +21,7 @@ interface Tabs {
 @Component({
   selector: 'app-bpin-form',
   standalone: true,
-  imports: [SectionHeaderComponent, TabViewModule, TableModule],
+  imports: [SectionHeaderComponent, TabViewModule, TableModule, TableFichaBpinComponent],
   templateUrl: './bpin-form.component.html',
   styleUrls: []
 })
@@ -28,6 +29,13 @@ export default class BpinFormComponent implements OnInit {
   api = inject(ApiService);
   tabs: Tabs[] = [];
   activeIndex = 0;
+
+  tableColumns = [
+    { field: 'activityCode', header: 'Codigo Actividad' },
+    { field: 'activity', header: 'Actividad' },
+    { field: 'subActivityCode', header: 'Codigo de subactividad' },
+    { field: 'subActivity', header: 'Subactividad' }
+  ];
 
   ngOnInit() {
     this.getFichaBpin();
@@ -90,42 +98,6 @@ export default class BpinFormComponent implements OnInit {
             subActivityCode: '1.6.1',
             subActivity:
               'Realizar monitoreo, evaluación y seguimiento a la generación de oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.'
-          }
-        ]
-      },
-      {
-        title: 'Objetivo 2',
-        value: 1,
-        activities: [
-          {
-            activityCode: '',
-            activity: '',
-            subActivityCode: '',
-            subActivity: ''
-          }
-        ]
-      },
-      {
-        title: 'Objetivo 3',
-        value: 2,
-        activities: [
-          {
-            activityCode: '',
-            activity: '',
-            subActivityCode: '',
-            subActivity: ''
-          }
-        ]
-      },
-      {
-        title: 'Objetivo 4',
-        value: 3,
-        activities: [
-          {
-            activityCode: '',
-            activity: '',
-            subActivityCode: '',
-            subActivity: ''
           }
         ]
       }

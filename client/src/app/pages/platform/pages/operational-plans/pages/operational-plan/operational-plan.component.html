@@ -9,11 +9,13 @@
         <div class="card">
           <p-table [value]="tab.activities" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines rounded-table" showGridlines>
             <ng-template pTemplate="header">
-              <tr class="bg-[#024955]">
-                <th class="bg-[#024955] bg-primary text-white">Código actividad</th>
-                <th class="bg-primary text-white">Actividad</th>
-                <th class="bg-primary text-white">Código subactividad</th>
-                <th class="bg-primary text-white">Subactividad</th>
+              <tr>
+                @for (col of columns; track $index) {
+                <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+                  {{ col.header }}
+                </th>
+                }
+                <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-activity>
