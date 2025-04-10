@@ -5,6 +5,7 @@ import { SectionHeaderComponent } from '../../../../../../shared/components/sect
 import { TableColumn } from '../../../../../../shared/components/custom-fields/table/table.component';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Actividad, GetOperationalPlanCiat } from '../../../../../../shared/interfaces/get/get-operational-plan-ciat.interface';
+import { DatePipe } from '@angular/common';
 
 interface Tabs {
   title: string;
@@ -34,7 +35,7 @@ interface TableActivity {
 
 @Component({
   selector: 'app-operational-plan-ciat',
-  imports: [SectionHeaderComponent, TabsModule, TableModule],
+  imports: [SectionHeaderComponent, TabsModule, TableModule, DatePipe],
   templateUrl: './operational-plan-ciat.component.html',
   styleUrl: './operational-plan-ciat.component.scss'
 })

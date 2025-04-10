@@ -1,5 +1,4 @@
 <app-section-header header="Plan Operativo - Alliance Bioversity & CIAT" tagName="2025" [centered]="false">
-
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
@@ -38,7 +37,7 @@
             <td>{{ activity.productNumber }}</td>
             <td>{{ activity.product }}</td>
             <td>{{ activity.productDescription }}</td>
-            <td>{{ activity.deliveryDate }}</td>
+            <td>{{ activity.deliveryDate | date: 'dd/MM/yyyy' }}</td>
           </tr>
         </ng-template>
       </p-table>
