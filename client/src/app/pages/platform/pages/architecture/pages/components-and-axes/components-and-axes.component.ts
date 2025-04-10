@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { SectionHeaderComponent } from '@shared/components/section-header/section-header.component';
 import { TableComponent } from '@shared/components/custom-fields/table/table.component';
 import { ApiService } from '@shared/services/api.service';
+import { GetComponentsAndAxes } from '../../../../../../shared/interfaces/get/get-components-and-axes.interface';
 
 @Component({
   selector: 'app-components-and-axes',
@@ -21,7 +22,7 @@ export default class ComponentsAndAxesComponent implements OnInit {
     { field: 'axisDescription', header: 'Descripción del eje' }
   ];
 
-  componentsData = signal<any[]>([]);
+  componentsData = signal<GetComponentsAndAxes[]>([]);
 
   ngOnInit(): void {
     this.getGCFComponentes();

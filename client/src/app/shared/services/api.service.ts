@@ -5,6 +5,10 @@ import { MainResponse, LoginRes } from '../interfaces/responses.interface';
 import { GetOrganizations } from '../interfaces/get/get-organizations.interface';
 import { GetUsers } from '../interfaces/get/get-users-interface';
 import { GetOperationalPlanCiat } from '../interfaces/get/get-operational-plan-ciat.interface';
+import { GetComponentsAndAxes } from '../interfaces/get/get-components-and-axes.interface';
+import { GetBpinForm } from '../interfaces/get/get-bpin-form.interface';
+import { GetOrganizationsDetail } from '../interfaces/get/get-organizations-detail.interface';
+import { GetGCFComponentesIdsFilter, GetOrganizationsIdsFilter, GetRolesFilter } from '../interfaces/get/get-users-filter.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,12 +26,12 @@ export class ApiService {
     return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, useManagementApi: true });
   };
 
-  getGCFComponentes = (): Promise<MainResponse<any[]>> => {
+  getGCFComponentes = (): Promise<MainResponse<GetComponentsAndAxes[]>> => {
     const url = () => `gcf-componentes`;
     return this.TP.get(url(), {});
   };
 
-  getFichaBpin = (): Promise<MainResponse<any[]>> => {
+  getFichaBpin = (): Promise<MainResponse<GetBpinForm[]>> => {
     const url = () => `bpin-objetivos/ficha-bpin`;
     return this.TP.get(url(), {});
   };
@@ -37,7 +41,7 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getOrganizationDetails = (): Promise<MainResponse<any[]>> => {
+  getOrganizationDetails = (): Promise<MainResponse<GetOrganizationsDetail[]>> => {
     const url = () => `organizations/detalle`;
     return this.TP.get(url(), { useManagementApi: true });
   };
@@ -65,17 +69,17 @@ export class ApiService {
   };
 
   //? >>>>>>>>>>>> Filters <<<<<<<<<<<<<<<<<
-  getRoles = (): Promise<MainResponse<any[]>> => {
+  getRoles = (): Promise<MainResponse<GetRolesFilter[]>> => {
     const url = () => `roles/roles_id`;
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getOrganizationsIds = (): Promise<MainResponse<any[]>> => {
+  getOrganizationsIds = (): Promise<MainResponse<GetOrganizationsIdsFilter[]>> => {
     const url = () => `organizations/id`;
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getGCFComponentesIds = (): Promise<MainResponse<any[]>> => {
+  getGCFComponentesIds = (): Promise<MainResponse<GetGCFComponentesIdsFilter[]>> => {
     const url = () => `gcf-ejes/ejes_id`;
 
     return this.TP.get(url(), {});
