@@ -14,7 +14,7 @@ export interface TableColumn {
   imports: [CommonModule, TableModule, ButtonModule],
   templateUrl: './table.component.html'
 })
-export class TableComponent<T extends Record<string, any>> {
+export class TableComponent<T extends Record<string, string>> {
   @Input() columns: TableColumn[] = [];
   @Input() data: T[] = [];
 }
