@@ -2,13 +2,21 @@
   <div class="flex px-5 py-2">
     <div class="flex gap-4 justify-space-between w-full">
       <p-select
+        #organizationFilter
         (onChange)="setOrganizationSelected($event)"
         [options]="this.organizationsIds()"
         optionLabel="nombre_corto"
         placeholder="Organización"
         class="w-full md:w-56" />
-      <p-select (onChange)="setRoleSelected($event)" [options]="this.roles()" optionLabel="nombre" placeholder="Rol" class="w-full md:w-56" />
       <p-select
+        #roleFilter
+        (onChange)="setRoleSelected($event)"
+        [options]="this.roles()"
+        optionLabel="nombre"
+        placeholder="Rol"
+        class="w-full md:w-56" />
+      <p-select
+        #gcfComponenteFilter
         (onChange)="setGCFComponenteSelected($event)"
         [options]="this.gcfComponentesIds()"
         optionLabel="nombre"
