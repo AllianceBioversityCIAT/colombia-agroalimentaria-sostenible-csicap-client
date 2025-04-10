@@ -1,51 +1,57 @@
 <app-section-header [header]="'Organizaciones'" [centered]="false">
-
-<div class="card m-8">
-  <p-table
-    [value]="organizations()"
-    [columns]="tableColumns()"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    styleClass="p-datatable-gridlines rounded-table"
-    showGridlines>
-    <ng-template pTemplate="header">
-      <tr>
-        @for (col of tableColumns(); track col.field) {
-          <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
-            {{ col.header }}
-          </th>
+  <div class="card m-8">
+    <p-table
+      [value]="organizations()"
+      [columns]="tableColumns()"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-gridlines rounded-table"
+      showGridlines>
+      <ng-template pTemplate="header">
+        <tr>
+          @for (col of tableColumns(); track col.field) {
+            <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+              {{ col.header }}
+            </th>
+          }
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-organization let-rowIndex="rowIndex">
+        @for (organizationContact of organization.organizacionesContactos; track organizationContact.id) {
+          @if ($index === 0) {
+            <tr>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre_corto }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.tipo_organizacion }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.proposito }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.sistemas_productivos }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">
+                <a class="text-blue-500" href="{{ organization.sitio_web }}" target="_blank">{{ organization.sitio_web }}</a>
+                <br />
+                {{ organization.email }}
+                <br />
+                {{ organization.numero_telefono }}
+              </td>
+              <td>{{ organization.organizacionesContactos[0].nombre_contacto }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
+              <td [attr.rowspan]="organization.organizacionesContactos.length">
+                <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
+              </td>
+            </tr>
+          } @else {
+            <tr>
+              <td>{{ organization.organizacionesContactos[$index].nombre_contacto }}</td>
+            </tr>
+          }
         }
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-organization let-rowIndex="rowIndex">
-      @for (organizationContact of organization.organizacionesContactos; track organizationContact.id) {
-        @if ($index === 0) {
-          <tr>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre_corto }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.tipo_organizacion }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.proposito }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.sistemas_productivos }}</td>
-            <td>{{ organization.organizacionesContactos[0].nombre_contacto }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
-            <td [attr.rowspan]="organization.organizacionesContactos.length">
-              <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
-            </td>
-          </tr>
-        } @else {
-          <tr>
-            <td>{{ organization.organizacionesContactos[$index].nombre_contacto }}</td>
-          </tr>
-        }
-      }
-      <tr>
-        <!-- @for (col of organizations.organizacionesContactos; track col.field) {
+        <tr>
+          <!-- @for (col of organizations.organizacionesContactos; track col.field) {
           <td>{{ organization[col.field] }}</td>
         } -->
-        <!-- @for (col of tableColumns(); track col.field) {
+          <!-- @for (col of tableColumns(); track col.field) {
           <td>{{ organization[col.field] }}</td>
         } -->
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </app-section-header>
