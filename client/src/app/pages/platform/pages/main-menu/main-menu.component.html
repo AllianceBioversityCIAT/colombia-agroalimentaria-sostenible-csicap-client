@@ -15,7 +15,7 @@
     <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
     <div class="w-full lg:w-3/5 flex flex-col justify-center p-6 lg:pl-4 lg:pr-16" style="min-height: 350px">
       <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-      <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de Administración<br />de CAS Reporting Tool</h2>
+      <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de Administración de CAS Reporting Tool</h2>
       <p class="font-inter font-light text-base leading-6 text-[#616161]">
         Desde este panel, puede gestionar de manera integral la arquitectura del sistema, configurar y supervisar los planes operativos, así como
         administrar los usuarios con acceso a la herramienta. Optimice la organización de la información y facilite la colaboración eficiente en el
@@ -27,17 +27,17 @@
 
 <!-- Sección de Gestión y Herramientas -->
 <div class="py-10 px-4 md:px-10 bg-white">
-  <h2 class="text-2xl font-bold text-[#C79807] mb-8">Gestión y herramientas</h2>
+  <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Gestión y herramientas</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Tarjeta 1: Arquitectura -->
     <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
       <div class="p-4 flex flex-col items-center flex-grow">
-        <div class="mb-3 text-teal-700">
-          <i class="pi pi-sitemap text-5xl"></i>
+        <div class="mb-3 text-[#024955]">
+          <i class="pi pi-sitemap !text-[28px]"></i>
         </div>
-        <h3 class="text-lg font-semibold text-teal-700 mb-2 text-center">Arquitectura</h3>
-        <p class="text-sm text-gray-600 mb-3 text-center flex-grow">Acceda a los elementos transversales de CAS.</p>
+        <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Arquitectura</h3>
+        <p class="text-m text-[#4B5563] mb-3 text-center flex-grow">Acceda a los elementos transversales de CAS.</p>
         <button pButton type="button" class="w-full py-1 text-xs" style="background-color: #1da750; border-color: #1da750" routerLink="/arquitectura">
           Acceder
         </button>
@@ -47,11 +47,11 @@
     <!-- Tarjeta 2: Planes operativos -->
     <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
       <div class="p-4 flex flex-col items-center flex-grow">
-        <div class="mb-3 text-teal-700">
-          <i class="pi pi-chart-line text-5xl"></i>
+        <div class="mb-3 text-[#024955]">
+          <i class="pi pi-chart-line !text-[28px]"></i>
         </div>
-        <h3 class="text-lg font-semibold text-teal-700 mb-2 text-center">Planes operativos</h3>
-        <p class="text-sm text-gray-600 mb-3 text-center flex-grow">Explore los planes operativos de las organizaciones del proyecto.</p>
+        <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Planes operativos</h3>
+        <p class="text-m text-gray-600 mb-3 text-center flex-grow">Explore los planes operativos de las organizaciones del proyecto.</p>
         <button
           pButton
           type="button"
@@ -66,11 +66,11 @@
     <!-- Tarjeta 3: Fechas clave -->
     <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
       <div class="p-4 flex flex-col items-center flex-grow">
-        <div class="mb-3 text-teal-700">
-          <i class="pi pi-calendar text-5xl"></i>
+        <div class="mb-3 text-[#024955]">
+          <i class="pi pi-calendar !text-[28px]"></i>
         </div>
-        <h3 class="text-lg font-semibold text-teal-700 mb-2 text-center">Fechas clave</h3>
-        <p class="text-sm text-gray-600 mb-3 text-center flex-grow">Administre las fechas clave del proyecto para cada vigencia.</p>
+        <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Fechas clave</h3>
+        <p class="text-m text-gray-600 mb-3 text-center flex-grow">Administre las fechas clave del proyecto para cada vigencia.</p>
         <button pButton type="button" class="w-full py-1 text-xs" style="background-color: #1da750; border-color: #1da750" [disabled]="true">
           Ver fechas
         </button>
@@ -80,11 +80,11 @@
     <!-- Tarjeta 4: Gestión de usuarios -->
     <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
       <div class="p-4 flex flex-col items-center flex-grow">
-        <div class="mb-3 text-teal-700">
-          <i class="pi pi-users text-5xl"></i>
+        <div class="mb-3 text-[#024955]">
+          <i class="pi pi-user-edit !text-[28px]"></i>
         </div>
-        <h3 class="text-lg font-semibold text-teal-700 mb-2 text-center">Gestión de usuarios</h3>
-        <p class="text-sm text-gray-600 mb-3 text-center flex-grow">Gestione los usuarios autorizados para gestionar información.</p>
+        <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Gestión de usuarios</h3>
+        <p class="text-m text-gray-600 mb-3 text-center flex-grow">Gestione los usuarios autorizados para gestionar información.</p>
         <button pButton type="button" class="w-full py-1 text-xs" style="background-color: #1da750; border-color: #1da750" [disabled]="true">
           Gestionar
         </button>

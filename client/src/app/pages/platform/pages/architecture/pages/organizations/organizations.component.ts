@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ApiService } from '@shared/services/api.service';
 import { TableModule } from 'primeng/table';
 import { GetOrganizationsDetail } from '../../../../../../shared/interfaces/get/get-organizations-detail.interface';
+import { SectionHeaderComponent } from '../../../../../../shared/components/section-header/section-header.component';
 
 interface TableColumn {
   field: string;
@@ -10,7 +11,7 @@ interface TableColumn {
 
 @Component({
   selector: 'app-organizations',
-  imports: [TableModule],
+  imports: [TableModule, SectionHeaderComponent, SectionHeaderComponent],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.scss'
 })
@@ -24,6 +25,7 @@ export default class OrganizationsComponent implements OnInit {
     { field: 'proposito', header: 'Proposito' },
     { field: 'sistemas_productivos', header: 'Sistemas productivos' },
     { field: 'datos_contacto', header: 'Datos de organización' },
+    { field: 'sistemas_productivos', header: 'Datos de contacto' },
     { field: 'direccion', header: 'Dirección física' },
     { field: 'logo', header: 'Logo' }
   ]);
