@@ -42,8 +42,25 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getUsers = (): Promise<MainResponse<GetUsers[]>> => {
-    const url = () => `users/list`;
+  getUsers = ({
+    eje,
+    rol,
+    organizacion
+  }: {
+    eje?: string | number | null;
+    rol?: string | number | null;
+    organizacion?: string | number | null;
+  }): Promise<MainResponse<GetUsers[]>> => {
+    const params = new URLSearchParams();
+
+    console.log(eje, rol, organizacion);
+    console.log(eje);
+    if (eje) params.append('eje', String(eje));
+    if (rol) params.append('rol', String(rol));
+    if (organizacion) params.append('organizacion', String(organizacion));
+
+    const query = params.toString();
+    const url = () => `users/list${query ? `?${query}` : ''}`;
     return this.TP.get(url(), { useManagementApi: true });
   };
 
@@ -58,15 +75,8 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getGCFComponentesIds = ({ eje, rol, organizacion }: { eje?: string; rol?: string; organizacion?: string }): Promise<MainResponse<any[]>> => {
-    const params = new URLSearchParams();
-
-    if (eje) params.append('eje', eje);
-    if (rol) params.append('rol', rol);
-    if (organizacion) params.append('organizacion', organizacion);
-
-    const query = params.toString();
-    const url = () => `gcf-ejes/ejes_id${query ? `?${query}` : ''}`;
+  getGCFComponentesIds = (): Promise<MainResponse<any[]>> => {
+    const url = () => `gcf-ejes/ejes_id`;
 
     return this.TP.get(url(), {});
   };

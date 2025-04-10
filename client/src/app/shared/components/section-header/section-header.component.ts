@@ -8,8 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class SectionHeaderComponent {
   @Input() header = '';
-  @Input() title = '';
-  @Input() description = '';
   @Input() centered = true;
   @Input() tagName = '';
 }
