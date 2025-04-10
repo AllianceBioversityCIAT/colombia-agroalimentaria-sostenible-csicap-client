@@ -39,5 +39,9 @@ export default class BpinFormComponent implements OnInit {
     const res = await this.api.getFichaBpin();
     console.log(res);
     this.fichaBpinData.set(res.data);
+    if (res.data.length > 0) {
+      this.currentObjective.set(res.data[0]);
+      this.activeIndex = 0;
+    }
   }
 }
