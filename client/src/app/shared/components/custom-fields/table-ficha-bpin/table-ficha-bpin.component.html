@@ -1,7 +1,3 @@
-@for (activity of currentObjective()?.bpinActividades || []; track activity.id) {
-  <div>{{ $index + 1 }} - {{ activity.nombre }}</div>
-}
-
 <div class="card">
   <p-table
     [value]="currentObjective()?.bpinActividades || []"
@@ -19,14 +15,16 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-activity let-rowIndex="rowIndex">
-      <!-- <tr>
-        @if (activity.activityCode) {
-        <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activityCode }}</td>
-        <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activity }}</td>
-        }
-        <td>{{ activity.subActivityCode }}</td>
-        <td>{{ activity.subActivity }}</td>
-      </tr> -->
+      @for (subActivity of activity.bpinSubActividades; track subActivity.id) {
+        <tr>
+          @if ($first) {
+            <td [attr.rowspan]="activity.bpinSubActividades.length">{{ activity.codigo }}</td>
+            <td [attr.rowspan]="activity.bpinSubActividades.length">{{ activity.nombre }}</td>
+          }
+          <td>{{ subActivity.codigo }}</td>
+          <td>{{ subActivity.nombre }}</td>
+        </tr>
+      }
     </ng-template>
   </p-table>
 </div>
