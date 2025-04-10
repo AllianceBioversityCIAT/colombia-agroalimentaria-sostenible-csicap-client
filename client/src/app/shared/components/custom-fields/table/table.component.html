@@ -1,9 +1,5 @@
 <div class="flex flex-col items-center justify-center mx-10">
-  <p-table
-    [value]="data"
-    [tableStyle]="{ 'min-width': '50rem', 'max-width': '100rem' }"
-    styleClass="p-datatable-gridlines rounded-table"
-    showGridlines>
+  <p-table [value]="data" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines rounded-table" showGridlines>
     <ng-template pTemplate="header">
       <tr>
         @for (col of columns; track $index) {
@@ -17,14 +13,27 @@
     <ng-template pTemplate="body" let-rowData>
       <tr>
         @if (rowData.rowspan > 0) {
-        <td [attr.rowspan]="rowData.rowspan">{{ rowData.component }}</td>
+        <td [attr.rowspan]="rowData.rowspan" style="white-space: nowrap">{{ rowData.component }}</td>
         <td [attr.rowspan]="rowData.rowspan">{{ rowData.componentDescription }}</td>
         }
         <td>{{ rowData.axis }}</td>
         <td>{{ rowData.axisDescription }}</td>
-        <td class="flex items-center justify-center">
-          <p-button icon="pi pi-users" styleClass="p-button-success" label="Ver equipos del eje"></p-button>
+        @if (rowData.rowspan > 0) {
+        <td [attr.rowspan]="rowData.rowspan">
+          <p-button
+            icon="pi pi-users"
+            size="small"
+            [style]="{
+              'background-color': '#CAF1D8',
+              border: 'none',
+              color: '#136C34',
+              'white-space': 'nowrap',
+              'min-width': 'fit-content',
+              cursor: 'pointer'
+            }"
+            label="Ver equipos del eje"></p-button>
         </td>
+        }
       </tr>
     </ng-template>
   </p-table>

@@ -6,6 +6,14 @@ import { TableComponent } from '@shared/components/custom-fields/table/table.com
 import { ApiService } from '@shared/services/api.service';
 import { GCFComponente } from '@shared/interfaces/gcf.interface';
 
+interface ComponenteTabla {
+  component: string;
+  componentDescription: string;
+  axis: string;
+  axisDescription: string;
+  rowspan: number;
+}
+
 @Component({
   selector: 'app-components-and-axes',
   standalone: true,
@@ -22,7 +30,7 @@ export default class ComponentsAndAxesComponent implements OnInit {
     { field: 'axisDescription', header: 'Descripción del eje' }
   ];
 
-  componentsData: any[] = [];
+  componentsData: ComponenteTabla[] = [];
 
   ngOnInit(): void {
     this.getGCFComponentes();

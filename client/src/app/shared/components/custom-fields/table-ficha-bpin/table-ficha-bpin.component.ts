@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, WritableSignal, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { GetBpinForm } from '../../../interfaces/get/get-bpin-form.interface';
 
 interface Activity {
   activityCode: string;
@@ -16,7 +17,7 @@ interface Activity {
   templateUrl: './table-ficha-bpin.component.html'
 })
 export class TableFichaBpinComponent {
-  @Input() activities: Activity[] = [];
+  @Input() currentObjective: WritableSignal<GetBpinForm | null> = signal(null);
 
   tableColumns = [
     { field: 'activityCode', header: 'Codigo Actividad' },
