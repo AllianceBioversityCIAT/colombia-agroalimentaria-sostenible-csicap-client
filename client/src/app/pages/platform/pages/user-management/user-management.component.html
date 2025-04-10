@@ -1,18 +1,22 @@
 <app-section-header header="Usuarios" [centered]="false">
-  <div class="flex gap-4 px-5 py-2">
-    <p-select
-      (onChange)="setOrganizationSelected($event)"
-      [options]="this.organizationsIds()"
-      optionLabel="nombre_corto"
-      placeholder="Organización"
-      class="w-full md:w-56" />
-    <p-select (onChange)="setRoleSelected($event)" [options]="this.roles()" optionLabel="nombre" placeholder="Rol" class="w-full md:w-56" />
-    <p-select
-      (onChange)="setGCFComponenteSelected($event)"
-      [options]="this.gcfComponentesIds()"
-      optionLabel="nombre"
-      placeholder="Eje"
-      class="w-full md:w-56" />
+  <div class="flex px-5 py-2">
+    <div class="flex gap-4 justify-space-between w-full">
+      <p-select
+        (onChange)="setOrganizationSelected($event)"
+        [options]="this.organizationsIds()"
+        optionLabel="nombre_corto"
+        placeholder="Organización"
+        class="w-full md:w-56" />
+      <p-select (onChange)="setRoleSelected($event)" [options]="this.roles()" optionLabel="nombre" placeholder="Rol" class="w-full md:w-56" />
+      <p-select
+        (onChange)="setGCFComponenteSelected($event)"
+        [options]="this.gcfComponentesIds()"
+        optionLabel="nombre"
+        placeholder="Eje"
+        class="w-full md:w-56" />
+    </div>
+
+    <p-button (click)="clearFilters()" icon="pi pi-filter-slash" label="Limpiar" variant="text" severity="secondary" />
   </div>
   <p-table [value]="users()" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template #header>

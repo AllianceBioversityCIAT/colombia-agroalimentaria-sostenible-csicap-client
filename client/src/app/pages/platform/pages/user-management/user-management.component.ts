@@ -5,9 +5,10 @@ import { SelectModule } from 'primeng/select';
 import { GetUsers } from '../../../../shared/interfaces/get/get-users-interface';
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
 import { SelectItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-user-management',
-  imports: [TableModule, SectionHeaderComponent, SelectModule],
+  imports: [TableModule, SectionHeaderComponent, SelectModule, ButtonModule],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'
 })
@@ -36,6 +37,13 @@ export default class UserManagementComponent implements OnInit {
     this.getRoles();
     this.getOrganizationsIds();
     this.getGCFComponentesIds();
+  }
+
+  clearFilters() {
+    this.organizationSelected.set(null);
+    this.roleSelected.set(null);
+    this.gcfComponenteSelected.set(null);
+    this.getUsers();
   }
 
   setOrganizationSelected(event: SelectItem) {
