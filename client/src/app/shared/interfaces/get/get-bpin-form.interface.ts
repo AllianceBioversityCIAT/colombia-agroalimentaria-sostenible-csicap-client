@@ -2,10 +2,10 @@ export interface GetBpinForm {
   is_active: boolean;
   id: number;
   nombre: string;
-  bpinActividades: BpinActividade[];
+  bpinActividades: BpinActividad[];
 }
 
-interface BpinActividade {
+export interface BpinActividad {
   is_active: boolean;
   id: number;
   codigo: string;

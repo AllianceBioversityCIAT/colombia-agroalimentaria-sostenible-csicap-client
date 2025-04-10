@@ -1,6 +1,10 @@
+@for (activity of currentObjective()?.bpinActividades || []; track activity.id) {
+  <div>{{ $index + 1 }} - {{ activity.nombre }}</div>
+}
+
 <div class="card">
   <p-table
-    [value]="activities"
+    [value]="currentObjective()?.bpinActividades || []"
     [columns]="tableColumns"
     [tableStyle]="{ 'min-width': '50rem' }"
     styleClass="p-datatable-gridlines rounded-table"
@@ -8,21 +12,21 @@
     <ng-template pTemplate="header">
       <tr>
         @for (col of tableColumns; track col.field) {
-        <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
-          {{ col.header }}
-        </th>
+          <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+            {{ col.header }}
+          </th>
         }
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-activity let-rowIndex="rowIndex">
-      <tr>
+      <!-- <tr>
         @if (activity.activityCode) {
         <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activityCode }}</td>
         <td [attr.rowspan]="getRowspan(activity.activityCode, rowIndex, activities)">{{ activity.activity }}</td>
         }
         <td>{{ activity.subActivityCode }}</td>
         <td>{{ activity.subActivity }}</td>
-      </tr>
+      </tr> -->
     </ng-template>
   </p-table>
 </div>
