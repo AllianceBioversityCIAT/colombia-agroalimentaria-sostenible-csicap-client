@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ApiService } from '@shared/services/api.service';
 import { TableModule } from 'primeng/table';
 import { SelectModule } from 'primeng/select';
@@ -6,6 +6,8 @@ import { GetUsers } from '../../../../shared/interfaces/get/get-users-interface'
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
 import { SelectItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { Select } from 'primeng/select';
+
 @Component({
   selector: 'app-user-management',
   imports: [TableModule, SectionHeaderComponent, SelectModule, ButtonModule],
@@ -21,6 +23,10 @@ export default class UserManagementComponent implements OnInit {
   organizationSelected = signal<number | null>(null);
   roleSelected = signal<number | null>(null);
   gcfComponenteSelected = signal<number | null>(null);
+
+  @ViewChild('organizationFilter') organizationFilter!: Select;
+  @ViewChild('roleFilter') roleFilter!: Select;
+  @ViewChild('gcfComponenteFilter') gcfComponenteFilter!: Select;
 
   columns = signal<Record<string, string>[]>([
     { field: 'persona_nombre', header: 'Nombre' },
@@ -43,6 +49,18 @@ export default class UserManagementComponent implements OnInit {
     this.organizationSelected.set(null);
     this.roleSelected.set(null);
     this.gcfComponenteSelected.set(null);
+
+    // Limpiar los selects visualmente
+    if (this.organizationFilter) {
+      this.organizationFilter.clear();
+    }
+    if (this.roleFilter) {
+      this.roleFilter.clear();
+    }
+    if (this.gcfComponenteFilter) {
+      this.gcfComponenteFilter.clear();
+    }
+
     this.getUsers();
   }
 
