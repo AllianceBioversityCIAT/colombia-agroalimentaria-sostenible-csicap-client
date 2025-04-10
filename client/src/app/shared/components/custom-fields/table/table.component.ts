@@ -2,6 +2,13 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+interface ComponenteTabla {
+  component: string;
+  componentDescription: string;
+  axis: string;
+  axisDescription: string;
+  rowspan: number;
+}
 
 export interface TableColumn {
   field: string;
@@ -14,7 +21,7 @@ export interface TableColumn {
   imports: [CommonModule, TableModule, ButtonModule],
   templateUrl: './table.component.html'
 })
-export class TableComponent<T extends Record<string, string>> {
+export class TableComponent {
   @Input() columns: TableColumn[] = [];
-  @Input() data: T[] = [];
+  @Input() data: ComponenteTabla[] = [];
 }
