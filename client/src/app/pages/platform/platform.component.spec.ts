@@ -6,18 +6,40 @@ import { CacheService } from '../../shared/services/cache/cache.service';
 import { ActionsService } from '../../shared/services/actions.service';
 import { signal } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: PlatformComponent,
+    data: {
+      breadcrumb: [{ path: 'platform', label: 'Platform' }]
+    }
+  }
+];
 
 describe('PlatformComponent', () => {
   let component: PlatformComponent;
   let fixture: ComponentFixture<PlatformComponent>;
   let mockActionsService: Partial<ActionsService>;
+  let mockCacheService: { dataCache: any; isLoggedIn: any };
 
   beforeEach(async () => {
-    const mockCacheService = {
+    mockCacheService = {
       dataCache: signal({
         user: {
           nombre: 'Test',
-          apellido: 'User'
+          apellido: 'User',
+          rolesPersonas: [
+            {
+              rol: {
+                nombre: 'Admin'
+              }
+            }
+          ]
+        },
+        menu: {
+          items: []
         }
       }),
       isLoggedIn: { set: jest.fn() }
@@ -28,7 +50,7 @@ describe('PlatformComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [PlatformComponent, HttpClientTestingModule, RouterTestingModule],
+      imports: [PlatformComponent, HttpClientTestingModule, RouterTestingModule.withRoutes(routes)],
       providers: [
         { provide: CacheService, useValue: mockCacheService },
         { provide: ActionsService, useValue: mockActionsService }
