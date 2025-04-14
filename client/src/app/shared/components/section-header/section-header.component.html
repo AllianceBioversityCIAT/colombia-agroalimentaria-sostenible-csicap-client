@@ -1,9 +1,14 @@
 <div class="bg-white rounded-xl relative shadow-xs">
-  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4">
-    {{ header }}
-    @if (tagName) {
-      <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full ml-2"> {{ tagName }} </span>
-    }
+  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      {{ header }}
+      @if (tagName) {
+        <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full ml-2"> {{ tagName }} </span>
+      }
+    </div>
+    <div class="actions">
+      <ng-content select="[actions]"></ng-content>
+    </div>
   </div>
   <div class="border-b border-gray-300"></div>
   <div class="py-2" [class.items-start]="!centered" [class.items-center]="centered">

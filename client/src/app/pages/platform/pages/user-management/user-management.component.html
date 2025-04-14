@@ -1,4 +1,7 @@
 <app-section-header header="Usuarios" [centered]="false">
+  <div actions>
+    <p-button icon="pi pi-users" label="Crear usuario" severity="primary" size="small" />
+  </div>
   <div class="flex px-5 py-2">
     <div class="flex gap-4 justify-space-between w-full">
       <p-select
@@ -30,7 +33,9 @@
     <ng-template #header>
       <tr>
         @for (col of columns(); track col['field']) {
-          <th pSortableColumn="col['field']" [style]="col['styles']">{{ col['header'] }} <p-sortIcon field="col['field']" /></th>
+          <th class="align-center" pSortableColumn="col['field']" [style]="col['styles']">
+            {{ col['header'] }} <p-sortIcon field="col['field']" [style]="{ 'margin-left': '0.5rem' }" />
+          </th>
         }
       </tr>
     </ng-template>
