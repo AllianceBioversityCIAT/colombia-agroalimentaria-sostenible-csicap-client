@@ -18,7 +18,9 @@
         <div class="font-inter font-semibold text-[14px] leading-[21px] text-[#A47D06]">
           {{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}
         </div>
-        <div class="font-inter font-normal text-[12px] leading-[18px] text-[#9E9E9E]">Administrador</div>
+        <div class="font-inter font-normal text-[12px] leading-[18px] text-[#9E9E9E]">
+          {{ this.cache.dataCache().user.rolesPersonas[0].rol.nombre }}
+        </div>
       </div>
     </div>
   </div>
