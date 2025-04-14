@@ -16,6 +16,17 @@ export interface UserCache {
   user_role_list: Userrolelist[];
   nombre: string;
   apellido: string;
+  rolesPersonas: RolesPersonas[];
+}
+
+interface RolesPersonas {
+  id: number;
+  rol: Role;
+}
+
+interface Role {
+  id: number;
+  nombre: string;
 }
 
 interface Userrolelist {
