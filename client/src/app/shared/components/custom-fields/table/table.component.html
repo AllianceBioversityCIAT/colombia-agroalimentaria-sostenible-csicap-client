@@ -1,43 +1,39 @@
-<div class="flex flex-col items-center justify-center mx-10">
-  <p-table
-    [value]="data"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    styleClass="p-datatable-gridlines rounded-table"
-    showGridlines>
+<div class="flex flex-col items-center justify-center mx-10 mt-6">
+  <p-table [value]="data" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines rounded-table" showGridlines>
     <ng-template pTemplate="header">
       <tr>
         @for (col of columns; track $index) {
-        <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
-          {{ col.header }}
-        </th>
+          <th class="text-sm p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+            {{ col.header }}
+          </th>
         }
-        <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
+        <th class="text-sm p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
       <tr>
         @if (rowData.rowspan > 0) {
-        <td [attr.rowspan]="rowData.rowspan" style="white-space: nowrap">{{ rowData.component }}</td>
-        <td [attr.rowspan]="rowData.rowspan">{{ rowData.componentDescription }}</td>
-      }
-      <td>{{ rowData.axis }}</td>
-      <td>{{ rowData.axisDescription }}</td>
-      @if (rowData.rowspan > 0) {
-      <td [attr.rowspan]="rowData.rowspan">
-          <p-button
-            icon="pi pi-users"
-            size="small"
-            [style]="{
-              'background-color': '#CAF1D8',
-              border: 'none',
-              color: '#136C34',
-              'white-space': 'nowrap',
-              'min-width': 'fit-content',
-              cursor: 'pointer'
-            }"
-            label="Ver equipos del eje"></p-button>
-      </td>
-    }
+          <td class="text-sm" [attr.rowspan]="rowData.rowspan" style="white-space: nowrap">{{ rowData.component }}</td>
+          <td class="text-sm" [attr.rowspan]="rowData.rowspan">{{ rowData.componentDescription }}</td>
+        }
+        <td class="text-sm">{{ rowData.axis }}</td>
+        <td class="text-sm">{{ rowData.axisDescription }}</td>
+        @if (rowData.rowspan > 0) {
+          <td class="text-sm" [attr.rowspan]="rowData.rowspan">
+            <p-button
+              icon="pi pi-users"
+              size="small"
+              [style]="{
+                'background-color': '#CAF1D8',
+                border: 'none',
+                color: '#136C34',
+                'white-space': 'nowrap',
+                'min-width': 'fit-content',
+                cursor: 'pointer'
+              }"
+              label="Ver equipos del eje"></p-button>
+          </td>
+        }
       </tr>
     </ng-template>
   </p-table>
