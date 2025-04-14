@@ -35,11 +35,11 @@
     <ng-template #header>
       <tr>
         @for (col of columns(); track col['field']) {
-          <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa" class="align-center" [pSortableColumn]="col['field']" [style]="col['styles']">
+          <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa" [pSortableColumn]="col['field']" [style]="col['styles']">
             {{ col['header'] }} <p-sortIcon [field]="col['field']" [style]="{ 'margin-left': '0.5rem' }" />
           </th>
         }
-        <th>Acciones</th>
+        <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
       </tr>
     </ng-template>
     <ng-template #body let-product>
