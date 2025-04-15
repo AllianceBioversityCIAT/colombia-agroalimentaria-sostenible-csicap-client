@@ -57,9 +57,9 @@ describe('MainMenuComponent', () => {
     expect(operationalPlansButton).toBeTruthy();
   });
 
-  it('should have disabled buttons for key dates and user management', () => {
+  it('should have disabled button for key dates', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const disabledButtons = compiled.querySelectorAll('button[disabled]');
-    expect(disabledButtons.length).toBe(2);
+    expect(disabledButtons.length).toBe(1);
   });
 });
