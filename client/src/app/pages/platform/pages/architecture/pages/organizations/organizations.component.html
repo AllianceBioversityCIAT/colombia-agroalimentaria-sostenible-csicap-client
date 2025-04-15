@@ -9,7 +9,7 @@
       <ng-template pTemplate="header">
         <tr>
           @for (col of tableColumns(); track col.field) {
-            <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" style="background-color: #f5f6fa">
+            <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" [class.rounded-tr-lg]="$index === tableColumns().length - 1" style="background-color: #f5f6fa">
               {{ col.header }}
             </th>
           }
