@@ -12,12 +12,12 @@
     </div>
 
     <!-- Breadcrumb -->
-    <div class="px-6 pt-6">
+    <div class="px-6 pt-6 [&:has(app-main-menu)]:hidden ">
       <app-breadcrumb />
     </div>
 
     <!-- Content Area -->
-    <div class="flex-1 p-6 !pb-0 overflow-auto">
+    <div class="flex-1 overflow-auto !pb-0 [&:not(:has(app-main-menu))]:p-6">
       <router-outlet />
     </div>
   </div>

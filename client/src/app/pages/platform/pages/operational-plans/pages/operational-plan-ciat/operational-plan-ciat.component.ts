@@ -45,14 +45,14 @@ export default class OperationalPlanCiatComponent implements OnInit {
   api = inject(ApiService);
 
   columns: TableColumn[] = [
-    { field: 'activity', header: 'Actividad' },
-    { field: 'subActivity', header: 'Subactividad' },
-    { field: 'axis', header: 'Eje' },
-    { field: 'responsible', header: 'Responsable' },
-    { field: 'productNumber', header: 'Numero de producto' },
-    { field: 'product', header: 'Producto' },
-    { field: 'productDescription', header: 'Descripcion de producto' },
-    { field: 'deliveryDate', header: 'Fecha de entrega' }
+    { field: 'activity', header: 'Actividad', minWidth: '300px' },
+    { field: 'subActivity', header: 'Subactividad', minWidth: '400px' },
+    { field: 'axis', header: 'Eje', minWidth: '200px' },
+    { field: 'responsible', header: 'Responsable', minWidth: '200px' },
+    { field: 'productNumber', header: 'Numero de producto', minWidth: '200px' },
+    { field: 'product', header: 'Producto', minWidth: '700px' },
+    { field: 'productDescription', header: 'Descripcion de producto', minWidth: '700px' },
+    { field: 'deliveryDate', header: 'Fecha de entrega', minWidth: '200px' }
   ];
 
   objectives = signal<GetOperationalPlanCiat[]>([]);
@@ -71,7 +71,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
                 codigo_subActv: subactivity.codigo_subActv,
                 axis: product.ejes ? product.ejes.join(', ') : '',
                 responsible: product.responsables ? product.responsables.join(', ') : '',
-                productNumber: product.id_prod ? product.id_prod.toString() : '',
+                productNumber: product.codigo ? product.codigo.toString() : '',
                 product: product.nombre_prod || '',
                 productDescription: product.descripcion || '',
                 deliveryDate: product.fechaEntrega || ''

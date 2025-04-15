@@ -1,5 +1,5 @@
 <app-section-header [header]="'Organizaciones'" [centered]="false">
-  <div class="card m-8">
+  <div class="card m-8 max-w-[calc(100vw-400px)] overflow-hidden">
     <p-table
       [value]="organizations()"
       [columns]="tableColumns()"
@@ -9,7 +9,12 @@
       <ng-template pTemplate="header">
         <tr>
           @for (col of tableColumns(); track col.field) {
-            <th class="text-base p-3 text-white" [class.rounded-tl-lg]="$index === 0" [class.rounded-tr-lg]="$index === tableColumns().length - 1" style="background-color: #f5f6fa">
+            <th
+              class="text-base p-3 text-white"
+              [style.min-width]="col.minWidth"
+              [class.rounded-tl-lg]="$index === 0"
+              [class.rounded-tr-lg]="$index === tableColumns().length - 1"
+              style="background-color: #f5f6fa">
               {{ col.header }}
             </th>
           }

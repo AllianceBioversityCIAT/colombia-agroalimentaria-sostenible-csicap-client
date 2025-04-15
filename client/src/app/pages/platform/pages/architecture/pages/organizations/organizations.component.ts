@@ -7,6 +7,7 @@ import { SectionHeaderComponent } from '../../../../../../shared/components/sect
 interface TableColumn {
   field: string;
   header: string;
+  minWidth?: string;
 }
 
 @Component({
@@ -20,14 +21,14 @@ export default class OrganizationsComponent implements OnInit {
   organizations = signal<GetOrganizationsDetail[]>([]);
   tableColumns = signal<TableColumn[]>([
     { field: 'nombre_corto', header: 'Nombre Corto' },
-    { field: 'nombre', header: 'Nombre Largo' },
+    { field: 'nombre', header: 'Nombre Largo', minWidth: '250px' },
     { field: 'tipo_organizacion', header: 'Tipo de Organización' },
-    { field: 'proposito', header: 'Proposito' },
-    { field: 'sistemas_productivos', header: 'Sistemas productivos' },
+    { field: 'proposito', header: 'Proposito', minWidth: '400px' },
+    { field: 'sistemas_productivos', header: 'Sistemas productivos', minWidth: '200px' },
     { field: 'datos_contacto', header: 'Datos de organización' },
-    { field: 'sistemas_productivos', header: 'Datos de contacto' },
-    { field: 'direccion', header: 'Dirección física' },
-    { field: 'logo', header: 'Logo' }
+    { field: 'sistemas_productivos', header: 'Datos de contacto', minWidth: '200px' },
+    { field: 'direccion', header: 'Dirección física', minWidth: '300px' },
+    { field: 'logo', header: 'Logo', minWidth: '200px' }
   ]);
 
   ngOnInit() {

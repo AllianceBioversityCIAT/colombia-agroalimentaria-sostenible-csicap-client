@@ -20,7 +20,7 @@ interface Subactividade {
 }
 
 interface Producto {
-  id_prod: number;
+  codigo: number;
   nombre_prod: string;
   descripcion: string;
   fechaEntrega: string;
