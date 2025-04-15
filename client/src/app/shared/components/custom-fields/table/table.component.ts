@@ -13,6 +13,7 @@ interface ComponenteTabla {
 export interface TableColumn {
   field: string;
   header: string;
+  minWidth?: string;
 }
 
 @Component({
