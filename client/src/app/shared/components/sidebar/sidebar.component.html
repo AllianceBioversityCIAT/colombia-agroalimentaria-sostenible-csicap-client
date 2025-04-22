@@ -51,7 +51,8 @@
       [routerLink]="item.disabled ? null : item.path"
       routerLinkActive="bg-[#165863] text-[#34ca6b]"
       [pTooltip]="item.label"
-      tooltipPosition="right">
+      tooltipPosition="right"
+      (click)="item.action ? item.action() : null">
       <div class="pi {{ item.icon }}"></div>
       <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
     </div>
