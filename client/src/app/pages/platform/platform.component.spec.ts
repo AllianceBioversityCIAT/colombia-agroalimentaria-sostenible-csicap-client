@@ -22,7 +22,14 @@ describe('PlatformComponent', () => {
   let component: PlatformComponent;
   let fixture: ComponentFixture<PlatformComponent>;
   let mockActionsService: Partial<ActionsService>;
-  let mockCacheService: { dataCache: any; isLoggedIn: any };
+  let mockCacheService: {
+    dataCache: any;
+    isLoggedIn: any;
+    hasSmallScreenWidth: any;
+    hasSmallScreen: any;
+    isSidebarCollapsed: any;
+    toggleSidebar: any;
+  };
 
   beforeEach(async () => {
     mockCacheService = {
@@ -42,7 +49,11 @@ describe('PlatformComponent', () => {
           items: []
         }
       }),
-      isLoggedIn: { set: jest.fn() }
+      isLoggedIn: { set: jest.fn() },
+      hasSmallScreenWidth: jest.fn(),
+      hasSmallScreen: jest.fn(),
+      isSidebarCollapsed: jest.fn(),
+      toggleSidebar: jest.fn()
     };
 
     mockActionsService = {
