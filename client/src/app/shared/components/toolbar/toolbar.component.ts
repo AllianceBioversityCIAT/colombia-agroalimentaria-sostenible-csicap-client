@@ -28,7 +28,7 @@ import { CacheService } from '../../services/cache/cache.service';
 export default class ToolbarComponent {
   items: [] | undefined;
   selectedItem: string | undefined;
-  suggestions: string[] | undefined;
+  suggestions: string[] = [];
   text1: string | undefined;
   cache = inject(CacheService);
   getNameInitiales = computed(() => {

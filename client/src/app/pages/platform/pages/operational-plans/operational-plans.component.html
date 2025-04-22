@@ -6,9 +6,21 @@
     >
   </div>
 
+  <!-- searchbar -->
+  <div class="flex justify-center w-1/2 mx-auto px-4">
+    <input
+      pInputText
+      id="username"
+      [placeholder]="'Buscar institución'"
+      [style]="{ width: '100%' }"
+      [(ngModel)]="this.body().searchText"
+      autocomplete="off"
+      (ngModelChange)="searchOrganizations()" />
+  </div>
+
   <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      @for (org of organizations(); track org.org_id) {
+      @for (org of filteredOrganizations(); track org.org_id) {
         <a class="grid p-6 justify-center items-end cursor-pointer" [routerLink]="org.org_id === 1 ? 'ciat' : null">
           <img [src]="org.org_logo" [alt]="org.org_nombre_corto" class="w-[170px] object-contain mb-10" />
           <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.org_nombre_corto }}</h3>

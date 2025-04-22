@@ -2,9 +2,10 @@
   class="w-70 bg-[#1B4B5A] text-white h-full transition-all duration-300"
   [ngClass]="{ '!w-[68px]': cache.isSidebarCollapsed(), '!min-w-auto': cache.isSidebarCollapsed() }">
   <div
-    class="flex items-center justify-center h-[70px] border-b"
+    class="flex items-center justify-center h-[70px] border-b cursor-pointer"
     style="border-color: #047f94"
-    [ngClass]="{ 'h-[80px]': cache.isSidebarCollapsed() }">
+    [ngClass]="{ 'h-[80px]': cache.isSidebarCollapsed() }"
+    routerLink="/">
     <img src="logo.png" alt="" class="h-[80px]" [ngClass]="{ hidden: cache.isSidebarCollapsed() }" />
     <img src="logo-white.png" alt="" class="h-[60px]" [ngClass]="{ hidden: !cache.isSidebarCollapsed() }" />
   </div>
