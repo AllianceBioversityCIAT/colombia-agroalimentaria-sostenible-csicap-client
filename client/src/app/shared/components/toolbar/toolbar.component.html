@@ -2,7 +2,12 @@
   <!-- Title -->
   <div class="font-inter font-semibold text-[20px] text-[#024955]">Menu principal</div>
   <div class="flex gap-x-8 items-center">
-    <p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" (completeMethod)="search($event)" placeholder="Search" />
+    <p-autocomplete
+      class="ng-invalid ng-dirty"
+      [suggestions]="suggestions"
+      [(ngModel)]="selectedItem"
+      (completeMethod)="search($event)"
+      placeholder="Buscar" />
 
     <!-- Icon -->
     <div class="relative w-[40px] h-[40px] flex items-center justify-center bg-gray-100 rounded-full">
