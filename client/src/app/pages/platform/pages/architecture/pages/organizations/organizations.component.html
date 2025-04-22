@@ -30,12 +30,20 @@
               <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.proposito }}</td>
               <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.sistemas_productivos }}</td>
               <td [attr.rowspan]="organization.organizacionesContactos.length">
-                <a class="text-blue-500" href="{{ organization.sitio_web }}" target="_blank"><i class="pi pi-globe" style="color: #708090"></i>  {{ organization.sitio_web }}</a>
+                <div class="flex items-center gap-2">
+                  <i class="pi pi-globe" style="color: #708090"></i>
+                <a class="text-blue-500" href="{{ organization.sitio_web }}" target="_blank">{{ organization.sitio_web }}</a>
+                </div>
                 <br />
-                <i class="pi pi-envelope" style="color: #708090"></i>
-                {{ organization.email }}
+                <div class="flex items-center gap-2">
+                  <i class="pi pi-envelope" style="color: #708090"></i>
+                  <a class="text-blue-500" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
+                </div>
                 <br />
-                <i class="pi pi-phone" style="color: #708090"></i>  {{ organization.numero_telefono }}
+                <div class="flex items-center gap-2">
+                <i class="pi pi-phone" style="color: #708090"></i>
+                <span>{{ organization.numero_telefono }}</span>
+              </div>
               </td>
               <td><strong>{{ organization.organizacionesContactos[0].nombre_contacto }}</strong></td>
               <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
@@ -45,7 +53,7 @@
             </tr>
           } @else {
             <tr>
-              <td>{{ organization.organizacionesContactos[$index].nombre_contacto }}</td>
+              <td><strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong></td>
             </tr>
           }
         }
