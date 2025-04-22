@@ -1,4 +1,4 @@
-<app-section-header [header]="'Organizaciones'" [centered]="false">
+<app-section-header [header]="'Lista de organizaciones'" [centered]="false">
   <div class="card m-8 max-w-[calc(100vw-400px)] overflow-hidden">
     <p-table
       [value]="organizations()"
@@ -45,7 +45,17 @@
                 <span>{{ organization.numero_telefono }}</span>
               </div>
               </td>
-              <td><strong>{{ organization.organizacionesContactos[0].nombre_contacto }}</strong></td>
+              <td>
+                <div>
+                  <strong>{{ organization.organizacionesContactos[0].nombre_contacto }}</strong> - {{ organization.organizacionesContactos[0].rol }}
+                </div>
+                <br>
+                <div class="flex items-center gap-2">
+                  <i class="pi pi-envelope" style="color: #708090"></i>
+                  <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[0].email_contacto }}">{{ organization.organizacionesContactos[0].email_contacto }}</a>
+                </div>
+
+              </td>
               <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
               <td [attr.rowspan]="organization.organizacionesContactos.length">
                 <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
@@ -53,8 +63,22 @@
             </tr>
           } @else {
             <tr>
-              <td><strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong></td>
+              <td>
+              <div>
+                <strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong> - {{ organization.organizacionesContactos[$index].rol }}
+              </div>
+              <br>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-envelope" style="color: #708090"></i>
+                <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[$index].email_contacto }}">{{ organization.organizacionesContactos[$index].email_contacto }}</a>
+              </div>
+            </td>
             </tr>
+
+
+            <!-- <tr>
+              <td><strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong></td>
+            </tr> -->
           }
         }
         <tr>
