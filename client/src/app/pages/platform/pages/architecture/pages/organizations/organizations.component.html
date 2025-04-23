@@ -1,10 +1,17 @@
 <app-section-header [header]="'Lista de organizaciones'" [centered]="false">
-  <div class="card m-8 max-w-[calc(100vw-400px)] overflow-hidden">
+  <div
+    class="card m-8 overflow-hidden transition- duration-300"
+    [ngClass]="{
+      'max-w-[calc(100vw-180px)]': cache.isSidebarCollapsed(),
+      'max-w-[calc(100vw-392px)]': !cache.isSidebarCollapsed()
+    }">
     <p-table
       [value]="organizations()"
       [columns]="tableColumns()"
       [tableStyle]="{ 'min-width': '50rem' }"
       styleClass="p-datatable-gridlines rounded-table"
+      [scrollable]="true"
+      scrollHeight="calc(100vh - 330px)"
       showGridlines>
       <ng-template pTemplate="header">
         <tr>
@@ -20,75 +27,98 @@
           }
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-organization let-rowIndex="rowIndex">
-        @for (organizationContact of organization.organizacionesContactos; track organizationContact.id) {
-          @if ($index === 0) {
-            <tr>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre_corto }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.tipo_organizacion }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.proposito }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.sistemas_productivos }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">
-                <div class="flex items-center gap-2">
-                  <i class="pi pi-globe" style="color: #708090"></i>
+        @if (organization.organizacionesContactos && organization.organizacionesContactos.length > 0) {
+          @for (organizationContact of organization.organizacionesContactos; track organizationContact.id) {
+            @if ($index === 0) {
+              <tr>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre_corto }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.nombre }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.tipo_organizacion }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.proposito }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.sistemas_productivos }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">
+                  <div class="flex items-center gap-2">
+                    <i class="pi pi-globe" style="color: #708090"></i>
+                    <a class="text-blue-500" href="{{ organization.sitio_web }}" target="_blank">{{ organization.sitio_web }}</a>
+                  </div>
+                  <br />
+                  <div class="flex items-center gap-2">
+                    <i class="pi pi-envelope" style="color: #708090"></i>
+                    <a class="text-blue-500" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
+                  </div>
+                  <br />
+                  <div class="flex items-center gap-2">
+                    <i class="pi pi-phone" style="color: #708090"></i>
+                    <span>{{ organization.numero_telefono }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <strong>{{ organization.organizacionesContactos[0].nombre_contacto }}</strong> - {{ organization.organizacionesContactos[0].rol }}
+                  </div>
+                  <br />
+                  <div class="flex items-center gap-2">
+                    <i class="pi pi-envelope" style="color: #708090"></i>
+                    <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[0].email_contacto }}">{{
+                      organization.organizacionesContactos[0].email_contacto
+                    }}</a>
+                  </div>
+                </td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
+                <td [attr.rowspan]="organization.organizacionesContactos.length">
+                  <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
+                </td>
+              </tr>
+            } @else {
+              <tr>
+                <td>
+                  <div>
+                    <strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong> -
+                    {{ organization.organizacionesContactos[$index].rol }}
+                  </div>
+                  <br />
+                  <div class="flex items-center gap-2">
+                    <i class="pi pi-envelope" style="color: #708090"></i>
+                    <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[$index].email_contacto }}">{{
+                      organization.organizacionesContactos[$index].email_contacto
+                    }}</a>
+                  </div>
+                </td>
+              </tr>
+            }
+          }
+        } @else {
+          <tr>
+            <td>{{ organization.nombre_corto }}</td>
+            <td>{{ organization.nombre }}</td>
+            <td>{{ organization.tipo_organizacion }}</td>
+            <td>{{ organization.proposito }}</td>
+            <td>{{ organization.sistemas_productivos }}</td>
+            <td>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-globe" style="color: #708090"></i>
                 <a class="text-blue-500" href="{{ organization.sitio_web }}" target="_blank">{{ organization.sitio_web }}</a>
-                </div>
-                <br />
-                <div class="flex items-center gap-2">
-                  <i class="pi pi-envelope" style="color: #708090"></i>
-                  <a class="text-blue-500" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
-                </div>
-                <br />
-                <div class="flex items-center gap-2">
+              </div>
+              <br />
+              <div class="flex items-center gap-2">
+                <i class="pi pi-envelope" style="color: #708090"></i>
+                <a class="text-blue-500" href="mailto:{{ organization.email }}">{{ organization.email }}</a>
+              </div>
+              <br />
+              <div class="flex items-center gap-2">
                 <i class="pi pi-phone" style="color: #708090"></i>
                 <span>{{ organization.numero_telefono }}</span>
               </div>
-              </td>
-              <td>
-                <div>
-                  <strong>{{ organization.organizacionesContactos[0].nombre_contacto }}</strong> - {{ organization.organizacionesContactos[0].rol }}
-                </div>
-                <br>
-                <div class="flex items-center gap-2">
-                  <i class="pi pi-envelope" style="color: #708090"></i>
-                  <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[0].email_contacto }}">{{ organization.organizacionesContactos[0].email_contacto }}</a>
-                </div>
-
-              </td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">{{ organization.direccion }}</td>
-              <td [attr.rowspan]="organization.organizacionesContactos.length">
-                <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
-              </td>
-            </tr>
-          } @else {
-            <tr>
-              <td>
-              <div>
-                <strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong> - {{ organization.organizacionesContactos[$index].rol }}
-              </div>
-              <br>
-              <div class="flex items-center gap-2">
-                <i class="pi pi-envelope" style="color: #708090"></i>
-                <a class="text-blue-500" href="mailto:{{ organization.organizacionesContactos[$index].email_contacto }}">{{ organization.organizacionesContactos[$index].email_contacto }}</a>
-              </div>
             </td>
-            </tr>
-
-
-            <!-- <tr>
-              <td><strong>{{ organization.organizacionesContactos[$index].nombre_contacto }}</strong></td>
-            </tr> -->
-          }
+            <td>No hay datos de contacto</td>
+            <td>{{ organization.direccion }}</td>
+            <td>
+              <a class="text-blue-500" href="{{ organization.logo }}" target="_blank">{{ organization.logo }}</a>
+            </td>
+          </tr>
         }
-        <tr>
-          <!-- @for (col of organizations.organizacionesContactos; track col.field) {
-          <td>{{ organization[col.field] }}</td>
-        } -->
-          <!-- @for (col of tableColumns(); track col.field) {
-          <td>{{ organization[col.field] }}</td>
-        } -->
-        </tr>
       </ng-template>
     </p-table>
   </div>
