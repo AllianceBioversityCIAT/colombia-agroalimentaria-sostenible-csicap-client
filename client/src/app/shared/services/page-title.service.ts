@@ -1,55 +1,85 @@
-import { Injectable, inject } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Injectable, inject, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
+import { BehaviorSubject, Subject, filter, takeUntil } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { MenuItem } from 'primeng/api';
+
+interface BreadcrumbItem {
+  path: string;
+  label: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class PageTitleService {
-  private titleSubject = new BehaviorSubject<string>('Menu principal');
-  public title$ = this.titleSubject.asObservable();
+export class PageTitleService implements OnDestroy {
   private readonly APP_NAME = 'CAS Reporting Tool';
   private titleService = inject(Title);
+  private router = inject(Router);
+  private destroy$ = new Subject<void>();
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.updateTitle();
-    });
+  // Subjects for title and breadcrumb
+  private titleSubject = new BehaviorSubject<string>('Menu principal');
+  private breadcrumbSubject = new BehaviorSubject<MenuItem[]>([]);
+
+  // Public observables
+  public title$ = this.titleSubject.asObservable();
+  public breadcrumb$ = this.breadcrumbSubject.asObservable();
+  public home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
+
+  constructor() {
+    this.setupRouteListener();
   }
 
-  private updateTitle(): void {
-    let route = this.activatedRoute;
-    while (route.firstChild) {
-      route = route.firstChild;
-    }
+  private setupRouteListener(): void {
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.updateNavigationData();
+      });
+  }
 
-    const routeData = route.snapshot.data;
+  private updateNavigationData(): void {
+    const currentRoute = this.router.routerState.snapshot.root;
+    let breadcrumbs: BreadcrumbItem[] = [];
     let pageTitle = 'Menu principal';
 
-    if (routeData['breadcrumb']) {
-      const breadcrumbs = routeData['breadcrumb'];
+    // Recursively find breadcrumb data
+    const findBreadcrumbData = (route: ActivatedRouteSnapshot) => {
+      if (route.data && route.data['breadcrumb']) {
+        breadcrumbs = route.data['breadcrumb'];
+      }
+      if (route.firstChild) {
+        findBreadcrumbData(route.firstChild);
+      }
+    };
 
-      // Could be used to show the last two breadcrumbs
-      // if (breadcrumbs.length >= 2) {
-      //   // Get the last two breadcrumbs and join them with ' - '
-      //   const lastTwo = breadcrumbs.slice(-2);
-      //   pageTitle = `${lastTwo[0].label} - ${lastTwo[1].label}`;
-      // } else {
-      // If there's only one breadcrumb, use its label
-      const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1];
-      pageTitle = lastBreadcrumb.label;
-      // }
+    findBreadcrumbData(currentRoute);
+
+    // Update breadcrumb items
+    if (breadcrumbs.length > 0) {
+      const breadcrumbItems = breadcrumbs.map(item => ({
+        label: item.label,
+        routerLink: `/${item.path}`
+      }));
+      this.breadcrumbSubject.next(breadcrumbItems);
+    } else {
+      this.breadcrumbSubject.next([]);
     }
 
-    // Update the toolbar title
+    // Update page title
+    if (breadcrumbs.length > 0) {
+      pageTitle = breadcrumbs[breadcrumbs.length - 1].label;
+    }
     this.titleSubject.next(pageTitle);
-
-    // Update the browser tab title
     this.titleService.setTitle(`${pageTitle} | ${this.APP_NAME}`);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
