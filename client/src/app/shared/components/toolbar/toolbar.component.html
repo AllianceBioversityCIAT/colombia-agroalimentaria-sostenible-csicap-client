@@ -1,6 +1,6 @@
 <div class="flex items-center h-[85px] mx-8 justify-between">
   <!-- Title -->
-  <div class="font-inter font-semibold text-[20px] text-[#024955]">Menu principal</div>
+  <div class="font-inter font-semibold text-[20px] text-[#024955]">{{ pageTitle$ | async }}</div>
   <div class="flex gap-x-8 items-center">
     <p-autocomplete
       class="ng-invalid ng-dirty"

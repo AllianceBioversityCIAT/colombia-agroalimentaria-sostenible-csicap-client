@@ -9,6 +9,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CacheService } from '../../services/cache/cache.service';
+import { PageTitleService } from '../../services/page-title.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-toolbar',
@@ -21,7 +23,8 @@ import { CacheService } from '../../services/cache/cache.service';
     InputGroupAddonModule,
     InputTextModule,
     SelectModule,
-    InputNumberModule
+    InputNumberModule,
+    AsyncPipe
   ],
   templateUrl: './toolbar.component.html'
 })
@@ -31,6 +34,9 @@ export default class ToolbarComponent {
   suggestions: string[] = [];
   text1: string | undefined;
   cache = inject(CacheService);
+  pageTitleService = inject(PageTitleService);
+  pageTitle$ = this.pageTitleService.title$;
+
   getNameInitiales = computed(() => {
     const userData = this.cache.dataCache()?.user;
     if (!userData?.nombre || !userData?.apellido) {
@@ -38,6 +44,7 @@ export default class ToolbarComponent {
     }
     return userData.nombre.charAt(0) + userData.apellido.charAt(0);
   });
+
   search(event: AutoCompleteCompleteEvent) {
     this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
   }
