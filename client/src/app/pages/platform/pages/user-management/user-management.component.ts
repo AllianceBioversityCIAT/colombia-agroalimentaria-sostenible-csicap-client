@@ -1,16 +1,31 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ApiService } from '@shared/services/api.service';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { SelectModule } from 'primeng/select';
 import { GetUsers } from '../../../../shared/interfaces/get/get-users-interface';
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
 import { SelectItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Select } from 'primeng/select';
+import { SkeletonModule } from 'primeng/skeleton';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-management',
-  imports: [TableModule, SectionHeaderComponent, SelectModule, ButtonModule],
+  imports: [
+    TableModule,
+    FormsModule,
+    SectionHeaderComponent,
+    SelectModule,
+    ButtonModule,
+    SkeletonModule,
+    InputTextModule,
+    IconFieldModule,
+    InputIconModule
+  ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'
 })
@@ -23,10 +38,12 @@ export default class UserManagementComponent implements OnInit {
   organizationSelected = signal<number | null>(null);
   roleSelected = signal<number | null>(null);
   gcfComponenteSelected = signal<number | null>(null);
-
+  isTableLoading = signal<boolean>(false);
+  searchInput = signal<HTMLInputElement | null>(null);
   @ViewChild('organizationFilter') organizationFilter!: Select;
   @ViewChild('roleFilter') roleFilter!: Select;
   @ViewChild('gcfComponenteFilter') gcfComponenteFilter!: Select;
+  @ViewChild('usersTable') table!: Table;
 
   columns = signal<Record<string, string>[]>([
     { field: 'persona_nombre', header: 'Nombre' },
@@ -45,12 +62,19 @@ export default class UserManagementComponent implements OnInit {
     this.getGCFComponentesIds();
   }
 
+  get hasFilters() {
+    return !!this.organizationSelected() || !!this.roleSelected() || !!this.gcfComponenteSelected() || this.searchInput() !== null;
+  }
+
   clearFilters() {
+    if (!this.hasFilters) {
+      return;
+    }
+
     this.organizationSelected.set(null);
     this.roleSelected.set(null);
     this.gcfComponenteSelected.set(null);
 
-    // Limpiar los selects visualmente
     if (this.organizationFilter) {
       this.organizationFilter.clear();
     }
@@ -60,51 +84,52 @@ export default class UserManagementComponent implements OnInit {
     if (this.gcfComponenteFilter) {
       this.gcfComponenteFilter.clear();
     }
+    if (this.searchInput) {
+      this.searchInput.set(null);
+    }
 
     this.getUsers();
   }
 
   setOrganizationSelected(event: SelectItem) {
-    console.log('hola');
-    console.log(event.value);
-    this.organizationSelected.set(event.value.id);
+    this.organizationSelected.set(event?.value?.id);
     this.getUsers();
   }
 
   setRoleSelected(event: SelectItem) {
-    this.roleSelected.set(event.value.id);
+    this.roleSelected.set(event?.value?.id);
     this.getUsers();
   }
 
   setGCFComponenteSelected(event: SelectItem) {
-    this.gcfComponenteSelected.set(event.value.id);
+    this.gcfComponenteSelected.set(event?.value?.id);
     this.getUsers();
   }
 
   async getUsers() {
+    this.isTableLoading.set(true);
     const users = await this.api.getUsers({
       organizacion: this.organizationSelected(),
       rol: this.roleSelected(),
       eje: this.gcfComponenteSelected()
     });
     this.users.set(users.data);
+    this.table.reset();
+    this.isTableLoading.set(false);
   }
 
   async getOrganizationsIds() {
     const organizationsIds = await this.api.getOrganizationsIds();
-    console.log(organizationsIds);
     this.organizationsIds.set(organizationsIds.data);
   }
 
   async getGCFComponentesIds() {
     const gcfComponentesIds = await this.api.getGCFComponentesIds();
-    console.log(gcfComponentesIds);
     this.gcfComponentesIds.set(gcfComponentesIds.data);
   }
 
   async getRoles() {
     const roles = await this.api.getRoles();
-    console.log(roles);
     this.roles.set(roles.data);
   }
 }

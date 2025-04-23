@@ -6,6 +6,12 @@ import { TableModule } from 'primeng/table';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { SectionHeaderComponent } from '../../../../shared/components/section-header/section-header.component';
+import { FormsModule } from '@angular/forms';
+import { SkeletonModule } from 'primeng/skeleton';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { Table } from 'primeng/table';
 
 class MockResizeObserver {
   observe() {}
@@ -17,6 +23,7 @@ describe('UserManagementComponent', () => {
   let component: UserManagementComponent;
   let fixture: ComponentFixture<UserManagementComponent>;
   let apiService: jest.Mocked<ApiService>;
+  let mockTable: jest.Mocked<Table>;
 
   beforeAll(() => {
     global.ResizeObserver = MockResizeObserver;
@@ -30,14 +37,29 @@ describe('UserManagementComponent', () => {
       getGCFComponentesIds: jest.fn().mockResolvedValue({ data: [] })
     };
 
+    mockTable = {
+      reset: jest.fn()
+    } as unknown as jest.Mocked<Table>;
+
     await TestBed.configureTestingModule({
-      imports: [UserManagementComponent, TableModule, SelectModule, ButtonModule, SectionHeaderComponent],
+      imports: [
+        TableModule,
+        FormsModule,
+        SectionHeaderComponent,
+        SelectModule,
+        ButtonModule,
+        SkeletonModule,
+        InputTextModule,
+        IconFieldModule,
+        InputIconModule
+      ],
       providers: [{ provide: ApiService, useValue: mockApiService }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
+    component.table = mockTable;
     apiService = TestBed.inject(ApiService) as jest.Mocked<ApiService>;
   });
 

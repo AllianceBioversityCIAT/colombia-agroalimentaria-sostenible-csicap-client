@@ -15,7 +15,7 @@ export class CacheService {
   currentResultIsLoading = signal(false);
   currentResultId: WritableSignal<number> = signal(0);
   hasSmallScreen = computed(() => this.windowHeight() < 768);
-  hasSmallScreenWidth = computed(() => this.windowWidth() < 1280);
+  hasSmallScreenWidth = computed(() => this.windowWidth() <= 1280);
   isSidebarCollapsed = signal<boolean>(localStorage.getItem('isSidebarCollapsed') === 'true');
 
   toggleSidebar() {
