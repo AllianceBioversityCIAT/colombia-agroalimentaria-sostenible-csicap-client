@@ -12,6 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FormsModule } from '@angular/forms';
+import { DrawerModule } from 'primeng/drawer';
+import { UserFormComponent } from './components/user-form/user-form.component';
+
 
 @Component({
   selector: 'app-user-management',
@@ -24,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     SkeletonModule,
     InputTextModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    DrawerModule,
+    UserFormComponent
   ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'
@@ -44,6 +49,16 @@ export default class UserManagementComponent implements OnInit {
   @ViewChild('roleFilter') roleFilter!: Select;
   @ViewChild('gcfComponenteFilter') gcfComponenteFilter!: Select;
   @ViewChild('usersTable') table!: Table;
+  visible = signal(false);
+
+  openDrawer() {
+    this.visible.set(true);  // Abrir el drawer
+  }
+
+  closeDrawer() {
+    this.visible.set(false);  // Cerrar el drawer
+  }
+
 
   columns = signal<Record<string, string>[]>([
     { field: 'persona_nombre', header: 'Nombre' },

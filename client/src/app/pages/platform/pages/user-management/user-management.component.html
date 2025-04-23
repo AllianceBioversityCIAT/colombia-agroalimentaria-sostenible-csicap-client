@@ -1,8 +1,16 @@
 <app-section-header header="Usuarios" [centered]="false">
   <div class="mx-6">
-    <div actions>
-      <p-button icon="pi pi-users" label="Crear usuario" severity="primary" size="small" [disabled]="true" />
-    </div>
+
+    <p-button
+    icon="pi pi-users"
+    label="Crear usuario"
+    severity="primary"
+    size="small"
+    (click)="openDrawer()">
+  </p-button>
+
+  <app-user-form [visible]="visible()"></app-user-form>
+
     <div class="flex py-2">
       <div class="flex gap-4 justify-space-between w-full">
         <p-select
@@ -93,3 +101,4 @@
     </p-table>
   </div>
 </app-section-header>
+

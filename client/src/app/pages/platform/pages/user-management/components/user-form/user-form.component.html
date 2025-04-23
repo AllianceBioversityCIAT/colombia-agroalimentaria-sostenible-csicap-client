@@ -1,0 +1,55 @@
+<p-drawer
+  header="Crear usuario"
+  [visible]="visible"
+  position="right"
+  [modal]="true"
+  (onHide)="closeDrawer()">
+  <div class="grid gap-6">
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">¿Eres usuario CGIAR?</span>
+      <div class="grid gap-2">
+        <div class="flex gap-2">
+          <p-radioButton name="option" value="yes" [(ngModel)]="selectedOption" inputId="yes" />
+          <label for="yes">Sí</label>
+        </div>
+        <div class="flex gap-2">
+          <p-radioButton name="option" value="no" [(ngModel)]="selectedOption" inputId="no" />
+          <label for="no">No</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Nombre</span>
+      <input pInputText type="text" pSize="small" placeholder="Ingrese el nombre completo" />
+    </div>
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Apellido</span>
+      <input pInputText type="text" pSize="small" placeholder="Ingrese el apellido completo" />
+    </div>
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Organización</span>
+      <p-multiselect class="text-sm" [options]="organizations" optionLabel="name" placeholder="Seleccionar organización"/>
+    </div>
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Correo electrónico</span>
+      <input pInputText type="text" pSize="small" placeholder="Ingrese el correo electrónico" />
+      <span class="font-light text-xs leading-[120%] font-inter ">La contraseña será enviada automaticamente al correo electrónico del usuario.</span>
+    </div>
+
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Rol</span>
+      <p-multiselect class="text-sm" [options]="organizations" optionLabel="name" placeholder="Seleccionar rol"/>
+    </div>
+    <div class="grid gap-4">
+      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">Eje</span>
+      <p-multiselect class="text-sm" [options]="organizations" optionLabel="name" placeholder="Seleccionar eje"/>
+    </div>
+    <p-button
+      label="Crear"
+      severity="primary"
+      size="small">
+    </p-button>
+</div>
+</p-drawer>
+
