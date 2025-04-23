@@ -57,8 +57,6 @@ export class ApiService {
   }): Promise<MainResponse<GetUsers[]>> => {
     const params = new URLSearchParams();
 
-    console.log(eje, rol, organizacion);
-    console.log(eje);
     if (eje) params.append('eje', String(eje));
     if (rol) params.append('rol', String(rol));
     if (organizacion) params.append('organizacion', String(organizacion));
