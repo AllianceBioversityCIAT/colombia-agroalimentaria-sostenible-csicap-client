@@ -4,6 +4,8 @@ import ToolbarComponent from './toolbar.component';
 import { CacheService } from '../../services/cache/cache.service';
 import { signal } from '@angular/core';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -29,7 +31,15 @@ describe('ToolbarComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ToolbarComponent],
-      providers: [{ provide: CacheService, useValue: mockCacheService }],
+      providers: [
+        { provide: CacheService, useValue: mockCacheService },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 'testId' })
+          }
+        }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
