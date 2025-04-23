@@ -93,16 +93,19 @@ export default class UserManagementComponent implements OnInit {
 
   setOrganizationSelected(event: SelectItem) {
     this.organizationSelected.set(event?.value?.id);
+    this.searchInput.set(null);
     this.getUsers();
   }
 
   setRoleSelected(event: SelectItem) {
     this.roleSelected.set(event?.value?.id);
+    this.searchInput.set(null);
     this.getUsers();
   }
 
   setGCFComponenteSelected(event: SelectItem) {
     this.gcfComponenteSelected.set(event?.value?.id);
+    this.searchInput.set(null);
     this.getUsers();
   }
 
