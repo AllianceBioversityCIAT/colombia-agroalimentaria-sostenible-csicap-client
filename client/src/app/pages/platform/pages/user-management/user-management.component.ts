@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 import { DrawerModule } from 'primeng/drawer';
 import { UserFormComponent } from './components/user-form/user-form.component';
 
-
 @Component({
   selector: 'app-user-management',
   imports: [
@@ -49,16 +48,6 @@ export default class UserManagementComponent implements OnInit {
   @ViewChild('roleFilter') roleFilter!: Select;
   @ViewChild('gcfComponenteFilter') gcfComponenteFilter!: Select;
   @ViewChild('usersTable') table!: Table;
-  visible = signal(false);
-
-  openDrawer() {
-    this.visible.set(true);  // Abrir el drawer
-  }
-
-  closeDrawer() {
-    this.visible.set(false);  // Cerrar el drawer
-  }
-
 
   columns = signal<Record<string, string>[]>([
     { field: 'persona_nombre', header: 'Nombre' },

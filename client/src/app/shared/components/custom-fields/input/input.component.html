@@ -1,7 +1,7 @@
 <div class="input-container">
   @if (label) {
-    <label class="label flex items-center" for="username"
-      >{{ label }}
+    <label class="label flex items-center mb-2 font-medium text-base leading-[120%] font-inter text-[#0B655B]" for="username">
+      {{ label }}
       @if (isRequired) {
         <span class="text-red-500">*</span>
       }
@@ -13,7 +13,7 @@
   @if (currentResultIsLoading()) {
     <p-skeleton width="100%" height="2.8rem" styleClass="mb-2" />
   } @else {
-    <div>
+    <div [ngClass]="{ 'mb-1': !!inputCaption }">
       @if (type === 'text') {
         <input
           pInputText
@@ -43,9 +43,12 @@
             <span>{{ this.inputValid().message }}</span>
           </div>
         } @else {
-          <small class="p-error" id="username-help">{{ this.inputValid().message }}</small>
+          <!-- <small class="p-error" id="username-help">{{ this.inputValid().message }}</small> -->
         }
       }
     </div>
+  }
+  @if (inputCaption) {
+    <p class="font-light text-sm leading-normal font-inter text-[#6B7280]">{{ inputCaption }}</p>
   }
 </div>

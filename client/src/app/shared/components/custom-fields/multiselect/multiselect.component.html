@@ -1,8 +1,8 @@
 @let list = this.signal()[this.signalOptionValue];
 <div class="input-container">
   @if (label) {
-    <label class="label flex items-center" for="username"
-      >{{ label }}
+    <label class="label flex items-center mb-2 font-medium text-base leading-[120%] font-inter text-[#0B655B]" for="username">
+      {{ label }}
       @if (isRequired) {
         <span class="text-red-500">*</span>
       }
@@ -11,12 +11,12 @@
   @if (description) {
     <small class="description" for="username" [innerHTML]="description"></small>
   }
-  @if (showPartnerRequestDescription) {
+  <!-- @if (showPartnerRequestDescription) {
     <small class="description">
       Can't find the institution you need? Request to add it
       <span (click)="this.allModalsService.openModal('requestPartner')" class="text-[#2792ce] cursor-pointer underline">here</span>.
     </small>
-  }
+  } -->
 </div>
 <div class="items">
   <ng-template #defaultTemplate let-list> {{ list[this.optionLabel] }} </ng-template>
@@ -33,7 +33,7 @@
         [optionLabel]="this.optionLabel"
         [showToggleAll]="false"
         [optionValue]="this.optionValue"
-        placeholder="Select items"
+        [placeholder]="placeholder"
         [(ngModel)]="this.body().value"
         (ngModelChange)="this.setValue($event)"
         [virtualScroll]="true"
@@ -49,7 +49,7 @@
                   class="p-inputtext p-component"
                   (input)="onFilter({ filter: filter.value })"
                   (click)="$event.stopPropagation()"
-                  placeholder="Search..." />
+                  placeholder="Buscar..." />
               </div>
             </div>
           </ng-template>

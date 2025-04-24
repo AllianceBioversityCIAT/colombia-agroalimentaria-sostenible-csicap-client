@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, computed, effect, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ControlListServices } from '../../../interfaces/services.interface';
 import { ServiceLocatorService } from '../../../services/service-locator.service';
@@ -9,13 +9,15 @@ import { UtilsService } from '../../../services/utils.service';
 import { environment } from '../../../../../environments/environment';
 import { TooltipModule } from 'primeng/tooltip';
 import { SelectModule } from 'primeng/select';
-import { AllModalsService } from '@shared/services/cache/all-modals.service';
+import { AllModalsService } from '../../../services/cache/all-modals.service';
 
 @Component({
   selector: 'app-select',
+  standalone: true,
   imports: [FormsModule, SkeletonModule, TooltipModule, SelectModule],
   templateUrl: './select.component.html',
-  styleUrl: './select.component.scss'
+  styleUrl: './select.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectComponent implements OnInit {
   currentResultIsLoading = inject(CacheService).currentResultIsLoading;
@@ -30,12 +32,13 @@ export class SelectComponent implements OnInit {
   @Input() showPartnerRequestDescription = false;
   @Input() disabled = false;
   @Input() isRequired = false;
+  @Input() placeholder = '';
   @Input() flagAttributes: { isoAlpha2: string; institution_location_name: string } = { isoAlpha2: '', institution_location_name: '' };
 
   allModalsService = inject(AllModalsService);
 
   service: any;
-  body = signal({ value: null });
+  body: WritableSignal<any> = signal({ value: null });
   environment = environment;
 
   isInvalid = computed(() => {

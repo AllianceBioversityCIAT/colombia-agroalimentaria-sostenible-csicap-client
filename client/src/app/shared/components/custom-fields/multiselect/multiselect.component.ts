@@ -55,6 +55,7 @@ export class MultiselectComponent implements OnInit {
   @Input() disabledSelectedScroll = false;
   @Input() showPartnerRequestDescription = false;
   @Input() isRequired = false;
+  @Input() placeholder = '';
   @Input() flagAttributes: { isoAlpha2: string; institution_location_name: string } = { isoAlpha2: '', institution_location_name: '' };
 
   selectEvent = output<any>();

@@ -7,9 +7,10 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { CacheService } from '../../../services/cache/cache.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UtilsService } from '../../../services/utils.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-input',
-  imports: [FormsModule, InputTextModule, SkeletonModule, InputNumberModule],
+  imports: [FormsModule, CommonModule, InputTextModule, SkeletonModule, InputNumberModule],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss'
 })
@@ -28,6 +29,7 @@ export class InputComponent {
   @Input() isRequired = false;
   @Input() onlyLowerCase = false;
   @Input() autoComplete: 'on' | 'off' = 'on';
+  @Input() inputCaption = '';
   body = signal({ value: null });
   firstTime = signal(true);
 
