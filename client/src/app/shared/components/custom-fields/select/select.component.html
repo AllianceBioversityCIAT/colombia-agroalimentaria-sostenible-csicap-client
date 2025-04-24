@@ -23,11 +23,11 @@
   } @else {
     <div>
       <p-select
-        [disabled]="disabled"
+        [disabled]="disabled || (this.endpointParams ? this.loadingList() : this.service?.loading())"
         [style]="isInvalid() ? { width: '100%', border: '2px solid #E69F00' } : { width: '100%' }"
         (ngModelChange)="this.setValue($event)"
-        [loading]="this.service?.loading()"
-        [options]="this.service?.list()"
+        [loading]="this.endpointParams ? this.loadingList() : this.service?.loading()"
+        [options]="this.endpointParams ? this.listInstance() : this.service?.list()"
         [(ngModel)]="this.body().value"
         [virtualScroll]="true"
         [placeholder]="placeholder"

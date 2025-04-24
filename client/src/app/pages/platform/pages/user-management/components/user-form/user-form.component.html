@@ -1,47 +1,130 @@
 <div class="absolute right-6 top-3.5">
-  <p-button icon="pi pi-users" label="Crear usuario" severity="primary" size="small" (click)="openDrawer()"> </p-button>
+  <p-button
+    icon="pi pi-users"
+    label="Crear usuario"
+    severity="primary"
+    size="small"
+    (click)="openDrawer()">
+  </p-button>
 </div>
 
+<p-toast></p-toast>
+
 <p-drawer
-  header="Crear usuario"
+  [header]="formTitle()"
   [visible]="visible()"
   position="right"
   [modal]="true"
   (onHide)="closeDrawer()"
   styleClass="!w-full md:!w-80 lg:!w-[24rem] 2xl:!w-[30rem]">
-  <div class="grid gap-6">
-    <div class="grid gap-4">
-      <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">¿Eres usuario CGIAR?</span>
+  @if (loaded()) {
+    <div class="grid gap-6">
+      <div class="grid gap-4">
+        <span class="font-medium text-base leading-[120%] font-inter text-[#0B655B]">
+          ¿Eres usuario CGIAR?
+        </span>
 
-      <div class="grid gap-2">
-        <div class="flex gap-2">
-          <p-radioButton name="option" value="yes" [(ngModel)]="selectedOption" inputId="yes" />
-          <label for="yes">Sí</label>
-        </div>
+        <div class="grid gap-2">
+          <div class="flex gap-2">
+            <p-radioButton
+              name="option"
+              [value]="true"
+              inputId="yes"
+              [(ngModel)]="body().is_cgiar"
+              (ngModelChange)="clearDynamicFields(true)" />
+            <label for="yes">Sí</label>
+          </div>
 
-        <div class="flex gap-2">
-          <p-radioButton name="option" value="no" [(ngModel)]="selectedOption" inputId="no" />
-          <label for="no">No</label>
+          <div class="flex gap-2">
+            <p-radioButton
+              name="option"
+              [value]="false"
+              inputId="no"
+              [(ngModel)]="body().is_cgiar"
+              (ngModelChange)="clearDynamicFields(false)" />
+            <label for="no">No</label>
+          </div>
         </div>
       </div>
+
+      <app-input
+        #firstNameInput
+        label="Nombre"
+        placeholder="Ingrese el nombre completo"
+        [signal]="body"
+        optionValue="first_name"
+        autoComplete="off" />
+
+      <app-input
+        #lastNameInput
+        label="Apellido"
+        placeholder="Ingrese el apellido completo"
+        [signal]="body"
+        optionValue="last_name"
+        autoComplete="off" />
+
+      <app-select
+        #organizacionSelect
+        label="Organización"
+        placeholder="Seleccionar organización"
+        [signal]="body"
+        [optionValue]="{ body: 'organizacion_id', option: 'id' }"
+        serviceName="organizations_by_isCgiar"
+        optionLabel="nombre_corto"
+        [endpointParams]="{ is_cgiar: body().is_cgiar }"
+        [disabled]="body().is_cgiar === null"
+        (valueChange)="clearRolesField()" />
+
+      <app-input
+        #emailInput
+        label="Correo electrónico"
+        placeholder="Ingrese el correo electrónico"
+        pattern="email"
+        [signal]="body"
+        optionValue="email"
+        inputCaption="La contraseña será enviada automaticamente al correo electrónico del usuario."
+        autoComplete="off">
+      </app-input>
+
+      <app-multiselect-instance
+        #roleMultiselect
+        label="Rol"
+        placeholder="Seleccionar rol"
+        [signal]="body"
+        [optionValue]="'id'"
+        [signalOptionValue]="'role_id'"
+        optionLabel="nombre"
+        serviceName="roles_by_organization"
+        [endpointParams]="{ organization_id: body().organizacion_id }"
+        [disabled]="body().organizacion_id === null"
+        (selectEvent)="clearEjeField()" />
+
+      <app-select
+        #ejeSelect
+        label="Eje"
+        placeholder="Seleccionar eje"
+        [signal]="body"
+        [optionValue]="{ body: 'eje_id', option: 'id' }"
+        optionLabel="nombre"
+        serviceName="eje_by_role"
+        [endpointParams]="{ roles: body().role_id }"
+        [disabled]="body().role_id === null" />
+
+      <!-- <p-button
+      class="w-fit"
+      [label]="submitButtonLabel()"
+      severity="primary"
+      size="small"
+      [loading]="isLoading()"
+      (click)="submitForm()"
+      [disabled]="!isFormValid()"></p-button> -->
+      <p-button
+        class="w-fit"
+        [label]="submitButtonLabel()"
+        severity="primary"
+        size="small"
+        [loading]="isLoading()"
+        (click)="submitForm()"></p-button>
     </div>
-
-    <app-input label="Nombre" placeholder="Ingrese el nombre completo" />
-
-    <app-input label="Apellido" placeholder="Ingrese el apellido completo" />
-
-    <app-select label="Organización" placeholder="Seleccionar organización" />
-
-    <app-input
-      label="Correo electrónico"
-      placeholder="Ingrese el correo electrónico"
-      [pattern]="'email'"
-      inputCaption="La contraseña será enviada automaticamente al correo electrónico del usuario." />
-
-    <app-select label="Rol" placeholder="Seleccionar rol" />
-
-    <app-select label="Eje" placeholder="Seleccionar eje" />
-
-    <p-button label="Crear" severity="primary" size="small"> </p-button>
-  </div>
+  }
 </p-drawer>

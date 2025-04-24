@@ -1,5 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeDetectionStrategy, Component, computed, effect, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  signal,
+  SimpleChanges,
+  WritableSignal,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ControlListServices } from '../../../interfaces/services.interface';
 import { ServiceLocatorService } from '../../../services/service-locator.service';
@@ -19,7 +33,7 @@ import { AllModalsService } from '../../../services/cache/all-modals.service';
   styleUrl: './select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent implements OnInit, OnChanges {
   currentResultIsLoading = inject(CacheService).currentResultIsLoading;
   utils = inject(UtilsService);
   @Input() signal: WritableSignal<any> = signal({});
@@ -33,8 +47,15 @@ export class SelectComponent implements OnInit {
   @Input() disabled = false;
   @Input() isRequired = false;
   @Input() placeholder = '';
-  @Input() flagAttributes: { isoAlpha2: string; institution_location_name: string } = { isoAlpha2: '', institution_location_name: '' };
+  @Input() flagAttributes: { isoAlpha2: string; institution_location_name: string } = {
+    isoAlpha2: '',
+    institution_location_name: ''
+  };
+  @Output() valueChange = new EventEmitter<any>();
 
+  @Input() endpointParams: any = null;
+  listInstance = signal<any[]>([]);
+  loadingList = signal(false);
   allModalsService = inject(AllModalsService);
 
   service: any;
@@ -47,20 +68,43 @@ export class SelectComponent implements OnInit {
 
   constructor(private serviceLocator: ServiceLocatorService) {}
 
-  onSectionLoad = effect(
-    () => {
-      if (!this.currentResultIsLoading())
-        this.body.update(current => {
-          this.utils.setNestedPropertyWithReduce(current, 'value', this.utils.getNestedProperty(this.signal(), this.optionValue.body));
-          return { ...current };
-        });
-    },
-    { allowSignalWrites: true }
-  );
+  onSectionLoad = effect(() => {
+    if (!this.currentResultIsLoading())
+      this.body.update(current => {
+        this.utils.setNestedPropertyWithReduce(
+          current,
+          'value',
+          this.utils.getNestedProperty(this.signal(), this.optionValue.body)
+        );
+        return { ...current };
+      });
+  });
 
   ngOnInit(): void {
     this.service = this.serviceLocator.getService(this.serviceName);
+
+    // validate if endpointParams child is not null
+    if (
+      this.endpointParams &&
+      Object.keys(this.endpointParams).length > 0 &&
+      !Object.values(this.endpointParams).some(value => value === null)
+    ) {
+      this.getListInstance();
+    }
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['endpointParams'] && !changes['endpointParams'].firstChange && this.service) {
+      this.getListInstance();
+    }
+  }
+
+  getListInstance = async () => {
+    this.loadingList.set(true);
+    const signal = await this.service.getInstance(this.endpointParams);
+    this.listInstance.set(signal());
+    this.loadingList.set(false);
+  };
 
   onFilter(event: any) {
     if (this.service?.isOpenSearch()) this.service.update(event.filter);
@@ -69,5 +113,6 @@ export class SelectComponent implements OnInit {
   setValue(value: any) {
     this.body.set({ value: value });
     this.utils.setNestedPropertyWithReduceSignal(this.signal, this.optionValue.body, value);
+    this.valueChange.emit(value);
   }
 }

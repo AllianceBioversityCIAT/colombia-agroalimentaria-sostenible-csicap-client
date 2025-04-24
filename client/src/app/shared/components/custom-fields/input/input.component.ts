@@ -33,15 +33,12 @@ export class InputComponent {
   body = signal({ value: null });
   firstTime = signal(true);
 
-  onChange = effect(
-    () => {
-      if (this.firstTime() && !this.currentResultIsLoading()) {
-        this.body.set({ value: this.utils.getNestedProperty(this.signal(), this.optionValue) });
-        this.firstTime.set(false);
-      }
-    },
-    { allowSignalWrites: true }
-  );
+  onChange = effect(() => {
+    if (this.firstTime() && !this.currentResultIsLoading()) {
+      this.body.set({ value: this.utils.getNestedProperty(this.signal(), this.optionValue) });
+      this.firstTime.set(false);
+    }
+  });
 
   isInvalid = computed(() => {
     return this.isRequired && !this.body()?.value;
@@ -57,7 +54,11 @@ export class InputComponent {
     }
     if (this.pattern) {
       const valid = new RegExp(this.getPattern().pattern).test(value);
-      return { valid: valid, class: valid ? '' : 'ng-invalid ng-dirty', message: this.getPattern().message };
+      return {
+        valid: valid,
+        class: valid ? '' : 'ng-invalid ng-dirty',
+        message: this.getPattern().message
+      };
     }
     return { valid: true, class: '', message: '' };
   });
@@ -73,10 +74,14 @@ export class InputComponent {
   getPattern() {
     switch (this.pattern) {
       case 'email':
-        return { pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', message: 'Please enter a valid email address.' };
+        return {
+          pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
+          message: 'Please enter a valid email address.'
+        };
       case 'url':
         return {
-          pattern: "^(https?:\\/\\/)?([\\w-]+(\\.[\\w-]+)*\\.([a-z]{2,}))(\\/[\\w\\-._~:/?#\\[\\]@!$&'()*+,;=%-]*)?$",
+          pattern:
+            "^(https?:\\/\\/)?([\\w-]+(\\.[\\w-]+)*\\.([a-z]{2,}))(\\/[\\w\\-._~:/?#\\[\\]@!$&'()*+,;=%-]*)?$",
           message: 'Please enter a valid URL.'
         };
       default:
