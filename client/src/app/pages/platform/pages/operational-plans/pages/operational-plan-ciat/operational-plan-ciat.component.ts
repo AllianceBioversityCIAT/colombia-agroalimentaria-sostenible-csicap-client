@@ -55,6 +55,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
     { field: 'deliveryDate', header: 'Fecha de entrega', minWidth: '200px' }
   ];
 
+  activeObjectiveIndex = signal<number>(0);
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
   currentActivitiesWithRowspan = computed<TableActivity[]>(() => {
@@ -88,7 +89,10 @@ export default class OperationalPlanCiatComponent implements OnInit {
     this.getPlanOperativoCiat();
   }
 
-  setCurrentActivities = (index: number) => this.currentActivities.set(this.objectives()[index]?.actividades || []);
+  setCurrentActivities = (index: number) => {
+    this.currentActivities.set(this.objectives()[index]?.actividades || []);
+    this.activeObjectiveIndex.set(index);
+  };
 
   async getPlanOperativoCiat() {
     const response = await this.api.getPlanOperativoCiat();

@@ -9,7 +9,7 @@
       </p-tablist>
     </p-tabs>
     <div class="flex font-inter font-normal leading-6 text-[#6B7280] my-8">
-      Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+      {{ objectives()[activeObjectiveIndex()].nombre_obj }}
     </div>
     <div class="card max-w-[calc(100vw-400px)] overflow-hidden">
       <p-table [value]="currentActivitiesWithRowspan()" [scrollable]="true" styleClass="p-datatable-gridlines rounded-table" showGridlines>
@@ -25,7 +25,6 @@
                 {{ col.header }}
               </th>
             }
-            <!-- <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-activity>
