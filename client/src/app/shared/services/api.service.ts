@@ -13,12 +13,16 @@ import {
   GetOrganizationsIdsFilter,
   GetRolesFilter
 } from '../interfaces/get/get-users-filter.interface';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@envs/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   TP = inject(ToPromiseService);
   cache = inject(CacheService);
+  http = inject(HttpClient);
+
   //? >>>>>>>>>>>> Endpoints <<<<<<<<<<<<<<<<<
   login = (awsToken: string): Promise<MainResponse<LoginRes>> => {
     const url = () => `authorization/login`;
@@ -116,6 +120,18 @@ export class ApiService {
   getPlanOperativoCiat = (): Promise<MainResponse<GetOperationalPlanCiat[]>> => {
     const url = () => `bpin-objetivos/plan-operativo-ciat`;
     return this.TP.get(url(), {});
+  };
+
+  downloadPlanOperativoCiatExcel = (): void => {
+    const url = `${environment.mainApiUrl}bpin-objetivos/excel-plan-operativo-ciat`;
+    this.http.get(url, { responseType: 'blob' }).subscribe((response: Blob) => {
+      const downloadUrl = window.URL.createObjectURL(response);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'plan-operativo-ciat.xlsx';
+      link.click();
+      window.URL.revokeObjectURL(downloadUrl);
+    });
   };
 
   // GET_IndicatorTypes = (): Promise<MainResponse<IndicatorTypes[]>> => {

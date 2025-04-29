@@ -113,4 +113,8 @@ export default class OperationalPlanCiatComponent implements OnInit {
     this.currentActivities.set(this.objectives()[0].actividades);
     console.log(this.currentActivities());
   }
+
+  downloadExcel() {
+    this.api.downloadPlanOperativoCiatExcel();
+  }
 }
