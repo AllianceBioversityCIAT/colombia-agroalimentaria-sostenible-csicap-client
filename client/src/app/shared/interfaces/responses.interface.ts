@@ -6,6 +6,16 @@ export interface MainResponse<T> {
   path: string;
   successfulRequest: boolean;
   errorDetail: ErrorResponse;
+  ok?: boolean;
+  error?: NewErrorResponse;
+}
+
+export interface NewErrorResponse {
+  description: string;
+  status: number;
+  errors: string;
+  timestamp: string;
+  path: string;
 }
 
 export class multiControlListResponse<T> {

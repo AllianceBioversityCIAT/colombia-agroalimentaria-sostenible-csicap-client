@@ -1,6 +1,6 @@
 <app-section-header header="Usuarios" [centered]="false">
   <div class="mx-6">
-    <app-user-form />
+    <app-user-form (userCreated)="getUsers()" />
 
     <div class="flex py-2">
       <div class="flex gap-4 justify-space-between w-full">
@@ -41,7 +41,13 @@
         </p-iconfield>
       </div>
 
-      <p-button (click)="clearFilters()" [disabled]="!hasFilters" icon="pi pi-filter-slash" label="Limpiar" variant="text" severity="secondary" />
+      <p-button
+        (click)="clearFilters()"
+        [disabled]="!hasFilters"
+        icon="pi pi-filter-slash"
+        label="Limpiar"
+        variant="text"
+        severity="secondary" />
     </div>
     <div class="border-b border-gray-300 my-4"></div>
     <p-table
@@ -51,7 +57,14 @@
       [rowsPerPageOptions]="[5, 10, 25, 50]"
       [paginator]="true"
       [loading]="isTableLoading()"
-      [globalFilterFields]="['persona_nombre', 'persona_apellido', 'organizacion_nombre_corto', 'persona_email', 'rol_nombre', 'nombre']"
+      [globalFilterFields]="[
+        'persona_nombre',
+        'persona_apellido',
+        'organizacion_nombre_corto',
+        'persona_email',
+        'rol_nombre',
+        'nombre'
+      ]"
       showGridlines>
       <ng-template #header>
         <tr>
@@ -62,10 +75,13 @@
               style="background-color: #f5f6fa"
               [pSortableColumn]="col['field']"
               [style]="col['styles']">
-              {{ col['header'] }} <p-sortIcon [field]="col['field']" [style]="{ 'margin-left': '0.5rem' }" />
+              {{ col['header'] }}
+              <p-sortIcon [field]="col['field']" [style]="{ 'margin-left': '0.5rem' }" />
             </th>
           }
-          <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
+          <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">
+            Acciones
+          </th>
         </tr>
       </ng-template>
 
@@ -76,8 +92,17 @@
           }
           <td>
             <div class="flex gap-2">
-              <p-button icon="pi pi-eye" [rounded]="true" severity="info" [outlined]="true" size="small" />
-              <p-button icon="pi pi-pen-to-square" [rounded]="true" severity="success" [outlined]="true" />
+              <p-button
+                icon="pi pi-eye"
+                [rounded]="true"
+                severity="info"
+                [outlined]="true"
+                size="small" />
+              <p-button
+                icon="pi pi-pen-to-square"
+                [rounded]="true"
+                severity="success"
+                [outlined]="true" />
               <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="true" />
             </div>
           </td>
