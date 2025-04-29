@@ -1,5 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, computed, ContentChild, effect, inject, Input, signal, TemplateRef, WritableSignal, OnInit, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  ContentChild,
+  effect,
+  inject,
+  Input,
+  signal,
+  TemplateRef,
+  WritableSignal,
+  OnInit,
+  output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { MultiSelectChangeEvent, MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 import { ActionsService } from '../../../services/actions.service';
@@ -15,7 +29,7 @@ import { UtilsService } from '../../../services/utils.service';
   templateUrl: './multiselect-instance.component.html',
   styleUrl: './multiselect-instance.component.scss'
 })
-export class MultiselectInstanceComponent implements OnInit {
+export class MultiselectInstanceComponent implements OnInit, OnChanges {
   currentResultIsLoading = inject(CacheService).currentResultIsLoading;
   utils = inject(UtilsService);
   actions = inject(ActionsService);
@@ -33,6 +47,8 @@ export class MultiselectInstanceComponent implements OnInit {
   @Input() description = '';
   @Input() hideSelected = false;
   @Input() endpointParams: any = {};
+  @Input() disabled = false;
+  @Input() placeholder = '';
   selectEvent = output<any>();
 
   service: any;
@@ -44,22 +60,48 @@ export class MultiselectInstanceComponent implements OnInit {
   });
   firstLoad = signal(true);
 
-  onGlobalLoadingChange = effect(
-    () => {
-      if (this.currentResultIsLoading()) {
-        this.firstLoad.set(true);
-      }
-    },
-    { allowSignalWrites: true }
-  );
+  onGlobalLoadingChange = effect(() => {
+    if (this.currentResultIsLoading()) {
+      this.firstLoad.set(true);
+    }
+  });
 
   ngOnInit(): void {
     this.service = this.serviceLocator.getService(this.serviceName);
-    this.body.set({ value: this.objectArrayToIdArray(this.utils.getNestedProperty(this.signal(), this.signalOptionValue), this.optionValue) });
+    this.body.set({
+      value: this.objectArrayToIdArray(
+        this.utils.getNestedProperty(this.signal(), this.signalOptionValue),
+        this.optionValue
+      )
+    });
 
     // Setup debounced search
 
-    this.getListInstance();
+    if (
+      this.endpointParams &&
+      Object.keys(this.endpointParams).length > 0 &&
+      !Object.values(this.endpointParams).some(value => value === null) &&
+      this.service
+    ) {
+      this.getListInstance();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['endpointParams'] && !changes['endpointParams'].firstChange) {
+      this.refreshListInstance();
+    }
+  }
+
+  refreshListInstance(): void {
+    if (
+      this.service &&
+      this.endpointParams &&
+      Object.keys(this.endpointParams).length > 0 &&
+      !Object.values(this.endpointParams).some(value => value === null)
+    ) {
+      this.getListInstance();
+    }
   }
 
   getListInstance = async () => {
@@ -79,14 +121,21 @@ export class MultiselectInstanceComponent implements OnInit {
 
       // Si el elemento existe en currentArray pero no en event.value, significa que se eliminó
       // Si el elemento existe en event.value pero no en currentArray, significa que se agregó
-      const itemExists = currentArray.some((item: any) => item[this.optionValue] === event.itemValue[this.optionValue]);
+      const itemExists = currentArray.some(
+        (item: any) => item[this.optionValue] === event.itemValue[this.optionValue]
+      );
 
       if (!itemExists) {
         // El elemento no existe, por lo tanto se está agregando
-        this.utils.setNestedPropertyWithReduce(current, this.signalOptionValue, [...currentArray, event.itemValue]);
+        this.utils.setNestedPropertyWithReduce(current, this.signalOptionValue, [
+          ...currentArray,
+          event.itemValue
+        ]);
       } else {
         // El elemento existe, por lo tanto se está eliminando
-        const newArray = currentArray.filter((item: any) => item[this.optionValue] !== event.itemValue[this.optionValue]);
+        const newArray = currentArray.filter(
+          (item: any) => item[this.optionValue] !== event.itemValue[this.optionValue]
+        );
         this.utils.setNestedPropertyWithReduce(current, this.signalOptionValue, newArray);
       }
 

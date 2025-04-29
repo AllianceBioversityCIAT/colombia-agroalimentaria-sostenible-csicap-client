@@ -1,7 +1,7 @@
 <div class="input-container">
   @if (label) {
-    <label class="label flex items-center" for="username"
-      >{{ label }}
+    <label class="label flex items-center mb-2 font-medium text-base leading-[120%] font-inter text-[#0B655B]" for="username">
+      {{ label }}
       @if (isRequired) {
         <span class="text-red-500">*</span>
       }
@@ -11,25 +11,26 @@
     <small class="description" for="username" [innerHTML]="description"></small>
   }
 
-  @if (showPartnerRequestDescription) {
+  <!-- @if (showPartnerRequestDescription) {
     <small class="description">
       Can't find the institution you need? Request to add it
       <span (click)="this.allModalsService.openModal('requestPartner')" class="text-[#2792ce] cursor-pointer underline">here</span>.
     </small>
-  }
+  } -->
 
   @if (this.currentResultIsLoading()) {
     <p-skeleton width="100%" height="41px" styleClass="mb-2" />
   } @else {
     <div>
       <p-select
-        [disabled]="disabled"
+        [disabled]="disabled || (this.endpointParams ? this.loadingList() : this.service?.loading())"
         [style]="isInvalid() ? { width: '100%', border: '2px solid #E69F00' } : { width: '100%' }"
         (ngModelChange)="this.setValue($event)"
-        [loading]="this.service.loading()"
-        [options]="this.service.list()"
+        [loading]="this.endpointParams ? this.loadingList() : this.service?.loading()"
+        [options]="this.endpointParams ? this.listInstance() : this.service?.list()"
         [(ngModel)]="this.body().value"
         [virtualScroll]="true"
+        [placeholder]="placeholder"
         [virtualScrollItemSize]="optionLabel2 ? 60 : 41"
         [optionValue]="this.optionValue.option"
         [filter]="!this.service?.isOpenSearch()"
@@ -47,7 +48,7 @@
                   class="p-inputtext p-component"
                   (input)="onFilter({ filter: filter.value })"
                   (click)="$event.stopPropagation()"
-                  placeholder="Search..." />
+                  placeholder="Buscar..." />
               </div>
             </div>
           </ng-template>
@@ -75,7 +76,6 @@
           </div>
         </ng-template>
 
-        <!-- selected style -->
         <ng-template pTemplate="value" let-item>
           <div [innerHTML]="item[this.optionLabel]" class="selected-item"></div>
         </ng-template>

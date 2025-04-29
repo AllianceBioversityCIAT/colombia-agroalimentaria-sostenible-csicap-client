@@ -1,18 +1,82 @@
-<app-section-header header="Plan Operativo - Alliance Bioversity & CIAT" tagName="2025" [centered]="false">
+<app-section-header
+  header="Plan Operativo - Alliance Bioversity & CIAT"
+  tagName="2025"
+  [centered]="false">
+  <div actions class="flex gap-2 overflow-hidden">
+    <p-button
+      icon="pi pi-file"
+      size="small"
+      [style]="{
+        'background-color': '#00A5511A',
+        border: 'none',
+        color: '#4CAF50',
+        'white-space': 'nowrap',
+        'min-width': 'fit-content',
+        cursor: 'pointer'
+      }"></p-button>
+    <p-button
+      icon="pi pi-file-excel"
+      size="small"
+      [style]="{
+        'background-color': '#9A5DFC26',
+        border: 'none',
+        color: '#7E57C2',
+        'white-space': 'nowrap',
+        'min-width': 'fit-content',
+        cursor: 'pointer'
+      }"
+      (click)="downloadExcel()"></p-button>
+    <p-button
+      icon="pi pi-file-pdf"
+      size="small"
+      [style]="{
+        'background-color': '#F13C3C1A',
+        border: 'none',
+        color: '#F44336',
+        'white-space': 'nowrap',
+        'min-width': 'fit-content',
+        cursor: 'pointer'
+      }"></p-button>
+    <p-button
+      icon="pi pi-print"
+      size="small"
+      [style]="{
+        'background-color': '#FF84001A',
+        border: 'none',
+        color: '#FF9800',
+        'white-space': 'nowrap',
+        'min-width': 'fit-content',
+        cursor: 'pointer'
+      }"></p-button>
+  </div>
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
         @for (objective of objectives(); track objective.id_obj) {
           @let index = $index + 1;
-          <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
+          <p-tab (click)="setCurrentActivities($index)" [value]="index"
+            >Objetivo {{ index }}
+          </p-tab>
         }
       </p-tablist>
     </p-tabs>
     <div class="flex font-inter font-normal leading-6 text-[#6B7280] my-8">
-      Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+      {{ objectives()[activeObjectiveIndex()].nombre_obj }}
     </div>
-    <div class="card max-w-[calc(100vw-400px)] overflow-hidden">
-      <p-table [value]="currentActivitiesWithRowspan()" [scrollable]="true" styleClass="p-datatable-gridlines rounded-table" showGridlines>
+
+    <div
+      class="card overflow-hidden transition- duration-300"
+      [ngClass]="{
+        'max-w-[calc(100vw-180px)]': cache.isSidebarCollapsed(),
+        'max-w-[calc(100vw-392px)]': !cache.isSidebarCollapsed()
+      }">
+      <p-table
+        [value]="currentActivitiesWithRowspan()"
+        [scrollable]="false"
+        styleClass="p-datatable-gridlines rounded-table"
+        showGridlines
+        [scrollable]="true"
+        scrollHeight="calc(100vh - 430px)">
         <ng-template pTemplate="header">
           <tr>
             @for (col of columns; track $index) {
@@ -25,21 +89,25 @@
                 {{ col.header }}
               </th>
             }
-            <!-- <th class="text-base p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-activity>
           <tr>
             @if (activity.rowspan > 0) {
               <td class="text-sm" [attr.rowspan]="activity.rowspan">{{ activity.nombre_actv }}</td>
+              <td class="text-sm" [attr.rowspan]="activity.rowspan">
+                {{ activity.nombre_subActv }}
+              </td>
+              <td class="text-sm" [attr.rowspan]="activity.rowspan">{{ activity.budget }}</td>
             }
-            <td class="text-sm">{{ activity.nombre_subActv }}</td>
             <td class="text-sm">{{ activity.axis }}</td>
             <td class="text-sm">{{ activity.responsible }}</td>
             <td class="text-sm">{{ activity.productNumber }}</td>
             <td class="text-sm">{{ activity.product }}</td>
             <td class="text-sm">{{ activity.productDescription }}</td>
-            <td class="text-sm">{{ activity.deliveryDate | date: "MMMM d'/'y" : undefined : 'es' }}</td>
+            <td class="text-sm">
+              {{ activity.deliveryDate | date: "MMMM d'/'y" : undefined : 'es' }}
+            </td>
           </tr>
         </ng-template>
       </p-table>

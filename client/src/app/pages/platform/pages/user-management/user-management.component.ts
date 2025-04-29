@@ -12,6 +12,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FormsModule } from '@angular/forms';
+import { DrawerModule } from 'primeng/drawer';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @Component({
   selector: 'app-user-management',
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     SkeletonModule,
     InputTextModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    DrawerModule,
+    UserFormComponent
   ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.scss'

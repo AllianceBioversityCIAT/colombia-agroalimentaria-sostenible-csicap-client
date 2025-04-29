@@ -12,6 +12,7 @@
     <p-skeleton width="100%" height="41px" styleClass="mb-2" />
   } @else {
     <p-multiSelect
+      [disabled]="disabled"
       [style]="{ width: '100%' }"
       [loading]="this.loadingList()"
       [options]="this.listInstance()"
@@ -20,12 +21,13 @@
       [optionLabel]="this.optionLabel"
       [showToggleAll]="false"
       [optionValue]="this.optionValue"
-      placeholder="Select items"
+      [placeholder]="placeholder"
       [(ngModel)]="this.body().value"
       (onChange)="this.setValue($event)"
       [virtualScroll]="true"
+      [maxSelectedLabels]="1"
       [virtualScrollItemSize]="41">
-      <ng-template let-value pTemplate="selectedItems"> {{ this.body().value?.length }} items selected </ng-template>
+      <!-- <ng-template let-value pTemplate="selectedItems"> {{ this.body().value?.length }} items selected </ng-template> -->
 
       @if (!this.hideSelected) {
         <ng-template let-item pTemplate="item"><span [innerHTML]="item[this.optionLabel]"></span></ng-template>
