@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CacheService } from '@shared/services/cache/cache.service';
 import { CommonModule } from '@angular/common';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface Tabs {
   title: string;
@@ -42,7 +43,15 @@ interface TableActivity {
 
 @Component({
   selector: 'app-operational-plan-ciat',
-  imports: [SectionHeaderComponent, TabsModule, TableModule, DatePipe, ButtonModule, CommonModule],
+  imports: [
+    SectionHeaderComponent,
+    TabsModule,
+    TableModule,
+    DatePipe,
+    ButtonModule,
+    CommonModule,
+    TooltipModule
+  ],
   templateUrl: './operational-plan-ciat.component.html',
   styleUrl: './operational-plan-ciat.component.scss'
 })
