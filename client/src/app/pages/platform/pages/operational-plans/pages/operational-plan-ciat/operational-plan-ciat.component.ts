@@ -10,6 +10,8 @@ import {
 } from '../../../../../../shared/interfaces/get/get-operational-plan-ciat.interface';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { CacheService } from '@shared/services/cache/cache.service';
+import { CommonModule } from '@angular/common';
 
 interface Tabs {
   title: string;
@@ -40,7 +42,7 @@ interface TableActivity {
 
 @Component({
   selector: 'app-operational-plan-ciat',
-  imports: [SectionHeaderComponent, TabsModule, TableModule, DatePipe, ButtonModule],
+  imports: [SectionHeaderComponent, TabsModule, TableModule, DatePipe, ButtonModule, CommonModule],
   templateUrl: './operational-plan-ciat.component.html',
   styleUrl: './operational-plan-ciat.component.scss'
 })
@@ -48,6 +50,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
   tabs: Tabs[] = [];
   activeIndex = 0;
   api = inject(ApiService);
+  cache = inject(CacheService);
 
   columns: TableColumn[] = [
     { field: 'activity', header: 'Actividad', minWidth: '300px' },

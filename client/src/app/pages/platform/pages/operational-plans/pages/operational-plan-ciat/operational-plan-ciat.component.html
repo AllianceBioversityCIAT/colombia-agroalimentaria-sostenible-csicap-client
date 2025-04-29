@@ -2,7 +2,7 @@
   header="Plan Operativo - Alliance Bioversity & CIAT"
   tagName="2025"
   [centered]="false">
-  <div actions class="flex gap-2">
+  <div actions class="flex gap-2 overflow-hidden">
     <p-button
       icon="pi pi-file"
       size="small"
@@ -63,12 +63,19 @@
       {{ objectives()[activeObjectiveIndex()].nombre_obj }}
     </div>
 
-    <div class="card max-w-[calc(100vw-400px)] overflow-hidden">
+    <div
+      class="card overflow-hidden transition- duration-300"
+      [ngClass]="{
+        'max-w-[calc(100vw-180px)]': cache.isSidebarCollapsed(),
+        'max-w-[calc(100vw-392px)]': !cache.isSidebarCollapsed()
+      }">
       <p-table
         [value]="currentActivitiesWithRowspan()"
-        [scrollable]="true"
+        [scrollable]="false"
         styleClass="p-datatable-gridlines rounded-table"
-        showGridlines>
+        showGridlines
+        [scrollable]="true"
+        scrollHeight="calc(100vh - 330px)">
         <ng-template pTemplate="header">
           <tr>
             @for (col of columns; track $index) {
