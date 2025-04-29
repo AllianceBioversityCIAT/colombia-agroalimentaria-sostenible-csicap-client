@@ -60,9 +60,12 @@
         }
       </p-tablist>
     </p-tabs>
-    <div class="flex font-inter font-normal leading-6 text-[#6B7280] my-8">
-      {{ objectives()[activeObjectiveIndex()].nombre_obj }}
-    </div>
+
+    @if (objectives()[activeObjectiveIndex()]) {
+      <div class="flex font-inter font-normal leading-6 text-[#6B7280] my-8">
+        {{ objectives()[activeObjectiveIndex()].nombre_obj }}
+      </div>
+    }
 
     <div
       class="card overflow-hidden transition- duration-300"

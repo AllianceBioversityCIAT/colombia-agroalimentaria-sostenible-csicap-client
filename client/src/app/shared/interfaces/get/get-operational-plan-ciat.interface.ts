@@ -1,6 +1,6 @@
 export interface GetOperationalPlanCiat {
   id_obj: number;
-  nombre_obj: string;
+  nombre_obj?: string;
   actividades: Actividad[];
 }
 

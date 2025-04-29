@@ -15,6 +15,7 @@ import {
 } from '../interfaces/get/get-users-filter.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
+import { UserFormData } from '../../pages/platform/pages/user-management/components/user-form/user-form.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -78,6 +79,11 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
+  createUser = (user: UserFormData): Promise<MainResponse<UserFormData>> => {
+    const url = () => `users/create`;
+    return this.TP.post(url(), user, { useManagementApi: true });
+  };
+
   //? >>>>>>>>>>>> Filters <<<<<<<<<<<<<<<<<
   getRoles = (): Promise<MainResponse<GetRolesFilter[]>> => {
     const url = () => `roles/roles_id`;
@@ -103,9 +109,8 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getEjeByRole = (roles: GetRolesFilter[]): Promise<MainResponse<GetGCFComponentesIdsFilter[]>> => {
-    const rolesString = roles.map((role: GetRolesFilter) => role.id).join(',');
-    const url = () => `gcf-ejes/filtro_eje?roleIds=${rolesString}`;
+  getEjeByRole = (roleId: number): Promise<MainResponse<GetGCFComponentesIdsFilter[]>> => {
+    const url = () => `gcf-ejes/filtro_eje?roleIds=${roleId}`;
     return this.TP.get(url(), { useManagementApi: false });
   };
 

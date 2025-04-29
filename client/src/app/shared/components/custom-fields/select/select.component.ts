@@ -87,14 +87,29 @@ export class SelectComponent implements OnInit, OnChanges {
     if (
       this.endpointParams &&
       Object.keys(this.endpointParams).length > 0 &&
-      !Object.values(this.endpointParams).some(value => value === null)
+      !Object.values(this.endpointParams).some(value => {
+        if (Array.isArray(value)) {
+          return value.length === 0;
+        }
+        return value === null;
+      })
     ) {
       this.getListInstance();
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['endpointParams'] && !changes['endpointParams'].firstChange && this.service) {
+    if (
+      changes['endpointParams'] &&
+      !changes['endpointParams'].firstChange &&
+      this.service &&
+      !Object.values(this.endpointParams).some(value => {
+        if (Array.isArray(value)) {
+          return value.length === 0;
+        }
+        return value === null;
+      })
+    ) {
       this.getListInstance();
     }
   }
