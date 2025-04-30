@@ -1,9 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { ApiService } from '../api.service';
-import {
-  GetGCFComponentesIdsFilter,
-  GetRolesFilter
-} from '../../interfaces/get/get-users-filter.interface';
+import { GetGCFComponentesIdsFilter } from '../../interfaces/get/get-users-filter.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +12,10 @@ export class GetEjeByRoleService {
   isOpenSearch = signal(false);
 
   getInstance = async (endpointParams: {
-    roles: GetRolesFilter[];
+    roleId: number;
   }): Promise<WritableSignal<GetGCFComponentesIdsFilter[]>> => {
     const newSignal = signal<GetGCFComponentesIdsFilter[]>([]);
-    const response = await this.api.getEjeByRole(endpointParams.roles);
+    const response = await this.api.getEjeByRole(endpointParams.roleId);
 
     newSignal.set(response.data);
 

@@ -8,7 +8,7 @@
   </p-button>
 </div>
 
-<p-toast></p-toast>
+<p-toast position="bottom-right" key="br"></p-toast>
 
 <p-drawer
   [header]="formTitle()"
@@ -86,18 +86,17 @@
         autoComplete="off">
       </app-input>
 
-      <app-multiselect-instance
-        #roleMultiselect
+      <app-select
+        #roleSelect
         label="Rol"
         placeholder="Seleccionar rol"
         [signal]="body"
-        [optionValue]="'id'"
-        [signalOptionValue]="'role_id'"
+        [optionValue]="{ body: 'role_id', option: 'id' }"
         optionLabel="nombre"
         serviceName="roles_by_organization"
         [endpointParams]="{ organization_id: body().organizacion_id }"
         [disabled]="body().organizacion_id === null"
-        (selectEvent)="clearEjeField()" />
+        (valueChange)="clearEjeField()" />
 
       <app-select
         #ejeSelect
@@ -107,24 +106,17 @@
         [optionValue]="{ body: 'eje_id', option: 'id' }"
         optionLabel="nombre"
         serviceName="eje_by_role"
-        [endpointParams]="{ roles: body().role_id }"
-        [disabled]="body().role_id === null" />
+        [endpointParams]="{ roleId: body().role_id }"
+        [disabled]="body().role_id === null || ejeSelect.listInstance().length === 0" />
 
-      <!-- <p-button
-      class="w-fit"
-      [label]="submitButtonLabel()"
-      severity="primary"
-      size="small"
-      [loading]="isLoading()"
-      (click)="submitForm()"
-      [disabled]="!isFormValid()"></p-button> -->
       <p-button
         class="w-fit"
         [label]="submitButtonLabel()"
         severity="primary"
         size="small"
         [loading]="isLoading()"
-        (click)="submitForm()"></p-button>
+        (click)="submitForm()"
+        [disabled]="!isFormValid()"></p-button>
     </div>
   }
 </p-drawer>

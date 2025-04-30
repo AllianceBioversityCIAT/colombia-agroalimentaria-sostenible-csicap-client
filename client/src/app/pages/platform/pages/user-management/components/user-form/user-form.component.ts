@@ -1,4 +1,12 @@
-import { Component, signal, computed, ViewChild } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  ViewChild,
+  inject,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
@@ -7,22 +15,17 @@ import { InputComponent } from '../../../../../../shared/components/custom-field
 import { SelectComponent } from '../../../../../../shared/components/custom-fields/select/select.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { MultiselectInstanceComponent } from '../../../../../../shared/components/custom-fields/multiselect-instance/multiselect-instance.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ApiService } from '../../../../../../shared/services/api.service';
 
-interface UserFormData {
+export interface UserFormData {
   is_cgiar: boolean | null;
   first_name: string | null;
   last_name: string | null;
   organizacion_id: number | null;
   email: string | null;
-  role_id: Role[] | null;
-  eje_id: number | null;
-}
-
-interface Role {
-  id: number;
-  name: string;
+  role_id: number | null;
+  eje_id?: number | null;
 }
 
 @Component({
@@ -35,7 +38,6 @@ interface Role {
     InputComponent,
     SelectComponent,
     ToastModule,
-    MultiselectInstanceComponent,
     InputTextModule
   ],
   providers: [MessageService],
@@ -43,9 +45,10 @@ interface Role {
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
-  @ViewChild('roleMultiselect') roleMultiselect?: MultiselectInstanceComponent;
+  @ViewChild('roleSelect') roleSelect?: SelectComponent;
   @ViewChild('ejeSelect') ejeSelect?: SelectComponent;
   @ViewChild('emailInput') emailInput?: InputComponent;
+  @Output() userCreated = new EventEmitter<void>();
 
   visible = signal(false);
   isLoading = signal(false);
@@ -57,8 +60,8 @@ export class UserFormComponent {
     last_name: null,
     organizacion_id: null,
     email: null,
-    role_id: [],
-    eje_id: 1
+    role_id: null,
+    eje_id: null
   });
 
   formTitle = computed(() => (this.isEditing() ? 'Editar usuario' : 'Crear usuario'));
@@ -66,6 +69,9 @@ export class UserFormComponent {
 
   isFormValid = computed(() => {
     const data = this.body();
+    const hasEjeOptions = (this.ejeSelect?.listInstance() ?? []).length > 0;
+    const needsEje = data.role_id && data.role_id > 0 && hasEjeOptions;
+
     return (
       data.is_cgiar !== null &&
       data.first_name &&
@@ -73,9 +79,12 @@ export class UserFormComponent {
       data.organizacion_id &&
       data.email &&
       data.role_id &&
-      data.eje_id
+      data.role_id > 0 &&
+      (!needsEje || data.eje_id !== null)
     );
   });
+
+  api = inject(ApiService);
 
   constructor(private messageService: MessageService) {}
 
@@ -98,130 +107,114 @@ export class UserFormComponent {
   resetForm() {
     this.loaded.set(false);
 
+    setTimeout(() => {
+      this.loaded.set(true);
+    }, 0);
+
     this.body.set({
       is_cgiar: null,
       first_name: null,
       last_name: null,
       organizacion_id: null,
       email: null,
-      role_id: [],
+      role_id: null,
       eje_id: null
     });
-
-    setTimeout(() => {
-      this.loaded.set(true);
-    }, 0);
   }
 
   async submitForm() {
-    // Borrar
-    this.body.update(data => ({
-      ...data,
-      eje_id: 1
-    }));
-    // Borrar
-
-    // Check if all fields are filled
     if (!this.isFormValid()) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Por favor complete todos los campos requeridos'
+        detail: 'Por favor complete todos los campos requeridos',
+        key: 'br'
       });
       return;
     }
 
-    // Validate email first
     if (this.emailInput && !this.emailInput.inputValid().valid) {
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: this.emailInput.inputValid().message || 'El correo electrónico no es válido'
+        summary: 'Formato de correo inconrrecto',
+        detail:
+          this.emailInput.inputValid().message ||
+          'El correo electrónico ingresado no tiene un formato válido. ',
+        key: 'br'
       });
       return;
     }
 
-    try {
-      this.isLoading.set(true);
-      // Here you would call your service to create/update the user
+    this.isLoading.set(true);
 
-      const sendData = {
-        ...this.body(),
-        role_id: this.body()
-          .role_id?.map((role: Role) => role.id)
-          .join(',')
-      };
+    const sendData = {
+      ...this.body(),
+      role_id: this.body().role_id
+    };
 
-      console.log(sendData);
+    const res = await this.api.createUser(sendData);
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Éxito',
-        detail: this.isEditing()
-          ? 'Usuario actualizado correctamente'
-          : 'Usuario creado correctamente. Se ha enviado una contraseña al correo proporcionado.'
-      });
-
-      this.closeDrawer();
-    } catch (err) {
-      console.error('Error creating/updating user:', err);
+    if (res?.status !== 200) {
+      console.error('Error creating/updating user:', res.error?.description);
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'Ha ocurrido un error al procesar la solicitud'
+        summary: 'Error de creación',
+        detail: res.error?.errors,
+        key: 'br'
       });
-    } finally {
       this.isLoading.set(false);
+      return;
     }
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Usuario creado éxitosamente',
+      detail: this.isEditing()
+        ? 'Usuario actualizado correctamente'
+        : 'El usuario ha sido creado exitosamente en el sistema',
+      key: 'br'
+    });
+
+    this.isLoading.set(false);
+    this.userCreated.emit();
+    this.closeDrawer();
   }
 
   clearDynamicFields(value: boolean) {
     if (value !== this.body().is_cgiar) return;
 
-    this.body.update(data => ({ ...data, organizacion_id: null, role_id: [], eje_id: null }));
+    this.body.update(data => ({ ...data, organizacion_id: null, role_id: null, eje_id: null }));
 
     setTimeout(() => {
-      if (this.roleMultiselect) {
-        this.roleMultiselect.body.set({ value: [] });
+      if (this.roleSelect) {
+        this.roleSelect.body.set({ value: null });
       }
+
       if (this.ejeSelect) {
         this.ejeSelect.body.set({ value: null });
-        // Force refresh the instance list with empty roles
-        this.ejeSelect.getListInstance();
       }
     }, 0);
   }
 
   clearRolesField() {
-    // Clear role_id and eje_id when organization changes
-    this.body.update(data => ({ ...data, role_id: [], eje_id: null }));
+    this.body.update(data => ({ ...data, role_id: null, eje_id: null }));
 
-    // Update the multiselect component display
     setTimeout(() => {
-      if (this.roleMultiselect) {
-        this.roleMultiselect.body.set({ value: [] });
+      if (this.roleSelect) {
+        this.roleSelect.body.set({ value: null });
       }
       if (this.ejeSelect) {
-        this.ejeSelect.body.set({ value: null });
-        // Force refresh the instance list
-        this.ejeSelect.getListInstance();
+        console.log(this.ejeSelect.body());
       }
     }, 0);
   }
 
   clearEjeField() {
-    // Clear eje_id when roles change
     this.body.update(data => ({ ...data, eje_id: null }));
 
-    // Force refresh the eje dropdown with the new roles
     setTimeout(() => {
       if (this.ejeSelect) {
         this.ejeSelect.body.set({ value: null });
-        // Force refresh the instance list
-        this.ejeSelect.getListInstance();
       }
     }, 0);
   }
