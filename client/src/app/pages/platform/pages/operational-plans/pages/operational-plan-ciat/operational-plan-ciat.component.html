@@ -2,55 +2,6 @@
   header="Plan Operativo - Alliance Bioversity & CIAT"
   tagName="2025"
   [centered]="false">
-  <div actions class="flex gap-2 overflow-hidden">
-    <p-button
-      icon="pi pi-file"
-      size="small"
-      [style]="{
-        'background-color': '#00A5511A',
-        border: 'none',
-        color: '#4CAF50',
-        'white-space': 'nowrap',
-        'min-width': 'fit-content',
-        cursor: 'pointer'
-      }"></p-button>
-    <p-button
-      icon="pi pi-file-excel"
-      size="small"
-      [style]="{
-        'background-color': '#9A5DFC26',
-        border: 'none',
-        color: '#7E57C2',
-        'white-space': 'nowrap',
-        'min-width': 'fit-content',
-        cursor: 'pointer'
-      }"
-      (click)="downloadExcel()"
-      pTooltip="Descargar plan operativo"
-      tooltipPosition="bottom"></p-button>
-    <p-button
-      icon="pi pi-file-pdf"
-      size="small"
-      [style]="{
-        'background-color': '#F13C3C1A',
-        border: 'none',
-        color: '#F44336',
-        'white-space': 'nowrap',
-        'min-width': 'fit-content',
-        cursor: 'pointer'
-      }"></p-button>
-    <p-button
-      icon="pi pi-print"
-      size="small"
-      [style]="{
-        'background-color': '#FF84001A',
-        border: 'none',
-        color: '#FF9800',
-        'white-space': 'nowrap',
-        'min-width': 'fit-content',
-        cursor: 'pointer'
-      }"></p-button>
-  </div>
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
@@ -64,8 +15,24 @@
     </p-tabs>
 
     @if (objectives()[activeObjectiveIndex()]) {
-      <div class="flex font-inter font-normal leading-6 text-[#6B7280] my-8">
-        {{ objectives()[activeObjectiveIndex()].nombre_obj }}
+      <div class="flex items-center justify-between my-8 gap-6">
+        <div class="flex font-inter font-normal leading-6 text-[#6B7280]">
+          {{ objectives()[activeObjectiveIndex()].nombre_obj }}
+        </div>
+        <p-button
+          icon="pi pi-download"
+          [loading]="loading"
+          size="small"
+          [style]="{
+            'background-color': '#059BB4',
+            border: '1px solid #047F94',
+            color: 'white',
+            'white-space': 'nowrap',
+            'min-width': 'fit-content',
+            cursor: 'pointer'
+          }"
+          label="Descargar plan operativo"
+          (click)="downloadExcel()"></p-button>
       </div>
     }
 

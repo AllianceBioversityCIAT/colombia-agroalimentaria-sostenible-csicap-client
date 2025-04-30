@@ -125,5 +125,12 @@ export default class OperationalPlanCiatComponent implements OnInit {
 
   downloadExcel() {
     this.api.downloadPlanOperativoCiatExcel();
+    this.loading = true;
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
   }
+
+  loading = false;
 }
