@@ -80,26 +80,27 @@ export default class OperationalPlanCiatComponent implements OnInit {
     const elements: TableActivity[] = [];
     this.currentActivities().forEach(activity => {
       if (activity.subactividades) {
-        activity.subactividades.forEach((subactivity, index) => {
-          if (subactivity.productos) {
-            subactivity.productos.forEach((product, productIndex) => {
-              elements.push({
-                nombre_actv: index === 0 && productIndex === 0 ? activity.nombre_actv : '',
-                rowspan: index === 0 && productIndex === 0 ? activity.rowspan : 0,
-                nombre_subActv: productIndex === 0 ? subactivity.nombre_subActv : '',
-                codigo_subActv: subactivity.codigo_subActv || '',
-                budget: subactivity.presupuesto
+        activity.subactividades.forEach((subactivity, subIndex) => {
+          const productos = subactivity.productos?.length ? subactivity.productos : [null];
+
+          productos.forEach((product, productIndex) => {
+            elements.push({
+              nombre_actv: subIndex === 0 && productIndex === 0 ? activity.nombre_actv : '',
+              rowspan: subIndex === 0 && productIndex === 0 ? activity.rowspan : 0,
+              nombre_subActv: productIndex === 0 ? subactivity.nombre_subActv : '',
+              codigo_subActv: productIndex === 0 ? subactivity.codigo_subActv || '' : '',
+              budget:
+                productIndex === 0 && subactivity.presupuesto
                   ? '$ ' + subactivity.presupuesto.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   : '',
-                axis: product.ejes ? product.ejes.join(', ') : '',
-                responsible: product.responsables ? product.responsables.join(', ') : '',
-                productNumber: product.codigo ? product.codigo.toString() : '',
-                product: product.nombre_prod || '',
-                productDescription: product.descripcion || '',
-                deliveryDate: product.fechaEntrega || ''
-              });
+              axis: product?.ejes?.join(', ') || '',
+              responsible: product?.responsables?.join(', ') || '',
+              productNumber: product?.codigo?.toString() || '',
+              product: product?.nombre_prod || '',
+              productDescription: product?.descripcion || '',
+              deliveryDate: product?.fechaEntrega || ''
             });
-          }
+          });
         });
       }
     });
@@ -117,10 +118,8 @@ export default class OperationalPlanCiatComponent implements OnInit {
 
   async getPlanOperativoCiat() {
     const response = await this.api.getPlanOperativoCiat();
-    console.log(response);
     this.objectives.set(response.data);
-    this.currentActivities.set(this.objectives()[0].actividades);
-    console.log(this.currentActivities());
+    this.currentActivities.set(this.objectives()[0]?.actividades || []);
   }
 
   downloadExcel() {

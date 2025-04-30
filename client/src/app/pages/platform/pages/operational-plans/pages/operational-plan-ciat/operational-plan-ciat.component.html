@@ -65,12 +65,12 @@
         </ng-template>
         <ng-template pTemplate="body" let-activity>
           <tr>
-            @if (activity.rowspan > 0) {
+            @if (activity.nombre_actv) {
               <td class="text-sm" [attr.rowspan]="activity.rowspan">{{ activity.nombre_actv }}</td>
-              <td class="text-sm" [attr.rowspan]="activity.rowspan">
-                {{ activity.nombre_subActv }}
-              </td>
-              <td class="text-sm" [attr.rowspan]="activity.rowspan">{{ activity.budget }}</td>
+            }
+            @if (activity.nombre_subActv) {
+              <td class="text-sm">{{ activity.nombre_subActv }}</td>
+              <td class="text-sm">{{ activity.budget }}</td>
             }
             <td class="text-sm">{{ activity.axis }}</td>
             <td class="text-sm">{{ activity.responsible }}</td>
