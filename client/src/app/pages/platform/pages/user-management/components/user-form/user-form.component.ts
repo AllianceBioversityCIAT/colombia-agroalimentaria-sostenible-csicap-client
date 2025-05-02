@@ -152,6 +152,8 @@ export class UserFormComponent {
       role_id: this.body().role_id
     };
 
+    console.log('sendData', sendData);
+
     const res = await this.api.createUser(sendData);
 
     if (res?.status !== 200) {
