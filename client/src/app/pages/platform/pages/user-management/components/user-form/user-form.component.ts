@@ -133,18 +133,6 @@ export class UserFormComponent {
       return;
     }
 
-    if (this.emailInput && !this.emailInput.inputValid().valid) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Formato de correo inconrrecto',
-        detail:
-          this.emailInput.inputValid().message ||
-          'El correo electrónico ingresado no tiene un formato válido. ',
-        key: 'br'
-      });
-      return;
-    }
-
     this.isLoading.set(true);
 
     const sendData = {
