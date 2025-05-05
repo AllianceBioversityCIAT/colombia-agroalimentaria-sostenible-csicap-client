@@ -83,7 +83,7 @@
         [signal]="body"
         optionValue="email"
         [inputCaption]="
-          body().is_cgiar
+          !body().is_cgiar
             ? 'La contraseña será enviada automaticamente al correo electrónico del usuario.'
             : ''
         "
