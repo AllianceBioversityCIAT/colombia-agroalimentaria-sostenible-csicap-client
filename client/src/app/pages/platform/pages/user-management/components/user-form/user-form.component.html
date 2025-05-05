@@ -82,7 +82,11 @@
         pattern="email"
         [signal]="body"
         optionValue="email"
-        inputCaption="La contraseña será enviada automaticamente al correo electrónico del usuario."
+        [inputCaption]="
+          body().is_cgiar
+            ? 'La contraseña será enviada automaticamente al correo electrónico del usuario.'
+            : ''
+        "
         autoComplete="off">
       </app-input>
 
