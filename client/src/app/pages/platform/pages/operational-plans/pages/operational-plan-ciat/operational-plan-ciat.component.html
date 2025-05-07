@@ -21,7 +21,7 @@
         </div>
         <p-button
           icon="pi pi-download"
-          [loading]="loading"
+          [loading]="loadingDownload()"
           size="small"
           [style]="{
             'background-color': '#059BB4',
@@ -43,7 +43,7 @@
         'max-w-[calc(100vw-392px)]': !cache.isSidebarCollapsed()
       }">
       <p-table
-        [value]="currentActivitiesWithRowspan()"
+        [value]="currentActivities()"
         [scrollable]="false"
         styleClass="p-datatable-gridlines rounded-table"
         showGridlines
@@ -63,24 +63,84 @@
             }
           </tr>
         </ng-template>
+
         <ng-template pTemplate="body" let-activity>
-          <tr>
-            @if (activity.nombre_actv) {
-              <td class="text-sm" [attr.rowspan]="activity.rowspan">{{ activity.nombre_actv }}</td>
+          @if (activity?.subactividades?.length === 0) {
+            <tr style="height: 50px">
+              <td>{{ activity.nombre_actv }}</td>
+              <td colspan="8">No subactividades found</td>
+            </tr>
+          } @else {
+            @for (subactivity of activity.subactividades; track $index; let isFirst = $first) {
+              @if (subactivity?.productos?.length > 0) {
+                @if (subactivity?.productos && subactivity?.productos?.length > 0) {
+                  @for (
+                    product of subactivity?.productos;
+                    track product.id;
+                    let productIndex = $index
+                  ) {
+                    <tr>
+                      @if (isFirst && productIndex === 0) {
+                        <td [attr.rowspan]="calculateTotalRows(activity)">
+                          Actividad {{ activity?.nombre_actv || '' }}
+                        </td>
+                      }
+
+                      @if (productIndex === 0) {
+                        <td [attr.rowspan]="subactivity?.productos?.length">
+                          Subactividad {{ subactivity?.nombre_subActv || '' }}
+                        </td>
+                      }
+                      @if (productIndex === 0) {
+                        <td [attr.rowspan]="subactivity?.productos?.length">
+                          {{ formatCurrency(subactivity?.presupuesto) }}
+                        </td>
+                      }
+
+                      <td>
+                        {{ formatArrayWithConjunction(product?.ejes) }}
+                      </td>
+
+                      <td>
+                        {{ formatArrayWithConjunction(product?.responsables) }}
+                      </td>
+
+                      <td>
+                        {{ product?.codigo || '' }}
+                      </td>
+
+                      <td>
+                        Producto {{ product?.codigo }}.
+                        {{ product?.nombre_prod || '' }}
+                      </td>
+
+                      <td>{{ product?.descripcion || '' }}</td>
+
+                      <td class="capitalize">
+                        {{ (product?.fechaEntrega | date: 'MMM yyyy') || '' }}
+                      </td>
+                    </tr>
+                  }
+                } @else {
+                  <tr>
+                    @if (isFirst) {
+                      <td [attr.rowspan]="calculateTotalRows(activity)">
+                        {{ activity?.nombre_actv }}
+                      </td>
+                    }
+
+                    <td>
+                      {{ subactivity?.nombre_subActv }}
+                    </td>
+
+                    <td>{{ formatCurrency(subactivity?.presupuesto) }}</td>
+
+                    <td [attr.colspan]="6">No sub-products information available</td>
+                  </tr>
+                }
+              }
             }
-            @if (activity.nombre_subActv) {
-              <td class="text-sm">{{ activity.nombre_subActv }}</td>
-              <td class="text-sm">{{ activity.budget }}</td>
-            }
-            <td class="text-sm">{{ activity.axis }}</td>
-            <td class="text-sm">{{ activity.responsible }}</td>
-            <td class="text-sm">{{ activity.productNumber }}</td>
-            <td class="text-sm">{{ activity.product }}</td>
-            <td class="text-sm">{{ activity.productDescription }}</td>
-            <td class="text-sm">
-              {{ activity.deliveryDate | date: "MMMM d'/'y" : undefined : 'es' }}
-            </td>
-          </tr>
+          }
         </ng-template>
       </p-table>
     </div>

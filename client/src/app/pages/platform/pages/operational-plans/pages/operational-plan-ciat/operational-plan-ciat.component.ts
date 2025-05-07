@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TabsModule } from 'primeng/tabs';
 import { SectionHeaderComponent } from '../../../../../../shared/components/section-header/section-header.component';
@@ -21,24 +21,26 @@ interface Tabs {
 }
 
 interface Activity {
-  activityCode: string;
-  activity: string;
-  subActivityCode: string;
-  subActivity: string;
+  id: number;
+  nombre_actv: string;
+  subactividades: Subactivity[];
 }
 
-interface TableActivity {
-  nombre_actv: string;
-  rowspan: number;
+interface Subactivity {
+  id: number;
   nombre_subActv: string;
-  codigo_subActv: string;
-  budget: string;
-  axis: string;
-  responsible: string;
-  productNumber: string;
-  product: string;
-  productDescription: string;
-  deliveryDate: string;
+  presupuesto: string;
+  productos: Product[];
+}
+
+interface Product {
+  id: number;
+  codigo: string;
+  nombre_prod: string;
+  descripcion: string;
+  ejes: string[];
+  responsables: string[];
+  fechaEntrega: string;
 }
 
 @Component({
@@ -60,55 +62,47 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeIndex = 0;
   api = inject(ApiService);
   cache = inject(CacheService);
+  loadingDownload = signal<boolean>(false);
 
   columns: TableColumn[] = [
-    { field: 'activity', header: 'Actividad', minWidth: '300px' },
-    { field: 'subActivity', header: 'Subactividad', minWidth: '400px' },
-    { field: 'budget', header: 'Presupuesto', minWidth: '200px' },
-    { field: 'axis', header: 'Eje', minWidth: '200px' },
+    { field: 'activity', header: 'Actividad', minWidth: '250px' },
+    { field: 'subActivity', header: 'Subactividad', minWidth: '250px' },
+    { field: 'budget', header: 'Presupuesto', minWidth: '150px' },
+    { field: 'axis', header: 'Ejes', minWidth: '150px' },
     { field: 'responsible', header: 'Responsable', minWidth: '200px' },
-    { field: 'productNumber', header: 'Numero de producto', minWidth: '200px' },
-    { field: 'product', header: 'Producto', minWidth: '700px' },
-    { field: 'productDescription', header: 'Descripcion de producto', minWidth: '700px' },
-    { field: 'deliveryDate', header: 'Fecha de entrega', minWidth: '200px' }
+    { field: 'productNumber', header: 'No. de Producto', minWidth: '115px' },
+    { field: 'product', header: 'Producto', minWidth: '800px' },
+    { field: 'productDescription', header: 'Descripcion de producto', minWidth: '800px' },
+    { field: 'deliveryDate', header: 'Fecha de entrega', minWidth: '150px' }
   ];
 
   activeObjectiveIndex = signal<number>(0);
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
-  currentActivitiesWithRowspan = computed<TableActivity[]>(() => {
-    const elements: TableActivity[] = [];
-    this.currentActivities().forEach(activity => {
-      if (activity.subactividades) {
-        activity.subactividades.forEach((subactivity, subIndex) => {
-          const productos = subactivity.productos?.length ? subactivity.productos : [null];
-
-          productos.forEach((product, productIndex) => {
-            elements.push({
-              nombre_actv: subIndex === 0 && productIndex === 0 ? activity.nombre_actv : '',
-              rowspan: subIndex === 0 && productIndex === 0 ? activity.rowspan : 0,
-              nombre_subActv: productIndex === 0 ? subactivity.nombre_subActv : '',
-              codigo_subActv: productIndex === 0 ? subactivity.codigo_subActv || '' : '',
-              budget:
-                productIndex === 0 && subactivity.presupuesto
-                  ? '$ ' + subactivity.presupuesto.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                  : '',
-              axis: product?.ejes?.join(', ') || '',
-              responsible: product?.responsables?.join(', ') || '',
-              productNumber: product?.codigo?.toString() || '',
-              product: product?.nombre_prod || '',
-              productDescription: product?.descripcion || '',
-              deliveryDate: product?.fechaEntrega || ''
-            });
-          });
-        });
-      }
-    });
-    return elements;
-  });
 
   ngOnInit() {
     this.getPlanOperativoCiat();
+  }
+
+  calculateTotalRows(activity: Activity): number {
+    if (!activity || !activity.subactividades) return 0;
+
+    return activity.subactividades
+      .filter((subactivity: Subactivity) => subactivity?.productos?.length > 0)
+      .reduce((sum: number, subactivity: Subactivity) => {
+        return sum + (subactivity?.productos?.length || 1);
+      }, 0);
+  }
+
+  formatCurrency(value: number | null | undefined): string {
+    if (!value) return '';
+    return '$ ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  formatArrayWithConjunction(array: string[]): string {
+    if (!array || array.length === 0) return '';
+    if (array.length === 1) return array[0];
+    return array.slice(0, -1).join(', ') + ' y ' + array[array.length - 1];
   }
 
   setCurrentActivities = (index: number) => {
@@ -123,13 +117,11 @@ export default class OperationalPlanCiatComponent implements OnInit {
   }
 
   downloadExcel() {
+    this.loadingDownload.set(true);
     this.api.downloadPlanOperativoCiatExcel();
-    this.loading = true;
 
     setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+      this.loadingDownload.set(false);
+    }, 2000);
   }
-
-  loading = false;
 }
