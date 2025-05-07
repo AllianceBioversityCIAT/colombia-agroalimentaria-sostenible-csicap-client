@@ -16,6 +16,7 @@ export interface NewErrorResponse {
   errors: string;
   timestamp: string;
   path: string;
+  cause: string;
 }
 
 export class multiControlListResponse<T> {

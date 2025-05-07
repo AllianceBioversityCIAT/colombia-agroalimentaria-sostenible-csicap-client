@@ -148,8 +148,8 @@ export class UserFormComponent {
       console.error('Error creating/updating user:', res.error?.description);
       this.messageService.add({
         severity: 'error',
-        summary: 'Error de creación',
-        detail: res.error?.errors,
+        summary: res.error?.errors,
+        detail: res.error?.cause,
         key: 'br'
       });
       this.isLoading.set(false);
