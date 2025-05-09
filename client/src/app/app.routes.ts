@@ -1,7 +1,12 @@
 import { Routes } from '@angular/router';
 import { rolesGuard } from './shared/guards/roles.guard';
+import { permissionGuard } from './shared/guards/permission.guard';
 
 export const routes: Routes = [
+  {
+    path: 'unauthorized',
+    loadComponent: () => import('./pages/platform/pages/unauthorized/unauthorized.component')
+  },
   {
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth.component')
@@ -73,6 +78,7 @@ export const routes: Routes = [
       {
         path: 'planes-operativos',
         loadComponent: () => import('./pages/platform/pages/operational-plans/operational-plans.component'),
+        canActivate: [permissionGuard(['can_view_all_operational_plans'])],
         data: {
           breadcrumb: [{ path: 'planes-operativos', label: 'Planes operativos' }]
         }
