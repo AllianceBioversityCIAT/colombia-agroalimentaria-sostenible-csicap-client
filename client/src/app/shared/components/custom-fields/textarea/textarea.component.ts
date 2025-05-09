@@ -19,11 +19,17 @@ export class TextareaComponent {
   @Input() label = '';
   @Input() description = '';
   @Input() isRequired = false;
+  @Input() placeholder = '';
+  @Input() rows!: number;
+  @Input() cols!: number;
 
   body = signal({ value: null });
 
   isInvalid = computed(() => {
-    return this.isRequired && (!this.signal()[this.optionValue] || this.signal()[this.optionValue].length === 0);
+    return (
+      this.isRequired &&
+      (!this.signal()[this.optionValue] || this.signal()[this.optionValue].length === 0)
+    );
   });
 
   setValue(value: string) {

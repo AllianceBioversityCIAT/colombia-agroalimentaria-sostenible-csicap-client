@@ -16,12 +16,16 @@
   } @else {
     <div>
       <textarea
-        rows="10"
+        [rows]="rows"
+        [cols]="cols"
         pTextarea
         [autoResize]="false"
+        [placeholder]="placeholder"
         [(ngModel)]="this.signal()[this.optionValue]"
         (ngModelChange)="setValue($event)"
-        [style]="isInvalid() ? { border: '2px solid #E69F00', resize: 'none' } : { resize: 'none' }">
+        [style]="
+          isInvalid() ? { border: '2px solid #E69F00', resize: 'none' } : { resize: 'none' }
+        ">
       </textarea>
       @if (isInvalid()) {
         <div class="flex items-center gap-1 mt-1 text-[#E69F00] text-sm">
