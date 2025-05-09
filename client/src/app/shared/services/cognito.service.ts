@@ -27,13 +27,13 @@ export class CognitoService {
     this.cache.isValidatingToken.set(true);
     const loginResponse = await this.api.login(code);
     if (!loginResponse.successfulRequest) {
-      console.log('show aler');
+      console.log('show alert');
       this.actions.showGlobalAlert({
-        severity: 'error',
-        summary: 'Error authenticating',
+        severity: 'warning',
+        summary: 'Advertencia',
         detail: loginResponse.errorDetail.errors,
         confirmCallback: {
-          label: 'Retry Log in',
+          label: 'Reintentar',
           event: () => this.redirectToCognito()
         }
       });
@@ -49,7 +49,9 @@ export class CognitoService {
   }
 
   updateCacheService() {
-    this.cache.dataCache.set(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data') ?? '') : {});
+    this.cache.dataCache.set(
+      localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data') ?? '') : {}
+    );
     this.cache.isLoggedIn.set(true);
     this.cache.isValidatingToken.set(false);
     this.clarity.updateUserInfo();
