@@ -88,6 +88,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'planes-operativos/:id',
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/partner-operational-plan/partner-operational-plan.component'),
+        data: {
+          breadcrumb: [{ path: 'planes-operativos', label: 'Planes operativos' }]
+        }
+      },
+      {
         path: 'gestion-usuarios',
         loadComponent: () => import('./pages/platform/pages/user-management/user-management.component'),
         data: {

@@ -22,6 +22,7 @@ export interface UserCache {
 interface RolesPersonas {
   id: number;
   rol: Role;
+  rol_id: number;
 }
 
 interface Role {
