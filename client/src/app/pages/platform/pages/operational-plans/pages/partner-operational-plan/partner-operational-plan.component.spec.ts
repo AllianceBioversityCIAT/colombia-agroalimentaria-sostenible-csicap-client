@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartnerOperationalPlanComponent } from './partner-operational-plan.component';
+import PartnerOperationalPlanComponent from './partner-operational-plan.component';
 
 describe('PartnerOperationalPlanComponent', () => {
   let component: PartnerOperationalPlanComponent;
@@ -9,8 +9,7 @@ describe('PartnerOperationalPlanComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PartnerOperationalPlanComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PartnerOperationalPlanComponent);
     component = fixture.componentInstance;
