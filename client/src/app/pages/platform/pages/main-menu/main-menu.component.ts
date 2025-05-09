@@ -14,9 +14,9 @@ export default class MainMenuComponent {
   authPermissions = inject(AuthPermissionsService);
 
   getCharacterImg = computed(() => {
-    if (this.authPermissions.isAdmin()) return '/hero-section/character-admin.png';
-    if (this.authPermissions.isObservador()) return '/hero-section/character-focal.png';
-    if (this.authPermissions.isPuntoFocal()) return '/hero-section/character-focal.png';
-    return '';
+    if (this.authPermissions.isAdmin()) return { path: '/hero-section/character-admin.png', alt: 'Administrador' };
+    if (this.authPermissions.isObservador()) return { path: '/hero-section/character-focal.png', alt: 'Observador' };
+    if (this.authPermissions.isPuntoFocal()) return { path: '/hero-section/character-focal.png', alt: 'Punto Focal' };
+    return { path: '', alt: '' };
   });
 }

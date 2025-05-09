@@ -10,7 +10,7 @@
     <div class="relative w-full flex flex-wrap">
       <!-- Imagen del personaje - visible solo en pantallas grandes -->
       <div class="hidden lg:block w-2/5 h-[400px] overflow-hidden max-w-[464px]">
-        <img [src]="getCharacterImg()" alt="Agricultor" class="w-full h-full object-cover object-right" />
+        <img [src]="getCharacterImg().path" [alt]="getCharacterImg().alt" class="w-full h-full object-cover object-right" />
       </div>
 
       <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
