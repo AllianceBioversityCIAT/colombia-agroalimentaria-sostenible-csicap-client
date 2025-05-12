@@ -2,10 +2,11 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { GetCutOffDates } from 'src/app/shared/interfaces/get/get-cut-off-dates.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cut-off-dates',
-  imports: [TableModule],
+  imports: [TableModule, DatePipe],
   templateUrl: './cut-off-dates.component.html',
   styleUrl: './cut-off-dates.component.scss'
 })

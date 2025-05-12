@@ -11,8 +11,8 @@
   <ng-template #body let-product>
     <tr>
       <td>{{ product.corte }}</td>
-      <td>{{ product.fechaInicio }}</td>
-      <td>{{ product.fechaFin }}</td>
+      <td>{{ product.fechaInicio | date: 'MMM yyyy' }}</td>
+      <td>{{ product.fechaFin | date: 'MMM yyyy' }}</td>
       <td>
         <span class="{{ product.stateClass }} text-white px-2 py-1 text-xs rounded-[12px] max-content">{{ product.estadoCase }}</span>
       </td>
