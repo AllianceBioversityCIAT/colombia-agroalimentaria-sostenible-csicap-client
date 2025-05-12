@@ -8,14 +8,11 @@ import { GetOperationalPlanCiat } from '../interfaces/get/get-operational-plan-c
 import { GetComponentsAndAxes } from '../interfaces/get/get-components-and-axes.interface';
 import { GetBpinForm } from '../interfaces/get/get-bpin-form.interface';
 import { GetOrganizationsDetail } from '../interfaces/get/get-organizations-detail.interface';
-import {
-  GetGCFComponentesIdsFilter,
-  GetOrganizationsIdsFilter,
-  GetRolesFilter
-} from '../interfaces/get/get-users-filter.interface';
+import { GetGCFComponentesIdsFilter, GetOrganizationsIdsFilter, GetRolesFilter } from '../interfaces/get/get-users-filter.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { UserFormData } from '../../pages/platform/pages/user-management/components/user-form/user-form.component';
+import { GetCutOffDates } from '../interfaces/get/get-cut-off-dates.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,11 +29,7 @@ export class ApiService {
 
   refreshToken = (refreshToken: string): Promise<MainResponse<LoginRes>> => {
     const url = () => `authorization/refresh-token`;
-    return this.TP.post(
-      url(),
-      {},
-      { token: refreshToken, isRefreshToken: true, useManagementApi: true }
-    );
+    return this.TP.post(url(), {}, { token: refreshToken, isRefreshToken: true, useManagementApi: true });
   };
 
   getGCFComponentes = (): Promise<MainResponse<GetComponentsAndAxes[]>> => {
@@ -95,16 +88,12 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getOrganizationsByIsCgiar = (
-    isCgiar: boolean
-  ): Promise<MainResponse<GetOrganizationsIdsFilter[]>> => {
+  getOrganizationsByIsCgiar = (isCgiar: boolean): Promise<MainResponse<GetOrganizationsIdsFilter[]>> => {
     const url = () => `organizations/filtro_org?isCgiar=${isCgiar}`;
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getRolesByOrganization = (
-    organizationId: number
-  ): Promise<MainResponse<GetGCFComponentesIdsFilter[]>> => {
+  getRolesByOrganization = (organizationId: number): Promise<MainResponse<GetGCFComponentesIdsFilter[]>> => {
     const url = () => `roles/filtro_rol?orgId=${organizationId}`;
     return this.TP.get(url(), { useManagementApi: true });
   };
@@ -124,6 +113,11 @@ export class ApiService {
 
   getPlanOperativoCiat = (): Promise<MainResponse<GetOperationalPlanCiat[]>> => {
     const url = () => `bpin-objetivos/plan-operativo-ciat`;
+    return this.TP.get(url(), {});
+  };
+
+  getCutOffDates = (): Promise<MainResponse<GetCutOffDates[]>> => {
+    const url = () => `fechas-corte/fechas-corte`;
     return this.TP.get(url(), {});
   };
 
@@ -170,10 +164,7 @@ export class ApiService {
     }
   }
 
-  updateSignalBody(
-    body: WritableSignal<Record<string, unknown>>,
-    newBody: Record<string, unknown>
-  ) {
+  updateSignalBody(body: WritableSignal<Record<string, unknown>>, newBody: Record<string, unknown>) {
     for (const key in newBody) {
       if (newBody[key] !== null) {
         body.update(prev => ({ ...prev, [key]: newBody[key] }));
