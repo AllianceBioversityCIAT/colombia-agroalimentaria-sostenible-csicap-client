@@ -1,23 +1,23 @@
-<div class="max-w-[1600px] mx-auto">
+<div class="w-full">
   <!-- Layout principal en dos columnas en desktop -->
   <div class="flex flex-col lg:flex-row">
-    <!-- Columna izquierda (3/4) - Banner y Acciones principales -->
-    <div class="w-full lg:w-[70%] px-6 pt-6">
+    <!-- Columna izquierda (70%) - Banner y Acciones principales -->
+    <div class="w-full lg:w-[70%] p-4 lg:p-6">
       <!-- Banner principal con fondo amarillo claro -->
-      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-10">
-        <div class="flex flex-col lg:flex-row">
+      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-8">
+        <div class="flex flex-col md:flex-row">
           <!-- Imagen del personaje -->
-          <div class="w-full lg:w-[38%]">
+          <div class="w-full md:w-[38%] md:h-[240px] overflow-hidden">
             <img
               [src]="getUserPanelData()?.path"
               [alt]="getUserPanelData()?.alt"
               class="h-full w-full object-cover"
-              style="max-height: 240px; object-position: center bottom" />
+              style="object-position: left center" />
           </div>
 
           <!-- Contenido del banner -->
-          <div class="w-full lg:w-[62%] p-8">
-            <h1 class="text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
+          <div class="w-full md:w-[62%] p-6">
+            <h1 class="text-3xl lg:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
             <h2 class="text-xl font-medium text-[#C79807] mb-4">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
             <p class="text-base text-gray-700">
               Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto
@@ -28,17 +28,17 @@
       </div>
 
       <!-- Sección de Acciones principales -->
-      <div class="mt-8 mb-10">
-        <h2 class="text-2xl font-medium text-[#C79807] mb-8">Acciones principales</h2>
+      <div class="mt-8 mb-8">
+        <h2 class="text-2xl font-medium text-[#C79807] mb-6">Acciones principales</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           @for (option of getUserPanelData()?.options ?? []; track option.title) {
             <div class="bg-white rounded-lg shadow-sm overflow-hidden">
               <!-- Imagen de la tarjeta -->
               <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover" />
 
               <!-- Contenido de la tarjeta -->
-              <div class="p-6">
+              <div class="p-5">
                 <h3 class="text-xl font-semibold text-[#195B5B] mb-3">{{ option.title }}</h3>
                 <p class="text-sm text-gray-600 mb-5">{{ option.description }}</p>
 
@@ -55,13 +55,13 @@
       </div>
     </div>
 
-    <!-- Columna derecha (1/4) - Dashboard -->
-    <div class="w-full lg:w-[30%] bg-[#F5F7F8] px-6 py-8">
-      <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h2 class="text-2xl font-medium text-[#195B5B] mb-6">Dashboard</h2>
+    <!-- Columna derecha (30%) - Dashboard -->
+    <div class="w-full lg:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
+      <div class="bg-white rounded-lg p-5 shadow-sm">
+        <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
 
         <!-- Análisis de entregables -->
-        <div class="mb-12">
+        <div class="mb-10">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
             <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
@@ -70,7 +70,7 @@
           <p class="text-sm text-gray-500 mb-3">Estados</p>
 
           <!-- Estados con números -->
-          <div class="grid grid-cols-3 gap-2 mb-5">
+          <div class="grid grid-cols-3 gap-2 mb-4">
             <div>
               <p class="text-sm text-gray-500">Borrador</p>
               <p class="text-xl font-bold text-[#F0983A]">12</p>
@@ -82,23 +82,6 @@
             <div>
               <p class="text-sm text-gray-500">Aprobados</p>
               <p class="text-xl font-bold text-[#8BD16B]">23</p>
-            </div>
-          </div>
-
-          <!-- Gráfica circular -->
-          <div class="relative h-44 flex justify-center items-center">
-            <!-- Gráfica semicircular usando CSS -->
-            <div class="relative w-full h-36">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-36 h-36 rounded-full border-[20px] border-[#F5F7F8]"></div>
-                <div
-                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#F0983A] border-l-[#F0983A] border-r-[#F5C748] rotate-[225deg] origin-bottom"></div>
-                <div
-                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#F5C748] border-l-[#F5C748] border-r-[#8BD16B] rotate-[270deg] origin-bottom"></div>
-                <div
-                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#8BD16B] border-l-[#8BD16B] border-r-[#8BD16B] rotate-[315deg] origin-bottom"></div>
-                <div class="absolute top-10 text-lg font-bold">46<span class="text-sm">%</span></div>
-              </div>
             </div>
           </div>
         </div>
