@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ByproductDatesComponent } from './byproduct-dates.component';
+import ByproductDatesComponent from './byproduct-dates.component';
 
 describe('ByproductDatesComponent', () => {
   let component: ByproductDatesComponent;
@@ -9,8 +9,7 @@ describe('ByproductDatesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ByproductDatesComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ByproductDatesComponent);
     component = fixture.componentInstance;

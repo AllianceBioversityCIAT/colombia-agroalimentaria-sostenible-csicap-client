@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CutOffDatesComponent } from './cut-off-dates.component';
+import CutOffDatesComponent from './cut-off-dates.component';
 
 describe('CutOffDatesComponent', () => {
   let component: CutOffDatesComponent;
@@ -9,8 +9,7 @@ describe('CutOffDatesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CutOffDatesComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CutOffDatesComponent);
     component = fixture.componentInstance;
