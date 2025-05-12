@@ -4,15 +4,13 @@ import { TabsModule } from 'primeng/tabs';
 import { SectionHeaderComponent } from '../../../../../../shared/components/section-header/section-header.component';
 import { TableColumn } from '../../../../../../shared/components/custom-fields/table/table.component';
 import { ApiService } from '../../../../../../shared/services/api.service';
-import {
-  Actividad,
-  GetOperationalPlanCiat
-} from '../../../../../../shared/interfaces/get/get-operational-plan-ciat.interface';
+import { Actividad, GetOperationalPlanCiat } from '../../../../../../shared/interfaces/get/get-operational-plan-ciat.interface';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CacheService } from '@shared/services/cache/cache.service';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
+import { RouterLink } from '@angular/router';
 
 interface Tabs {
   title: string;
@@ -45,15 +43,7 @@ interface Product {
 
 @Component({
   selector: 'app-operational-plan-ciat',
-  imports: [
-    SectionHeaderComponent,
-    TabsModule,
-    TableModule,
-    DatePipe,
-    ButtonModule,
-    CommonModule,
-    TooltipModule
-  ],
+  imports: [SectionHeaderComponent, TabsModule, TableModule, DatePipe, ButtonModule, CommonModule, TooltipModule, RouterLink],
   templateUrl: './operational-plan-ciat.component.html',
   styleUrl: './operational-plan-ciat.component.scss'
 })

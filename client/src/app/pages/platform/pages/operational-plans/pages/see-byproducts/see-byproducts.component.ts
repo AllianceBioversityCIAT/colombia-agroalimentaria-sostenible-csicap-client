@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './see-byproducts.component.html',
   styleUrl: './see-byproducts.component.scss'
 })
-export class SeeByproductsComponent {
-
-}
+export default class SeeByproductsComponent {}
