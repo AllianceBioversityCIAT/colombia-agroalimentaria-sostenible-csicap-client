@@ -108,17 +108,30 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'fechas-clave/fechas-de-corte',
+        loadComponent: () => import('./pages/platform/pages/key-dates/pages/cut-off-dates/cut-off-dates.component'),
+        data: {
+          breadcrumb: [
+            { path: 'fechas-clave', label: 'Fechas clave' },
+            { path: 'fechas-de-corte', label: 'Fechas de corte' }
+          ]
+        }
+      },
+      {
+        path: 'fechas-clave/fechas-de-subproducto',
+        loadComponent: () => import('./pages/platform/pages/key-dates/pages/byproduct-dates/byproduct-dates.component'),
+        data: {
+          breadcrumb: [
+            { path: 'fechas-clave', label: 'Fechas clave' },
+            { path: 'fechas-de-subproducto', label: 'Fechas de subproducto' }
+          ]
+        }
+      },
+      {
         path: 'acerca-roles',
         loadComponent: () => import('./pages/platform/pages/about-roles/about-roles.component'),
         data: {
           breadcrumb: [{ path: 'acerca-roles', label: 'Acerca de roles' }]
-        }
-      },
-      {
-        path: 'fechas-clave',
-        loadComponent: () => import('./pages/platform/pages/key-dates/key-dates.component'),
-        data: {
-          breadcrumb: [{ path: 'fechas-clave', label: 'Fechas clave' }]
         }
       }
     ]

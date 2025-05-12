@@ -1,0 +1,48 @@
+<div class="bg-white rounded-lg pt-0 p-1">
+  <p-tabs value="fechas-de-corte">
+    <p-tablist>
+      @for (tab of tabs(); track tab.route) {
+        <p-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit" [disabled]="tab.disabled">
+          <span>{{ tab.label }}</span>
+        </p-tab>
+      }
+    </p-tablist>
+  </p-tabs>
+
+  <!-- <div class="mt-[40px]"></div> -->
+
+  <div class="p-[40px]">
+    <p-table [value]="dates()" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template #header>
+        <tr>
+          <th class="bg-red-500" pSortableColumn="corte" style="width: 20%">
+            <div class="flex gap-4">Corte <p-sortIcon field="corte" /></div>
+          </th>
+          <th class="bg-gray-500" pSortableColumn="finicio" style="width: 20%">
+            <div class="flex gap-2">Fecha de inicio <p-sortIcon field="finicio" /></div>
+          </th>
+          <th class="bg-gray-500" pSortableColumn="ffin" style="width: 20%">
+            <div class="flex gap-2">Fecha de fin (corte) <p-sortIcon field="ffin" /></div>
+          </th>
+          <th class="bg-gray-500" pSortableColumn="estado" style="width: 20%">
+            <div class="flex gap-2">Estado <p-sortIcon field="estado" /></div>
+          </th>
+          <th class="bg-gray-500" pSortableColumn="dclose" style="width: 20%">
+            <div class="flex gap-2">Días de cierre <p-sortIcon field="dclose" /></div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-product>
+        <tr>
+          <td>{{ product.corte }}</td>
+          <td>{{ product.fechaInicio | date: 'MMMM yyyy' | titlecase }}</td>
+          <td>{{ product.fechaFin | date: 'MMMM yyyy' | titlecase }}</td>
+          <td>
+            <span class="{{ product.stateClass }} text-white px-2 py-1 text-xs rounded-[12px] max-content">{{ product.estado | titlecase }}</span>
+          </td>
+          <td>{{ product.diasRestantes }} días</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

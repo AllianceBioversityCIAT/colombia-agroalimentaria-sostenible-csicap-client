@@ -1,104 +1,174 @@
-<!-- Header / Hero Section -->
-<div class="bg-white h-[100%]">
-  <div class="relative w-full">
-    <!-- Fondo - abarca todo el ancho y alto -->
-    <div class="absolute inset-0">
-      <img src="/hero-section/bg.png" alt="Fondo" class="w-full h-full object-cover object-center" />
+<div class="w-full">
+  <!-- Layout principal en dos columnas en desktop -->
+  <div class="flex flex-col xl:flex-row">
+    <!-- Columna izquierda (70%) - Banner y Acciones principales -->
+    <div class="w-full xl:w-[70%] p-4 lg:p-6 bg-[#F4F7F8] min-w-0">
+      <!-- Banner principal con fondo amarillo claro -->
+      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-8 relative">
+        <div class="flex flex-col md:flex-row relative z-10">
+          <!-- Imagen del personaje -->
+          <div class="w-full md:w-[38%] md:h-[240px] overflow-hidden">
+            <img
+              [src]="getUserPanelData()?.path"
+              [alt]="getUserPanelData()?.alt"
+              class="h-full w-full object-cover"
+              style="object-position: left center" />
+          </div>
+
+          <!-- Contenido del banner -->
+          <div class="w-full md:w-[62%] p-6">
+            <h1 class="text-3xl lg:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
+            <h2 class="text-xl font-medium text-[#C79807] mb-4">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
+            <p class="text-base text-gray-700">
+              Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto
+              CSICAP.
+            </p>
+          </div>
+
+          <!-- Logo en la parte derecha -->
+          <div class="absolute -right-10 top-1/2 transform -translate-y-1/2 -z-10">
+            <img
+              src="logo-white.png"
+              alt="Logo CAS"
+              class="h-96 w-auto"
+              style="
+                filter: brightness(0) saturate(100%) invert(97%) sepia(15%) saturate(1200%) hue-rotate(358deg) brightness(105%) contrast(80%);
+                opacity: 0.3;
+              " />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Acciones principales -->
+      <div class="mt-8 mb-8">
+        <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Acciones principales</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+          @for (option of getUserPanelData()?.options ?? []; track option.title) {
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+              <!-- Imagen de la tarjeta -->
+              <div class="p-3">
+                <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover rounded-xl" />
+              </div>
+
+              <!-- Contenido de la tarjeta -->
+              <div class="p-5">
+                <h3 class="text-xl font-semibold text-[#024955] mb-3">{{ option.title }}</h3>
+                <p class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5">{{ option.description }}</p>
+
+                <!-- Botón de acción -->
+                <a [routerLink]="option.path">
+                  <button class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-full border border-[#047F94]">
+                    {{ option.buttonLabel ?? 'Ver' }}
+                  </button>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="mt-8 mb-8 flex justify-between">
+        <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Mis últimos entregables</h2>
+        <p-button
+          label="Cargar entregable"
+          size="small"
+          variant="outlined"
+          icon="pi pi-plus-circle"
+          iconPos="left"
+          [style]="{ color: '#047F94', 'border-color': '#047F94' }"
+          severity="info" />
+      </div>
     </div>
 
-    <!-- Contenido del Header -->
-    <div class="relative w-full flex flex-wrap">
-      <!-- Imagen del personaje - visible solo en pantallas grandes -->
-      <div class="hidden lg:block w-2/5 h-[400px] overflow-hidden max-w-[464px]">
-        <img [src]="getCharacterImg().path" [alt]="getCharacterImg().alt" class="w-full h-full object-cover object-right" />
-      </div>
+    <!-- Columna derecha (30%) - Dashboard -->
+    <div class="w-full xl:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
+      <div class="bg-white rounded-lg p-5 shadow-sm w-full">
+        <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
 
-      <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
-      <div class="w-full lg:w-3/5 flex flex-col justify-center p-6 lg:pl-4 lg:pr-16" style="min-height: 350px">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de Administración de CAS Reporting Tool</h2>
-        <p class="font-inter font-light text-base leading-6 text-[#616161]">
-          Desde este panel, puede gestionar de manera integral la arquitectura del sistema, configurar y supervisar los planes operativos, así como
-          administrar los usuarios con acceso a la herramienta. Optimice la organización de la información y facilite la colaboración eficiente en el
-          ecosistema de Colombia Agroalimentaria Sostenible.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sección de Gestión y Herramientas -->
-  <div class="py-10 px-4 md:px-10 bg-white">
-    <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Gestión y herramientas</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Tarjeta 1: Arquitectura -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-sitemap !text-[28px]"></i>
+        <!-- Análisis de entregables -->
+        <div class="mb-10">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
+            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
           </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Arquitectura</h3>
-          <p class="text-m text-[#4B5563] mb-3 text-center flex-grow">Acceda a los elementos transversales de CAS.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/arquitectura">
-            Acceder
-          </button>
+
+          <p class="text-sm text-gray-500 mb-3">Estados</p>
+
+          <!-- Estados con números -->
+          <div class="grid grid-cols-3 gap-2 mb-4">
+            <div>
+              <p class="text-sm text-gray-500">Borrador</p>
+              <p class="text-xl font-bold text-[#F0983A]">12</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Sometidos</p>
+              <p class="text-xl font-bold text-[#F5C748]">9</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Aprobados</p>
+              <p class="text-xl font-bold text-[#8BD16B]">23</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Tarjeta 2: Planes operativos -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-chart-line !text-[28px]"></i>
+        <!-- Estado subproducto -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-medium text-[#195B5B]">Estado subproducto 2.1</h3>
+            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
           </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Planes operativos</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Explore los planes operativos de las organizaciones del proyecto.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/planes-operativos">
-            Ver planes
-          </button>
-        </div>
-      </div>
 
-      <!-- Tarjeta 3: Fechas clave -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-calendar !text-[28px]"></i>
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-2xl font-bold text-[#195B5B]">35%</p>
+            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center">
+              1 hito completado
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
           </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Fechas clave</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Administre las fechas clave del proyecto para cada vigencia.</p>
-          <button pButton type="button" class="w-full py-1 text-xs" style="background-color: #1da750; border-color: #1da750" [disabled]="true">
-            Ver fechas
-          </button>
-        </div>
-      </div>
 
-      <!-- Tarjeta 4: Gestión de usuarios -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-user-edit !text-[28px]"></i>
+          <!-- Hitos con porcentajes -->
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span class="text-sm text-gray-600 mr-2">Hito 1</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-lg font-medium">35%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 2</span>
+              <span class="text-lg font-medium">10%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 3</span>
+              <span class="text-lg font-medium">15%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 4</span>
+              <span class="text-lg font-medium">40%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 5</span>
+              <span class="text-lg font-medium">05%</span>
+            </div>
           </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Gestión de usuarios</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Gestione los usuarios autorizados para gestionar información.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/gestion-usuarios">
-            Gestionar
-          </button>
+
+          <!-- Barra de progreso -->
+          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+            <div class="bg-[#F5C748] h-2.5 rounded-full" style="width: 35%"></div>
+          </div>
         </div>
       </div>
     </div>

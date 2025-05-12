@@ -1,15 +1,10 @@
-<app-section-header
-  header="Plan Operativo - Alliance Bioversity & CIAT"
-  tagName="2025"
-  [centered]="false">
+<app-section-header header="Plan Operativo - Alliance Bioversity & CIAT" tagName="2025" [centered]="false">
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
         @for (objective of objectives(); track objective.id_obj) {
           @let index = $index + 1;
-          <p-tab (click)="setCurrentActivities($index)" [value]="index"
-            >Objetivo {{ index }}
-          </p-tab>
+          <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
         }
       </p-tablist>
     </p-tabs>
@@ -46,6 +41,7 @@
         [value]="currentActivities()"
         [scrollable]="false"
         styleClass="p-datatable-gridlines rounded-table"
+        [tableStyle]="{ border: 'solid 1px #f5f6fa' }"
         showGridlines
         [scrollable]="true"
         scrollHeight="calc(100vh - 430px)">
@@ -68,76 +64,66 @@
           @if (activity?.subactividades?.length === 0) {
             <tr style="height: 50px">
               <td>{{ activity.nombre_actv }}</td>
-              <td colspan="8">No subactividades found</td>
+              <td colspan="8">No se encontraron subactividades</td>
             </tr>
           } @else {
             @for (subactivity of activity.subactividades; track $index; let isFirst = $first) {
-              @if (subactivity?.productos?.length > 0) {
-                @if (subactivity?.productos && subactivity?.productos?.length > 0) {
-                  @for (
-                    product of subactivity?.productos;
-                    track product.id;
-                    let productIndex = $index
-                  ) {
-                    <tr>
-                      @if (isFirst && productIndex === 0) {
-                        <td [attr.rowspan]="calculateTotalRows(activity)">
-                          Actividad {{ activity?.nombre_actv || '' }}
-                        </td>
-                      }
-
-                      @if (productIndex === 0) {
-                        <td [attr.rowspan]="subactivity?.productos?.length">
-                          Subactividad {{ subactivity?.nombre_subActv || '' }}
-                        </td>
-                      }
-                      @if (productIndex === 0) {
-                        <td [attr.rowspan]="subactivity?.productos?.length">
-                          {{ formatCurrency(subactivity?.presupuesto) }}
-                        </td>
-                      }
-
-                      <td>
-                        {{ formatArrayWithConjunction(product?.ejes) }}
-                      </td>
-
-                      <td>
-                        {{ formatArrayWithConjunction(product?.responsables) }}
-                      </td>
-
-                      <td>
-                        {{ product?.codigo || '' }}
-                      </td>
-
-                      <td>
-                        Producto {{ product?.codigo }}.
-                        {{ product?.nombre_prod || '' }}
-                      </td>
-
-                      <td>{{ product?.descripcion || '' }}</td>
-
-                      <td class="capitalize">
-                        {{ (product?.fechaEntrega | date: 'MMM yyyy') || '' }}
-                      </td>
-                    </tr>
-                  }
-                } @else {
+              @if (subactivity?.productos && subactivity?.productos?.length > 0) {
+                @for (product of subactivity?.productos; track product.id; let productIndex = $index) {
                   <tr>
-                    @if (isFirst) {
-                      <td [attr.rowspan]="calculateTotalRows(activity)">
-                        {{ activity?.nombre_actv }}
+                    @if (isFirst && productIndex === 0) {
+                      <td [attr.rowspan]="calculateTotalRows(activity)">Actividad {{ activity?.nombre_actv || '' }}</td>
+                    }
+
+                    @if (productIndex === 0) {
+                      <td [attr.rowspan]="subactivity?.productos?.length">Subactividad {{ subactivity?.nombre_subActv || '' }}</td>
+                    }
+                    @if (productIndex === 0) {
+                      <td [attr.rowspan]="subactivity?.productos?.length">
+                        {{ formatCurrency(subactivity?.presupuesto) }}
                       </td>
                     }
 
                     <td>
-                      {{ subactivity?.nombre_subActv }}
+                      {{ formatArrayWithConjunction(product?.ejes) }}
                     </td>
 
-                    <td>{{ formatCurrency(subactivity?.presupuesto) }}</td>
+                    <td>
+                      {{ formatArrayWithConjunction(product?.responsables) }}
+                    </td>
 
-                    <td [attr.colspan]="6">No sub-products information available</td>
+                    <td>
+                      {{ product?.codigo || '' }}
+                    </td>
+
+                    <td>
+                      Producto {{ product?.codigo }}.
+                      {{ product?.nombre_prod || '' }}
+                    </td>
+
+                    <td>{{ product?.descripcion || '' }}</td>
+
+                    <td class="capitalize">
+                      {{ (product?.fechaEntrega | date: 'MMMM yyyy') || '' }}
+                    </td>
                   </tr>
                 }
+              } @else {
+                <tr>
+                  @if (isFirst) {
+                    <td [attr.rowspan]="calculateTotalRows(activity)">
+                      {{ activity?.nombre_actv }}
+                    </td>
+                  }
+
+                  <td>
+                    {{ subactivity?.nombre_subActv }}
+                  </td>
+
+                  <td>{{ formatCurrency(subactivity?.presupuesto) }}</td>
+
+                  <td [attr.colspan]="6">No hay informacion de productos</td>
+                </tr>
               }
             }
           }
