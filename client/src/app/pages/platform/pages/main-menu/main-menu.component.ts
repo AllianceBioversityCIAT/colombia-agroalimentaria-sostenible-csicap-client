@@ -4,6 +4,22 @@ import { Component, computed, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { AuthPermissionsService } from 'src/app/shared/services/auth-permissions.service';
+
+interface PanelOption {
+  img: string;
+  path: string;
+  title: string;
+  description: string;
+}
+
+interface UserPanelData {
+  path: string;
+  alt: string;
+  title: string;
+  options: PanelOption[];
+  description: string;
+}
+
 @Component({
   selector: 'app-main-menu',
   standalone: true,
@@ -13,7 +29,7 @@ import { AuthPermissionsService } from 'src/app/shared/services/auth-permissions
 export default class MainMenuComponent {
   authPermissions = inject(AuthPermissionsService);
 
-  getCharacterImg = computed(() => {
+  getUserPanelData = computed<UserPanelData | null>(() => {
     if (this.authPermissions.isAdmin())
       return {
         path: '/hero-section/character-admin.png',
@@ -21,41 +37,44 @@ export default class MainMenuComponent {
         title: 'Administrador',
         options: [
           {
-            img: '/hero-section/character-admin.png',
+            img: '/images/img1.jpg',
             path: '/Planes operativos',
-            title: 'Planes operativos',
-            description: 'Acceda a los elementos transversales de CAS.'
+            title: 'Operational plans',
+            description: 'Access CAS cross-cutting elements.'
           },
           {
-            img: '/hero-section/character-admin.png',
+            img: '/images/img1.jpg',
             path: '/Gestión de usuarios',
-            title: 'Gestión de usuarios',
-            description: 'Explore los planes operativos de las organizaciones del proyecto.'
+            title: 'User management',
+            description: 'Explore operational plans of project organizations.'
           },
           {
-            img: '/hero-section/character-admin.png',
+            img: '/images/img1.jpg',
             path: '/Arquitectura',
-            title: 'Arquitectura',
-            description: 'Acceda a los elementos transversales de CAS.'
+            title: 'Architecture',
+            description: 'Access CAS cross-cutting elements.'
           }
         ],
         description:
-          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+          'From this panel you can manage deliverables, check key dates, access the operational plan, and generate technical reports for the CSICAP project.'
       };
     if (this.authPermissions.isPuntoFocal())
       return {
         path: '/hero-section/character-focal.png',
-        alt: 'Punto Focal',
-        title: 'Punto focal',
+        alt: 'Focal Point',
+        title: 'Focal point',
+        options: [],
         description:
-          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+          'From this panel you can manage deliverables, check key dates, access the operational plan, and generate technical reports for the CSICAP project.'
       };
     if (this.authPermissions.isObservador())
       return {
         path: '/hero-section/character-focal.png',
-        alt: 'Observador',
-        title: 'Observador'
+        alt: 'Observer',
+        title: 'Observer',
+        options: [],
+        description: ''
       };
-    return { path: '', alt: '', title: '', description: '' };
+    return null;
   });
 }

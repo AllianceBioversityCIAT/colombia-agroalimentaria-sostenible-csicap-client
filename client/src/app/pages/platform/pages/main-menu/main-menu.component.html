@@ -3,33 +3,48 @@
   <div class="relative w-full rounded-lg overflow-hidden">
     <!-- Fondo - abarca todo el ancho y alto -->
     <div class="absolute inset-0">
-      <img src="/hero-section/bg.png" alt="Fondo" class="w-full h-full object-cover object-center" />
+      <img src="/hero-section/bg.png" alt="Background" class="w-full h-full object-cover object-center" />
     </div>
 
     <!-- Contenido del Header -->
     <div class="relative w-full flex flex-wrap">
       <!-- Imagen del personaje - visible solo en pantallas grandes -->
       <div class="hidden lg:block w-2/5 h-[400px] overflow-hidden max-w-[464px]">
-        <img [src]="getCharacterImg().path" [alt]="getCharacterImg().alt" class="w-full h-full object-cover object-right" />
+        <img [src]="getUserPanelData()?.path" [alt]="getUserPanelData()?.alt" class="w-full h-full object-cover object-right" />
       </div>
 
       <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
       <div class="w-full lg:w-3/5 flex flex-col justify-center p-6 lg:pl-4 lg:pr-16" style="min-height: 350px">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de {{ getCharacterImg().title }} de CAS Reporting Tool</h2>
+        <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">Welcome!</h1>
+        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">{{ getUserPanelData()?.title }} panel of CAS Reporting Tool</h2>
         <p class="font-inter font-light text-base leading-6 text-[#616161]">
-          {{ getCharacterImg().description }}
+          {{ getUserPanelData()?.description }}
         </p>
       </div>
     </div>
   </div>
 
-  <!-- Sección de Gestión y Herramientas -->
+  <!-- Main Actions Section -->
   <div class="py-10 px-4 md:px-10">
-    <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Gestión y herramientas</h2>
-
-    @for (option of getCharacterImg().options; track option.title) {
-      <div class="flex flex-col gap-4">{{ option.title }}</div>
-    }
+    <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Main actions</h2>
+    <div class="flex flex-col md:flex-row gap-2 justify-center">
+      @for (option of getUserPanelData()?.options ?? []; track option.title) {
+        <div class="bg-white rounded-2xl shadow p-6 flex flex-col w-full md:w-[350px] max-w-[400px] mx-auto">
+          <img [src]="option.img" alt="option image" class="rounded-xl w-full h-[180px] object-cover mb-6" />
+          <div class="flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-[#195B5B] mb-2">{{ option.title }}</h3>
+            <p class="text-[#616161] text-base mb-6">{{ option.description }}</p>
+            <a [routerLink]="option.path" class="mt-auto">
+              <button
+                pButton
+                type="button"
+                class="w-full bg-[#388087] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#2c6a6a] transition-colors">
+                View {{ option.title.toLowerCase() }}
+              </button>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>
