@@ -57,6 +57,7 @@
                 {{ col.header }}
               </th>
             }
+            <th>información</th>
           </tr>
         </ng-template>
 
@@ -106,6 +107,7 @@
                     <td class="capitalize">
                       {{ (product?.fechaEntrega | date: 'MMMM yyyy') || '' }}
                     </td>
+                    <td><a routerLink="" routerLinkActive="router-link-active" class="text-blue-500 cursor-pointer underline">Ver detalle</a></td>
                   </tr>
                 }
               } @else {
