@@ -14,9 +14,28 @@ export default class MainMenuComponent {
   authPermissions = inject(AuthPermissionsService);
 
   getCharacterImg = computed(() => {
-    if (this.authPermissions.isAdmin()) return { path: '/hero-section/character-admin.png', alt: 'Administrador' };
-    if (this.authPermissions.isObservador()) return { path: '/hero-section/character-focal.png', alt: 'Observador' };
-    if (this.authPermissions.isPuntoFocal()) return { path: '/hero-section/character-focal.png', alt: 'Punto Focal' };
-    return { path: '', alt: '' };
+    if (this.authPermissions.isAdmin())
+      return {
+        path: '/hero-section/character-admin.png',
+        alt: 'Administrador',
+        title: 'Administrador',
+        description:
+          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+      };
+    if (this.authPermissions.isPuntoFocal())
+      return {
+        path: '/hero-section/character-focal.png',
+        alt: 'Punto Focal',
+        title: 'Punto focal',
+        description:
+          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+      };
+    if (this.authPermissions.isObservador())
+      return {
+        path: '/hero-section/character-focal.png',
+        alt: 'Observador',
+        title: 'Observador'
+      };
+    return { path: '', alt: '', title: '', description: '' };
   });
 }

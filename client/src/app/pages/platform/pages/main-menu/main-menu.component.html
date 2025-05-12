@@ -1,6 +1,6 @@
 <!-- Header / Hero Section -->
-<div class="bg-white h-[100%]">
-  <div class="relative w-full">
+<div class="h-[100%] p-5">
+  <div class="relative w-full rounded-lg overflow-hidden">
     <!-- Fondo - abarca todo el ancho y alto -->
     <div class="absolute inset-0">
       <img src="/hero-section/bg.png" alt="Fondo" class="w-full h-full object-cover object-center" />
@@ -16,18 +16,16 @@
       <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
       <div class="w-full lg:w-3/5 flex flex-col justify-center p-6 lg:pl-4 lg:pr-16" style="min-height: 350px">
         <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de Administración de CAS Reporting Tool</h2>
+        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de {{ getCharacterImg().title }} de CAS Reporting Tool</h2>
         <p class="font-inter font-light text-base leading-6 text-[#616161]">
-          Desde este panel, puede gestionar de manera integral la arquitectura del sistema, configurar y supervisar los planes operativos, así como
-          administrar los usuarios con acceso a la herramienta. Optimice la organización de la información y facilite la colaboración eficiente en el
-          ecosistema de Colombia Agroalimentaria Sostenible.
+          {{ getCharacterImg().description }}
         </p>
       </div>
     </div>
   </div>
 
   <!-- Sección de Gestión y Herramientas -->
-  <div class="py-10 px-4 md:px-10 bg-white">
+  <div class="py-10 px-4 md:px-10">
     <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Gestión y herramientas</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
