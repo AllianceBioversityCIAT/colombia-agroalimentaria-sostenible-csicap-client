@@ -1,47 +1,167 @@
-<!-- Header / Hero Section -->
-<div class="h-[100%] p-5">
-  <div class="relative w-full rounded-lg overflow-hidden">
-    <!-- Fondo - abarca todo el ancho y alto -->
-    <div class="absolute inset-0">
-      <img src="/hero-section/bg.png" alt="Fondo" class="w-full h-full object-cover object-center" />
-    </div>
+<div class="max-w-[1600px] mx-auto">
+  <!-- Layout principal en dos columnas en desktop -->
+  <div class="flex flex-col lg:flex-row">
+    <!-- Columna izquierda (3/4) - Banner y Acciones principales -->
+    <div class="w-full lg:w-[70%] px-6 pt-6">
+      <!-- Banner principal con fondo amarillo claro -->
+      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-10">
+        <div class="flex flex-col lg:flex-row">
+          <!-- Imagen del personaje -->
+          <div class="w-full lg:w-[38%]">
+            <img
+              [src]="getUserPanelData()?.path"
+              [alt]="getUserPanelData()?.alt"
+              class="h-full w-full object-cover"
+              style="max-height: 240px; object-position: center bottom" />
+          </div>
 
-    <!-- Contenido del Header -->
-    <div class="relative w-full flex flex-wrap">
-      <!-- Imagen del personaje - visible solo en pantallas grandes -->
-      <div class="hidden lg:block w-2/5 h-[400px] overflow-hidden max-w-[464px]">
-        <img [src]="getUserPanelData()?.path" [alt]="getUserPanelData()?.alt" class="w-full h-full object-cover object-right" />
-      </div>
-
-      <!-- Texto - ocupa todo el ancho en móviles y pantallas medianas, 3/5 en pantallas grandes -->
-      <div class="w-full lg:w-3/5 flex flex-col justify-center p-6 lg:pl-4 lg:pr-16" style="min-height: 350px">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-        <h2 class="text-xl md:text-2xl font-medium text-[#C79807] mb-4 md:mb-6">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
-        <p class="font-inter font-light text-base leading-6 text-[#616161]">
-          {{ getUserPanelData()?.description }}
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sección de Acciones Principales -->
-  <div class="py-10 px-4 md:px-10">
-    <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Acciones principales</h2>
-    <div class="flex flex-col md:flex-row gap-6 justify-center">
-      @for (option of getUserPanelData()?.options ?? []; track option.title) {
-        <div class="bg-white rounded-lg shadow-sm p-0 flex flex-col w-full md:w-[380px] max-w-[380px]">
-          <img [src]="option.img" alt="option image" class="rounded-t-lg w-full h-[180px] object-cover" />
-          <div class="flex flex-col p-5">
-            <h3 class="text-xl font-semibold text-[#195B5B] mb-2">{{ option.title }}</h3>
-            <p class="text-[#616161] text-sm mb-4">{{ option.description }}</p>
-            <a [routerLink]="option.path" class="mt-auto">
-              <button pButton type="button" class="bg-[#1976D2] text-white py-2 px-4 rounded-md w-full md:w-auto">
-                Ver {{ option.title.toLowerCase() }}
-              </button>
-            </a>
+          <!-- Contenido del banner -->
+          <div class="w-full lg:w-[62%] p-8">
+            <h1 class="text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
+            <h2 class="text-xl font-medium text-[#C79807] mb-4">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
+            <p class="text-base text-gray-700">
+              Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto
+              CSICAP.
+            </p>
           </div>
         </div>
-      }
+      </div>
+
+      <!-- Sección de Acciones principales -->
+      <div class="mt-8 mb-10">
+        <h2 class="text-2xl font-medium text-[#C79807] mb-8">Acciones principales</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          @for (option of getUserPanelData()?.options ?? []; track option.title) {
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+              <!-- Imagen de la tarjeta -->
+              <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover" />
+
+              <!-- Contenido de la tarjeta -->
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-[#195B5B] mb-3">{{ option.title }}</h3>
+                <p class="text-sm text-gray-600 mb-5">{{ option.description }}</p>
+
+                <!-- Botón de acción -->
+                <a [routerLink]="option.path">
+                  <button class="bg-[#51A5B3] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-full">
+                    {{ option.buttonLabel ?? 'Ver' }}
+                  </button>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna derecha (1/4) - Dashboard -->
+    <div class="w-full lg:w-[30%] bg-[#F5F7F8] px-6 py-8">
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <h2 class="text-2xl font-medium text-[#195B5B] mb-6">Dashboard</h2>
+
+        <!-- Análisis de entregables -->
+        <div class="mb-12">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
+            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+          </div>
+
+          <p class="text-sm text-gray-500 mb-3">Estados</p>
+
+          <!-- Estados con números -->
+          <div class="grid grid-cols-3 gap-2 mb-5">
+            <div>
+              <p class="text-sm text-gray-500">Borrador</p>
+              <p class="text-xl font-bold text-[#F0983A]">12</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Sometidos</p>
+              <p class="text-xl font-bold text-[#F5C748]">9</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Aprobados</p>
+              <p class="text-xl font-bold text-[#8BD16B]">23</p>
+            </div>
+          </div>
+
+          <!-- Gráfica circular -->
+          <div class="relative h-44 flex justify-center items-center">
+            <!-- Gráfica semicircular usando CSS -->
+            <div class="relative w-full h-36">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-36 h-36 rounded-full border-[20px] border-[#F5F7F8]"></div>
+                <div
+                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#F0983A] border-l-[#F0983A] border-r-[#F5C748] rotate-[225deg] origin-bottom"></div>
+                <div
+                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#F5C748] border-l-[#F5C748] border-r-[#8BD16B] rotate-[270deg] origin-bottom"></div>
+                <div
+                  class="absolute bottom-0 left-0 w-36 h-18 rounded-t-full border-t-[20px] border-l-[20px] border-r-[20px] border-t-[#8BD16B] border-l-[#8BD16B] border-r-[#8BD16B] rotate-[315deg] origin-bottom"></div>
+                <div class="absolute top-10 text-lg font-bold">46<span class="text-sm">%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estado subproducto -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-medium text-[#195B5B]">Estado subproducto 2.1</h3>
+            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+          </div>
+
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-2xl font-bold text-[#195B5B]">35%</p>
+            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center">
+              1 hito completado
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </div>
+
+          <!-- Hitos con porcentajes -->
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span class="text-sm text-gray-600 mr-2">Hito 1</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-lg font-medium">35%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 2</span>
+              <span class="text-lg font-medium">10%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 3</span>
+              <span class="text-lg font-medium">15%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 4</span>
+              <span class="text-lg font-medium">40%</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Hito 5</span>
+              <span class="text-lg font-medium">05%</span>
+            </div>
+          </div>
+
+          <!-- Barra de progreso -->
+          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+            <div class="bg-[#F5C748] h-2.5 rounded-full" style="width: 35%"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

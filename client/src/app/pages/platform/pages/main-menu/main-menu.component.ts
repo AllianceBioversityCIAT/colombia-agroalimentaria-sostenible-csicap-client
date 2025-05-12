@@ -10,6 +10,7 @@ interface PanelOption {
   path: string;
   title: string;
   description: string;
+  buttonLabel?: string;
 }
 
 interface UserPanelData {
