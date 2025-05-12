@@ -24,26 +24,30 @@
     <div class="menu-item-container">
       <!-- Elemento principal del menú -->
       <div
-        class="flex items-center justify-between px-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
+        class="flex items-center justify-between px-8 py-4 hover:bg-[#165863] hover:text-[#ffe100] rounded cursor-pointer"
         [ngClass]="{
           'opacity-50 cursor-not-allowed': item.disabled,
           '!px-6': cache.isSidebarCollapsed(),
-          'bg-[#165863] text-[#34ca6b]': !item.options && item.path && $any(item.path) === $any(location.path())
+          'bg-[#165863] text-[#ffe100]': !item.options && item.path && $any(item.path) === $any(location.path())
         }"
         [routerLink]="item.disabled || item.options?.length ? null : item.path"
-        routerLinkActive="bg-[#165863] text-[#34ca6b]"
+        routerLinkActive="bg-[#165863] text-[#ffe100]"
         [routerLinkActiveOptions]="{ exact: item.options ? false : true }"
         [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
         tooltipPosition="right"
         (click)="item.options?.length ? toggleSubmenu(item) : item.action ? item.action() : null">
         <div class="flex items-center gap-2">
-          <div class="pi {{ item.icon }}" [ngStyle]="{ 'font-size': cache.isSidebarCollapsed() ? '18px' : '16px' }"></div>
+          <div class="pi {{ item.icon }} text-white" [ngStyle]="{ 'font-size': cache.isSidebarCollapsed() ? '18px' : '16px' }"></div>
           <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
         </div>
 
         <!-- Icono de expansión solo si tiene opciones y el sidebar no está colapsado -->
         <div class="flex items-center" *ngIf="item.options?.length && !cache.isSidebarCollapsed()">
-          <i class="pi" [ngClass]="isExpanded(item) ? 'pi-chevron-down' : 'pi-chevron-right'" style="font-size: 12px"> </i>
+          <i
+            class="pi {{ isExpanded(item) && 'text-[#ffe100]' }}"
+            [ngClass]="isExpanded(item) ? 'pi-chevron-down' : 'pi-chevron-right'"
+            style="font-size: 12px">
+          </i>
         </div>
       </div>
 
@@ -55,10 +59,10 @@
           [@submenuAnimation]="isExpanded(item) ? 'expanded' : 'collapsed'">
           @for (subItem of item.options; track subItem.label) {
             <div
-              class="flex items-center gap-2 py-3 hover:text-[#34ca6b] cursor-pointer"
+              class="flex items-center gap-2 py-3 hover:text-[#ffe100] cursor-pointer"
               [ngClass]="{ 'opacity-50 cursor-not-allowed': subItem.disabled }"
               [routerLink]="subItem.disabled ? null : subItem.path"
-              routerLinkActive="text-[#34ca6b]">
+              routerLinkActive="text-[#ffe100]">
               <div class="pi {{ subItem.icon }}" style="font-size: 14px"></div>
               <div class="text-nowrap text-sm">{{ subItem.label }}</div>
             </div>
