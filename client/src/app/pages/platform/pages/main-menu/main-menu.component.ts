@@ -19,6 +19,26 @@ export default class MainMenuComponent {
         path: '/hero-section/character-admin.png',
         alt: 'Administrador',
         title: 'Administrador',
+        options: [
+          {
+            img: '/hero-section/character-admin.png',
+            path: '/Planes operativos',
+            title: 'Planes operativos',
+            description: 'Acceda a los elementos transversales de CAS.'
+          },
+          {
+            img: '/hero-section/character-admin.png',
+            path: '/Gestión de usuarios',
+            title: 'Gestión de usuarios',
+            description: 'Explore los planes operativos de las organizaciones del proyecto.'
+          },
+          {
+            img: '/hero-section/character-admin.png',
+            path: '/Arquitectura',
+            title: 'Arquitectura',
+            description: 'Acceda a los elementos transversales de CAS.'
+          }
+        ],
         description:
           'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
       };

@@ -28,77 +28,8 @@
   <div class="py-10 px-4 md:px-10">
     <h2 class="font-medium text-[24px] leading-[150%] tracking-[0px] align-middle text-[#C79807] mb-8">Gestión y herramientas</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Tarjeta 1: Arquitectura -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-sitemap !text-[28px]"></i>
-          </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Arquitectura</h3>
-          <p class="text-m text-[#4B5563] mb-3 text-center flex-grow">Acceda a los elementos transversales de CAS.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/arquitectura">
-            Acceder
-          </button>
-        </div>
-      </div>
-
-      <!-- Tarjeta 2: Planes operativos -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-chart-line !text-[28px]"></i>
-          </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Planes operativos</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Explore los planes operativos de las organizaciones del proyecto.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/planes-operativos">
-            Ver planes
-          </button>
-        </div>
-      </div>
-
-      <!-- Tarjeta 3: Fechas clave -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-calendar !text-[28px]"></i>
-          </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Fechas clave</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Administre las fechas clave del proyecto para cada vigencia.</p>
-          <button pButton type="button" class="w-full py-1 text-xs" style="background-color: #1da750; border-color: #1da750" [disabled]="true">
-            Ver fechas
-          </button>
-        </div>
-      </div>
-
-      <!-- Tarjeta 4: Gestión de usuarios -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <div class="p-4 flex flex-col items-center flex-grow">
-          <div class="mb-3 text-[#024955]">
-            <i class="pi pi-user-edit !text-[28px]"></i>
-          </div>
-          <h3 class="text-xl font-semibold text-[#024955] mb-2 text-center">Gestión de usuarios</h3>
-          <p class="text-m text-gray-600 mb-3 text-center flex-grow">Gestione los usuarios autorizados para gestionar información.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full py-1 text-xs"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/gestion-usuarios">
-            Gestionar
-          </button>
-        </div>
-      </div>
-    </div>
+    @for (option of getCharacterImg().options; track option.title) {
+      <div class="flex flex-col gap-4">{{ option.title }}</div>
+    }
   </div>
 </div>
