@@ -7,6 +7,8 @@ import { ActionsService } from '../../shared/services/actions.service';
 import { signal } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Routes } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { AuthPermissionsService } from '../../shared/services/auth-permissions.service';
 
 const routes: Routes = [
   {
@@ -22,23 +24,18 @@ describe('PlatformComponent', () => {
   let component: PlatformComponent;
   let fixture: ComponentFixture<PlatformComponent>;
   let mockActionsService: Partial<ActionsService>;
-  let mockCacheService: {
-    dataCache: any;
-    isLoggedIn: any;
-    hasSmallScreenWidth: any;
-    hasSmallScreen: any;
-    isSidebarCollapsed: any;
-    toggleSidebar: any;
-  };
+  let mockCacheService: any;
+  let mockAuthPermissionsService: Partial<AuthPermissionsService>;
 
   beforeEach(async () => {
     mockCacheService = {
-      dataCache: signal({
+      dataCache: jest.fn().mockReturnValue({
         user: {
           nombre: 'Test',
           apellido: 'User',
           rolesPersonas: [
             {
+              rol_id: 1,
               rol: {
                 nombre: 'Admin'
               }
@@ -50,9 +47,9 @@ describe('PlatformComponent', () => {
         }
       }),
       isLoggedIn: { set: jest.fn() },
-      hasSmallScreenWidth: jest.fn(),
-      hasSmallScreen: jest.fn(),
-      isSidebarCollapsed: jest.fn(),
+      hasSmallScreenWidth: jest.fn().mockReturnValue(false),
+      hasSmallScreen: jest.fn().mockReturnValue(false),
+      isSidebarCollapsed: jest.fn().mockReturnValue(false),
       toggleSidebar: jest.fn()
     };
 
@@ -60,11 +57,18 @@ describe('PlatformComponent', () => {
       isTokenExpired: jest.fn()
     };
 
+    mockAuthPermissionsService = {
+      setCurrentRole: jest.fn(),
+      isAdmin: jest.fn().mockReturnValue(true)
+    };
+
     await TestBed.configureTestingModule({
       imports: [PlatformComponent, HttpClientTestingModule, RouterTestingModule.withRoutes(routes)],
       providers: [
         { provide: CacheService, useValue: mockCacheService },
-        { provide: ActionsService, useValue: mockActionsService }
+        { provide: ActionsService, useValue: mockActionsService },
+        { provide: AuthPermissionsService, useValue: mockAuthPermissionsService },
+        provideNoopAnimations()
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
