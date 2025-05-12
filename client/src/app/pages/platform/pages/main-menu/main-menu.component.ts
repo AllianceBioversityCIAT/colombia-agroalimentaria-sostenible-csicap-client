@@ -39,39 +39,64 @@ export default class MainMenuComponent {
           {
             img: '/images/img1.jpg',
             path: '/Planes operativos',
-            title: 'Operational plans',
-            description: 'Access CAS cross-cutting elements.'
+            title: 'Planes operativos',
+            description: 'Acceda a los elementos transversales de CAS.',
+            buttonLabel: 'Ver planes operativos'
           },
           {
             img: '/images/img1.jpg',
             path: '/Gestión de usuarios',
-            title: 'User management',
-            description: 'Explore operational plans of project organizations.'
+            title: 'Gestión de usuarios',
+            description: 'Explore los planes operativos de las organizaciones del proyecto.',
+            buttonLabel: 'Ver gestión de usuarios'
           },
           {
             img: '/images/img1.jpg',
             path: '/Arquitectura',
-            title: 'Architecture',
-            description: 'Access CAS cross-cutting elements.'
+            title: 'Arquitectura',
+            description: 'Acceda a los elementos transversales de CAS.',
+            buttonLabel: 'Ver arquitectura'
           }
         ],
         description:
-          'From this panel you can manage deliverables, check key dates, access the operational plan, and generate technical reports for the CSICAP project.'
+          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
       };
     if (this.authPermissions.isPuntoFocal())
       return {
         path: '/hero-section/character-focal.png',
-        alt: 'Focal Point',
-        title: 'Focal point',
-        options: [],
+        alt: 'Punto Focal',
+        title: 'Punto focal',
+        options: [
+          {
+            img: '/images/img1.jpg',
+            path: '/Mi plan operativo',
+            title: 'Mi plan operativo',
+            description: 'Consolidación de informacion para generar el reporte técnico consolidado.',
+            buttonLabel: 'Ver plan operativo'
+          },
+          {
+            img: '/images/img1.jpg',
+            path: '/Mis entregables',
+            title: 'Mis entregables',
+            description: 'Gestione la documentación requerida según los entregables definidos.',
+            buttonLabel: 'Ver mis entregables'
+          },
+          {
+            img: '/images/img1.jpg',
+            path: '/Generar reportes',
+            title: 'Generar reportes',
+            description: 'Consolidación de información para generar el reporte técnico consolidado.',
+            buttonLabel: 'Generar reportes'
+          }
+        ],
         description:
-          'From this panel you can manage deliverables, check key dates, access the operational plan, and generate technical reports for the CSICAP project.'
+          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
       };
     if (this.authPermissions.isObservador())
       return {
         path: '/hero-section/character-focal.png',
-        alt: 'Observer',
-        title: 'Observer',
+        alt: 'Observador',
+        title: 'Observador',
         options: [],
         description: ''
       };
