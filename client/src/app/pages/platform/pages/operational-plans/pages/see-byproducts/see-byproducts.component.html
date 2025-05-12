@@ -1,1 +1,188 @@
-<p>see-byproducts works!</p>
+<div class="w-full">
+  <!-- Navegación y botón de regreso -->
+  <div class="flex items-center mb-4">
+    <a routerLink="/planes-operativos" class="text-blue-600 hover:underline flex items-center">
+      <i class="pi pi-arrow-left mr-2"></i> Mi plan operativo
+    </a>
+  </div>
+
+  <!-- Rutas de navegación -->
+  <div class="flex items-center text-sm text-gray-500 mb-4">
+    <span class="flex items-center">
+      <i class="pi pi-home mr-1"></i>
+      <span>Mi plan operativo</span>
+    </span>
+    <i class="pi pi-angle-right mx-2 text-xs"></i>
+    <span>Ver subproductos</span>
+  </div>
+
+  <!-- Título y año -->
+  <div class="mb-4">
+    <div class="text-2xl font-semibold">Plan operativo Fedegan</div>
+    <div class="flex justify-between items-center">
+      <div class="text-gray-700">
+        <span class="font-medium">Eje 5 - Producto 12:</span> Red de colaboración identificada en al menos 3 territorios clave del proyecto
+      </div>
+      <div class="text-gray-600 text-sm">Plan Operativo 2025</div>
+    </div>
+  </div>
+
+  <!-- Tabs de subproductos -->
+  <p-tabView>
+    <p-tabPanel *ngFor="let subproducto of subproductos" [header]="subproducto.nombre" [selected]="subproducto.activo">
+      <!-- Contenido para el subproducto activo -->
+      <ng-container *ngIf="subproducto.id === 1">
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-4 text-blue-800">
+            Manejo de dieciocho parcelas de producción de ganadería convencional y sostenible establecidas en 2024 para el monitoreo de impactos
+            ambientales.
+          </h2>
+
+          <!-- Sección de descripción y detalles -->
+          <div class="flex justify-between mb-8">
+            <div class="w-full">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-medium">Descripción del subproducto</h3>
+                <button pButton type="button" label="Ver detalle" icon="pi pi-search" class="p-button-text p-button-sm">Ver detalle</button>
+              </div>
+
+              <!-- Cuadrícula de información -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- ¿Qué se hará? -->
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                  <h4 class="text-md font-medium text-blue-800 mb-2">¿Qué se hará?</h4>
+                  <p class="text-sm text-gray-700">
+                    Diseño e implementación de un plan de manejo detallado para dieciocho (18) parcelas de producción de ganadería convencional y
+                    sostenible implementadas en 2024 para el monitoreo de impactos ambientales.
+                  </p>
+                </div>
+
+                <!-- Metodología -->
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                  <h4 class="text-md font-medium text-blue-800 mb-2">Metodología</h4>
+                  <p class="text-sm text-gray-700">
+                    Las parcelas instaladas corresponden a áreas piloto de manejo de ganadería convencional y ganadería sostenible que fueron
+                    instaladas en 2024 en las regiones priorizadas. Para su mantenimiento se debe generar e implementar un plan detallado.
+                  </p>
+                </div>
+
+                <!-- ¿Dónde se hará? -->
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                  <h4 class="text-md font-medium text-blue-800 mb-2">¿Dónde se hará?</h4>
+                  <ul class="text-sm text-gray-700 list-none pl-0">
+                    <li class="mb-1">3 fincas en San Onofre (Sucre)</li>
+                    <li class="mb-1">3 fincas en Tame (Arauca)</li>
+                    <li class="mb-1">3 fincas en Guachucal (Nariño)</li>
+                  </ul>
+                </div>
+
+                <!-- ¿Cómo se reportará? -->
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                  <h4 class="text-md font-medium text-blue-800 mb-2">¿Cómo se reportará?</h4>
+                  <p class="text-sm text-gray-700">
+                    Un (1) Documento en Word con actualizaciones por capítulos según período de reporte y anexos con información colectada en las
+                    parcelas.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hitos del subproducto -->
+          <div class="mb-8">
+            <h3 class="text-lg font-medium mb-4">Hitos del subproducto</h3>
+
+            <!-- Hito 1 -->
+            <div class="mb-6 border-b pb-6">
+              <div class="flex items-center mb-4">
+                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                  <span class="text-xs">25%</span>
+                </div>
+                <div>
+                  <span class="font-medium">Hito 1</span>
+                  <span class="text-gray-500 text-sm ml-2">Fecha esperada el viernes 30 de mayo 2025</span>
+                </div>
+                <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full">Pendiente</div>
+              </div>
+
+              <h4 class="text-md font-medium mb-2">Recolección y organización de datos</h4>
+
+              <div class="mb-2">
+                <span class="text-sm font-medium">Entregables:</span>
+                <span class="text-sm text-gray-700 ml-1"
+                  >Documento que detalla el proceso de recolección y organización de los datos agroclimáticos - Información agroclimática recolectada
+                  - Diccionario de datos de la información recolectada.</span
+                >
+              </div>
+
+              <button pButton type="button" label="Ver más" class="p-button-text p-button-sm">Ver más</button>
+
+              <div class="flex justify-end">
+                <button pButton type="button" label="Cargar entregable" icon="pi pi-upload" class="p-button-outlined">Cargar entregable</button>
+              </div>
+            </div>
+
+            <!-- Hito 2 -->
+            <div class="mb-6 border-b pb-6">
+              <div class="flex items-center mb-4">
+                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                  <span class="text-xs">25%</span>
+                </div>
+                <div>
+                  <span class="font-medium">Hito 2</span>
+                  <span class="text-gray-500 text-sm ml-2">Fecha esperada el viernes 30 de mayo 2025</span>
+                </div>
+              </div>
+
+              <h4 class="text-md font-medium mb-2">Recolección y organización de datos</h4>
+
+              <div class="mb-2">
+                <span class="text-sm font-medium">Entregables:</span>
+                <span class="text-sm text-gray-700 ml-1"
+                  >Documento que detalla el proceso de recolección y organización de los datos agroclimáticos - Información agroclimática recolectada
+                  - Diccionario de datos de la información recolectada.</span
+                >
+              </div>
+
+              <button pButton type="button" label="Ver más" class="p-button-text p-button-sm">Ver más</button>
+
+              <div class="flex justify-end">
+                <button pButton type="button" label="Cargar entregable" icon="pi pi-upload" class="p-button-outlined">Cargar entregable</button>
+              </div>
+            </div>
+
+            <!-- Hito 3 -->
+            <div class="mb-6">
+              <div class="flex items-center mb-4">
+                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                  <span class="text-xs">25%</span>
+                </div>
+                <div>
+                  <span class="font-medium">Hito 3</span>
+                  <span class="text-gray-500 text-sm ml-2">Fecha esperada el viernes 30 de mayo 2025</span>
+                </div>
+                <div class="ml-2 px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Atrasado</div>
+              </div>
+
+              <h4 class="text-md font-medium mb-2">Recolección y organización de datos</h4>
+
+              <div class="mb-2">
+                <span class="text-sm font-medium">Entregables:</span>
+                <span class="text-sm text-gray-700 ml-1"
+                  >Documento que detalla el proceso de recolección y organización de los datos agroclimáticos - Información agroclimática recolectada
+                  - Diccionario de datos de la información recolectada.</span
+                >
+              </div>
+
+              <button pButton type="button" label="Ver más" class="p-button-text p-button-sm">Ver más</button>
+
+              <div class="flex justify-end">
+                <button pButton type="button" label="Cargar entregable" icon="pi pi-upload" class="p-button-outlined">Cargar entregable</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </p-tabPanel>
+  </p-tabView>
+</div>
