@@ -7,23 +7,59 @@ import { CacheService } from '../../services/cache/cache.service';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthPermissionsService } from '../../services/auth-permissions.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Location } from '@angular/common';
+
+interface SidebarSubItem {
+  icon: string;
+  label: string;
+  path?: string;
+  disabled?: boolean;
+}
+
 interface SidebarItem {
   icon: string;
   label: string;
   action?: () => void;
   path?: string;
   disabled?: boolean;
+  options?: SidebarSubItem[];
+  expanded?: boolean;
 }
 
 @Component({
   selector: 'app-sidebar',
   imports: [CommonModule, OverlayBadgeModule, RouterLink, RouterLinkActive, TooltipModule],
-  templateUrl: './sidebar.component.html'
+  templateUrl: './sidebar.component.html',
+  animations: [
+    trigger('submenuAnimation', [
+      state(
+        'collapsed',
+        style({
+          height: '0',
+          overflow: 'hidden',
+          opacity: '0',
+          padding: '0'
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: '1'
+        })
+      ),
+      transition('collapsed <=> expanded', [animate('200ms ease-in-out')])
+    ])
+  ]
 })
 export default class SidebarComponent implements OnInit {
   actions = inject(ActionsService);
   cache = inject(CacheService);
   authPermissions = inject(AuthPermissionsService);
+  location = inject(Location);
+  expandedItems = signal<Record<string, boolean>>({});
+
   menuItems = computed<SidebarItem[]>(() => [
     { icon: 'pi-home', label: 'Menú principal', path: 'menu-principal' },
     { icon: 'pi-sitemap', label: 'Arquitectura', path: 'arquitectura' },
@@ -34,7 +70,14 @@ export default class SidebarComponent implements OnInit {
     },
     { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios' },
     { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
-    { icon: 'pi-calendar', label: 'Fechas clave', path: 'fechas-clave', disabled: true }
+    {
+      icon: 'pi-calendar',
+      label: 'Fechas clave',
+      options: [
+        { icon: 'pi-calendar', label: 'Fechas de corte', path: 'fechas-clave/fechas-corte' },
+        { icon: 'pi-calendar', label: 'Fechas de subprod', path: 'fechas-clave/fechas-subprod' }
+      ]
+    }
   ]);
 
   accountItems = signal<SidebarItem[]>([
@@ -46,5 +89,25 @@ export default class SidebarComponent implements OnInit {
     if ((this.cache.hasSmallScreenWidth() || this.cache.hasSmallScreen()) && !this.cache.isSidebarCollapsed()) {
       this.cache.toggleSidebar();
     }
+
+    // Inicializar expandedItems
+    this.menuItems().forEach(item => {
+      if (item.options && item.options.length > 0) {
+        this.expandedItems.update(state => ({ ...state, [item.label]: false }));
+      }
+    });
+  }
+
+  toggleSubmenu(item: SidebarItem): void {
+    if (item.options && item.options.length > 0) {
+      this.expandedItems.update(state => ({
+        ...state,
+        [item.label]: !state[item.label]
+      }));
+    }
+  }
+
+  isExpanded(item: SidebarItem): boolean {
+    return this.expandedItems()[item.label] || false;
   }
 }
