@@ -74,8 +74,8 @@ export default class SidebarComponent implements OnInit {
       icon: 'pi-calendar',
       label: 'Fechas clave',
       options: [
-        { icon: 'pi-calendar', label: 'Fechas de corte', path: 'fechas-clave/fechas-corte' },
-        { icon: 'pi-calendar', label: 'Fechas de subprod', path: 'fechas-clave/fechas-subprod' }
+        { icon: 'pi-box', label: 'Fechas de corte', path: 'fechas-clave/fechas-de-corte' },
+        { icon: 'pi-box', label: 'Fechas de subprod', path: 'fechas-clave/fechas-subprod', disabled: true }
       ]
     }
   ]);
