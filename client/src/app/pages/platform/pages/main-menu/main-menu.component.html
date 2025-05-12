@@ -1,11 +1,11 @@
 <div class="w-full">
   <!-- Layout principal en dos columnas en desktop -->
-  <div class="flex flex-col lg:flex-row">
+  <div class="flex flex-col xl:flex-row">
     <!-- Columna izquierda (70%) - Banner y Acciones principales -->
-    <div class="w-full lg:w-[70%] p-4 lg:p-6">
+    <div class="w-full xl:w-[70%] p-4 lg:p-6 bg-[#F4F7F8] min-w-0">
       <!-- Banner principal con fondo amarillo claro -->
-      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-8">
-        <div class="flex flex-col md:flex-row">
+      <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-8 relative">
+        <div class="flex flex-col md:flex-row relative z-10">
           <!-- Imagen del personaje -->
           <div class="w-full md:w-[38%] md:h-[240px] overflow-hidden">
             <img
@@ -24,27 +24,41 @@
               CSICAP.
             </p>
           </div>
+
+          <!-- Logo en la parte derecha -->
+          <div class="absolute -right-10 top-1/2 transform -translate-y-1/2 -z-10">
+            <img
+              src="logo-white.png"
+              alt="Logo CAS"
+              class="h-96 w-auto"
+              style="
+                filter: brightness(0) saturate(100%) invert(97%) sepia(15%) saturate(1200%) hue-rotate(358deg) brightness(105%) contrast(80%);
+                opacity: 0.3;
+              " />
+          </div>
         </div>
       </div>
 
       <!-- Sección de Acciones principales -->
       <div class="mt-8 mb-8">
-        <h2 class="text-2xl font-medium text-[#C79807] mb-6">Acciones principales</h2>
+        <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Acciones principales</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           @for (option of getUserPanelData()?.options ?? []; track option.title) {
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
               <!-- Imagen de la tarjeta -->
-              <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover" />
+              <div class="p-3">
+                <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover rounded-xl" />
+              </div>
 
               <!-- Contenido de la tarjeta -->
               <div class="p-5">
-                <h3 class="text-xl font-semibold text-[#195B5B] mb-3">{{ option.title }}</h3>
-                <p class="text-sm text-gray-600 mb-5">{{ option.description }}</p>
+                <h3 class="text-xl font-semibold text-[#024955] mb-3">{{ option.title }}</h3>
+                <p class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5">{{ option.description }}</p>
 
                 <!-- Botón de acción -->
                 <a [routerLink]="option.path">
-                  <button class="bg-[#51A5B3] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-full">
+                  <button class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-full border border-[#047F94]">
                     {{ option.buttonLabel ?? 'Ver' }}
                   </button>
                 </a>
@@ -53,11 +67,23 @@
           }
         </div>
       </div>
+
+      <div class="mt-8 mb-8 flex justify-between">
+        <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Mis últimos entregables</h2>
+        <p-button
+          label="Cargar entregable"
+          size="small"
+          variant="outlined"
+          icon="pi pi-plus-circle"
+          iconPos="left"
+          [style]="{ color: '#047F94', 'border-color': '#047F94' }"
+          severity="info" />
+      </div>
     </div>
 
     <!-- Columna derecha (30%) - Dashboard -->
-    <div class="w-full lg:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
-      <div class="bg-white rounded-lg p-5 shadow-sm">
+    <div class="w-full xl:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
+      <div class="bg-white rounded-lg p-5 shadow-sm w-full">
         <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
 
         <!-- Análisis de entregables -->
