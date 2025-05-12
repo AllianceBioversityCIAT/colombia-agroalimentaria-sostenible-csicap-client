@@ -68,11 +68,10 @@
           @if (activity?.subactividades?.length === 0) {
             <tr style="height: 50px">
               <td>{{ activity.nombre_actv }}</td>
-              <td colspan="8">No subactividades found</td>
+              <td colspan="8">No se encontraron subactividades</td>
             </tr>
           } @else {
             @for (subactivity of activity.subactividades; track $index; let isFirst = $first) {
-              @if (subactivity?.productos?.length > 0) {
                 @if (subactivity?.productos && subactivity?.productos?.length > 0) {
                   @for (
                     product of subactivity?.productos;
@@ -135,10 +134,9 @@
 
                     <td>{{ formatCurrency(subactivity?.presupuesto) }}</td>
 
-                    <td [attr.colspan]="6">No sub-products information available</td>
+                    <td [attr.colspan]="6">No hay informacion de productos</td>
                   </tr>
                 }
-              }
             }
           }
         </ng-template>
