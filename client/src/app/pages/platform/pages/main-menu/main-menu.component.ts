@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, OnInit } from '@angular/core';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,7 @@ import { AuthPermissionsService } from 'src/app/shared/services/auth-permissions
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { AvatarModule } from 'primeng/avatar';
 import { CacheService } from '@shared/services/cache/cache.service';
+import { ChartModule } from 'primeng/chart';
 
 interface PanelOption {
   img: string;
@@ -38,12 +39,53 @@ interface Entregable {
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [ButtonModule, RouterLink, AvatarModule, OverlayBadgeModule],
+  imports: [ButtonModule, RouterLink, AvatarModule, OverlayBadgeModule, ChartModule],
   templateUrl: './main-menu.component.html'
 })
-export default class MainMenuComponent {
+export default class MainMenuComponent implements OnInit {
   authPermissions = inject(AuthPermissionsService);
   cache = inject(CacheService);
+  options = signal<any>(null);
+  data = signal<any>(null);
+
+  ngOnInit() {
+    this.initChart();
+  }
+
+  initChart() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+    this.data.set({
+      labels: ['A', 'B', 'C'],
+      datasets: [
+        {
+          data: [300, 50, 100],
+          backgroundColor: [
+            documentStyle.getPropertyValue('--p-cyan-500'),
+            documentStyle.getPropertyValue('--p-orange-500'),
+            documentStyle.getPropertyValue('--p-gray-500')
+          ],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--p-cyan-400'),
+            documentStyle.getPropertyValue('--p-orange-400'),
+            documentStyle.getPropertyValue('--p-gray-400')
+          ]
+        }
+      ]
+    });
+
+    this.options.set({
+      cutout: '60%',
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      }
+    });
+  }
 
   getUserPanelData = computed<UserPanelData | null>(() => {
     if (this.authPermissions.isAdmin())
