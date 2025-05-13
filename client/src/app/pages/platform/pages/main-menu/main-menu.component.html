@@ -126,13 +126,13 @@
     <!-- Columna derecha (30%) - Dashboard -->
     <div class="w-full xl:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
       <div class="bg-white rounded-lg p-5 shadow-sm w-full">
-        <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
+        <h2 class="text-2xl font-medium text-[#047F94] mb-5">Dashboard</h2>
 
         <!-- Análisis de entregables -->
-        <div class="mb-6">
+        <div class="mb-6 border border-[#F9F9F9] rounded-2xl p-4 shadow-sm">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
-            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+            <span class="text-sm cursor-pointer hover:underline text-[#64748B]">Ver detalle</span>
           </div>
 
           <p class="text-sm text-gray-500 mb-3">Estados</p>
@@ -159,15 +159,15 @@
         </div>
 
         <!-- Estado subproducto -->
-        <div>
+        <div class="border border-[#F9F9F9] rounded-2xl p-4 shadow-sm">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Estado subproducto 2.1</h3>
-            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+            <span class="text-sm text-[#64748B] cursor-pointer hover:underline">Ver detalle</span>
           </div>
 
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2 mb-4">
             <p class="text-2xl font-bold text-[#195B5B]">35%</p>
-            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center">
+            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center border border-[#45B36933]">
               1 hito completado
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -176,44 +176,69 @@
           </div>
 
           <!-- Hitos con porcentajes -->
-          <div class="space-y-3 mb-4">
+          <div class="space-y-3 mb-4 mr-6 ml-6">
             <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <span class="text-sm text-gray-600 mr-2">Hito 1</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 1</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="flex items-center w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">35%</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 ml-2" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="text-lg font-medium">35%</span>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 2</span>
-              <span class="text-lg font-medium">10%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 2</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">10%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 3</span>
-              <span class="text-lg font-medium">15%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 3</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">15%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 4</span>
-              <span class="text-lg font-medium">40%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 4</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">40%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 5</span>
-              <span class="text-lg font-medium">05%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 5</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">05%</span>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- Barra de progreso -->
-          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-            <div class="bg-[#F5C748] h-2.5 rounded-full" style="width: 35%"></div>
+          <div class="w-full bg-gray-200 rounded-full h-4 mb-2 relative">
+            <div class="bg-[#F5C748] h-4 rounded-full relative" style="width: 35%">
+              <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xs font-medium">35%</span>
+            </div>
           </div>
         </div>
       </div>
