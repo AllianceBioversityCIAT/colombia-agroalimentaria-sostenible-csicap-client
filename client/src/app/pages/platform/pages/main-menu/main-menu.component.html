@@ -48,7 +48,7 @@
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
               <!-- Imagen de la tarjeta -->
               <div class="p-3">
-                <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover rounded-xl" />
+                <img [src]="option.img" [alt]="option.title" class="w-full h-48 object-cover rounded-xl" />
               </div>
 
               <!-- Contenido de la tarjeta -->
@@ -90,7 +90,7 @@
                   <p-avatar [label]="getNameInitiales()" styleClass="mr-2" size="xlarge" shape="circle" size="large" />
                   <div class="flex flex-col flex-1">
                     <div class="flex items-center gap-2">
-                      <span class="font-inter font-semibold text-[11.73px] leading-[100%] tracking-[-1%] align-middle"
+                      <span class="font-inter font-semibold text-[11.73px] leading-[100%] tracking-[-1%] align-middle text-[#024955]"
                         >{{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}</span
                       >
                       <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
@@ -153,7 +153,7 @@
           </div>
 
           <div class="flex justify-center w-full">
-            <p-chart type="doughnut" [data]="data()" [options]="options()" class="w-[20rem] h-60" />
+            <p-chart type="doughnut" [data]="data()" [options]="options()" class="w-[15rem] h-60" />
           </div>
         </div>
 

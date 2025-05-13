@@ -113,21 +113,21 @@ export default class MainMenuComponent implements OnInit {
         title: 'Administrador',
         options: [
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-1.png',
             path: '/Planes operativos',
             title: 'Planes operativos',
             description: 'Acceda a los elementos transversales de CAS.',
             buttonLabel: 'Ver planes operativos'
           },
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-2.png',
             path: '/Gestión de usuarios',
             title: 'Gestión de usuarios',
             description: 'Explore los planes operativos de las organizaciones del proyecto.',
             buttonLabel: 'Ver gestión de usuarios'
           },
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-3.png',
             path: '/Arquitectura',
             title: 'Arquitectura',
             description: 'Acceda a los elementos transversales de CAS.',
@@ -144,21 +144,21 @@ export default class MainMenuComponent implements OnInit {
         title: 'Punto focal',
         options: [
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-1.png',
             path: '/Mi plan operativo',
             title: 'Mi plan operativo',
             description: 'Consolidación de informacion para generar el reporte técnico consolidado.',
             buttonLabel: 'Ver plan operativo'
           },
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-2.png',
             path: '/Mis entregables',
             title: 'Mis entregables',
             description: 'Gestione la documentación requerida según los entregables definidos.',
             buttonLabel: 'Ver mis entregables'
           },
           {
-            img: '/images/img1.jpg',
+            img: '/hero-section/accion-3.png',
             path: '/Generar reportes',
             title: 'Generar reportes',
             description: 'Consolidación de información para generar el reporte técnico consolidado.',
