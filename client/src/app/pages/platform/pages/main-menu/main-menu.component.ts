@@ -145,9 +145,9 @@ export default class MainMenuComponent implements OnInit {
         options: [
           {
             img: '/hero-section/accion-1.png',
-            path: '/Mi plan operativo',
-            title: 'Mi plan operativo',
-            description: 'Consolidación de informacion para generar el reporte técnico consolidado.',
+            path: '/Plan operativo',
+            title: 'Plan operativo',
+            description: 'Acceda al Plan Operativo establecido para la vigencia actual.',
             buttonLabel: 'Ver plan operativo'
           },
           {
@@ -159,10 +159,10 @@ export default class MainMenuComponent implements OnInit {
           },
           {
             img: '/hero-section/accion-3.png',
-            path: '/Generar reportes',
-            title: 'Generar reportes',
+            path: '/Generación de reportes',
+            title: 'Generación de reportes',
             description: 'Consolidación de información para generar el reporte técnico consolidado.',
-            buttonLabel: 'Generar reportes'
+            buttonLabel: 'Ver generaración de reportes'
           }
         ],
         description:
