@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
@@ -127,36 +127,42 @@ export default class MainMenuComponent {
     return userData.nombre.charAt(0) + userData.apellido.charAt(0);
   });
 
-  entregables = signal<Entregable[]>([
-    {
-      id: '1',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en diciembre 6/2024',
-      titulo: 'Entregable 4 - Producto 1',
-      estado: 'Borrador',
-      estadoColor: '#EAB308',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '2',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en enero 15/2024',
-      titulo: 'Entregable 5 - Producto 2',
-      estado: 'Borrador',
-      estadoColor: '#EAB308',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '3',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en febrero 1/2024',
-      titulo: 'Entregable 6 - Producto 3',
-      estado: 'Aprobado',
-      estadoColor: '#22C55E',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
+  getEntregables = computed<Entregable[] | null>(() => {
+    if (!this.authPermissions.isPuntoFocal()) {
+      return null;
     }
-  ]);
+
+    return [
+      {
+        id: '1',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en diciembre 6/2024',
+        titulo: 'Entregable 4 - Producto 1',
+        estado: 'Borrador',
+        estadoColor: '#EAB308',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '2',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en enero 15/2024',
+        titulo: 'Entregable 5 - Producto 2',
+        estado: 'Borrador',
+        estadoColor: '#EAB308',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '3',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en febrero 1/2024',
+        titulo: 'Entregable 6 - Producto 3',
+        estado: 'Aprobado',
+        estadoColor: '#22C55E',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      }
+    ];
+  });
 }
