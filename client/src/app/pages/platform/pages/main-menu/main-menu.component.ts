@@ -36,6 +36,28 @@ interface Entregable {
   avatarLabel: string;
 }
 
+interface ChartOptions {
+  cutout: string;
+  rotation: number;
+  circumference: number;
+  plugins: {
+    legend: {
+      labels: {
+        color: string;
+      };
+    };
+  };
+}
+
+interface ChartData {
+  labels: string[];
+  datasets: {
+    data: number[];
+    backgroundColor: string[];
+    hoverBackgroundColor: string[];
+  }[];
+}
+
 @Component({
   selector: 'app-main-menu',
   standalone: true,
@@ -45,8 +67,8 @@ interface Entregable {
 export default class MainMenuComponent implements OnInit {
   authPermissions = inject(AuthPermissionsService);
   cache = inject(CacheService);
-  options = signal<any>(null);
-  data = signal<any>(null);
+  options = signal<ChartOptions>(null!);
+  data = signal<ChartData>(null!);
 
   ngOnInit() {
     this.initChart();
@@ -77,6 +99,8 @@ export default class MainMenuComponent implements OnInit {
 
     this.options.set({
       cutout: '60%',
+      rotation: -90,
+      circumference: 180,
       plugins: {
         legend: {
           labels: {
