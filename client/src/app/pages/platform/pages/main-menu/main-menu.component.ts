@@ -82,23 +82,13 @@ export default class MainMenuComponent implements OnInit {
   }
 
   initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-
     this.data.set({
       labels: ['A', 'B', 'C'],
       datasets: [
         {
           data: [300, 50, 100],
-          backgroundColor: [
-            documentStyle.getPropertyValue('--p-cyan-500'),
-            documentStyle.getPropertyValue('--p-orange-500'),
-            documentStyle.getPropertyValue('--p-gray-500')
-          ],
-          hoverBackgroundColor: [
-            documentStyle.getPropertyValue('--p-cyan-400'),
-            documentStyle.getPropertyValue('--p-orange-400'),
-            documentStyle.getPropertyValue('--p-gray-400')
-          ]
+          backgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B'],
+          hoverBackgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B']
         }
       ]
     });
@@ -197,36 +187,42 @@ export default class MainMenuComponent implements OnInit {
     return userData.nombre.charAt(0) + userData.apellido.charAt(0);
   });
 
-  entregables = signal<Entregable[]>([
-    {
-      id: '1',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en diciembre 6/2024',
-      titulo: 'Entregable 4 - Producto 1',
-      estado: 'Borrador',
-      estadoColor: 'orange',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '2',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en enero 15/2024',
-      titulo: 'Entregable 5 - Producto 2',
-      estado: 'Borrador',
-      estadoColor: 'orange',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '3',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en febrero 1/2024',
-      titulo: 'Entregable 6 - Producto 3',
-      estado: 'Aprobado',
-      estadoColor: '#22C55E',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
+  getEntregables = computed<Entregable[] | null>(() => {
+    if (!this.authPermissions.isPuntoFocal()) {
+      return null;
     }
-  ]);
+
+    return [
+      {
+        id: '1',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en diciembre 6/2024',
+        titulo: 'Entregable 4 - Producto 1',
+        estado: 'Borrador',
+        estadoColor: 'orange',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '2',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en enero 15/2024',
+        titulo: 'Entregable 5 - Producto 2',
+        estado: 'Borrador',
+        estadoColor: 'orange',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '3',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en febrero 1/2024',
+        titulo: 'Entregable 6 - Producto 3',
+        estado: 'Aprobado',
+        estadoColor: '#22C55E',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      }
+    ];
+  });
 }
