@@ -1,9 +1,12 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { AuthPermissionsService } from 'src/app/shared/services/auth-permissions.service';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { AvatarModule } from 'primeng/avatar';
+import { CacheService } from '@shared/services/cache/cache.service';
 
 interface PanelOption {
   img: string;
@@ -21,14 +24,26 @@ interface UserPanelData {
   description: string;
 }
 
+interface Entregable {
+  id: string;
+  nombre: string;
+  fecha: string;
+  titulo: string;
+  estado: 'Borrador' | 'Sometido' | 'Aprobado';
+  estadoColor: string;
+  descripcion: string;
+  avatarLabel: string;
+}
+
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [ButtonModule, RouterLink],
+  imports: [ButtonModule, RouterLink, AvatarModule, OverlayBadgeModule],
   templateUrl: './main-menu.component.html'
 })
 export default class MainMenuComponent {
   authPermissions = inject(AuthPermissionsService);
+  cache = inject(CacheService);
 
   getUserPanelData = computed<UserPanelData | null>(() => {
     if (this.authPermissions.isAdmin())
@@ -103,4 +118,45 @@ export default class MainMenuComponent {
       };
     return null;
   });
+
+  getNameInitiales = computed(() => {
+    const userData = this.cache.dataCache()?.user;
+    if (!userData?.nombre || !userData?.apellido) {
+      return '';
+    }
+    return userData.nombre.charAt(0) + userData.apellido.charAt(0);
+  });
+
+  entregables = signal<Entregable[]>([
+    {
+      id: '1',
+      nombre: 'Andrea Silva',
+      fecha: 'Enviado en diciembre 6/2024',
+      titulo: 'Entregable 4 - Producto 1',
+      estado: 'Borrador',
+      estadoColor: '#EAB308',
+      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+      avatarLabel: 'AS'
+    },
+    {
+      id: '2',
+      nombre: 'Andrea Silva',
+      fecha: 'Enviado en enero 15/2024',
+      titulo: 'Entregable 5 - Producto 2',
+      estado: 'Borrador',
+      estadoColor: '#EAB308',
+      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+      avatarLabel: 'AS'
+    },
+    {
+      id: '3',
+      nombre: 'Andrea Silva',
+      fecha: 'Enviado en febrero 1/2024',
+      titulo: 'Entregable 6 - Producto 3',
+      estado: 'Aprobado',
+      estadoColor: '#22C55E',
+      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+      avatarLabel: 'AS'
+    }
+  ]);
 }

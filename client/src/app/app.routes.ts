@@ -101,6 +101,16 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'planes-operativos/ver-subproductos/:id',
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/see-byproducts/see-byproducts.component'),
+        data: {
+          breadcrumb: [
+            { path: 'planes-operativos', label: 'Mi plan operativo' },
+            { path: 'ver-subproductos', label: 'Ver subproductos' }
+          ]
+        }
+      },
+      {
         path: 'gestion-usuarios',
         loadComponent: () => import('./pages/platform/pages/user-management/user-management.component'),
         data: {
