@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow-md">
+  <div class="bg-white rounded-lg shadow-md p-1">
     <!-- Tabs de subproductos -->
     <p-tabs [value]="1">
       <p-tablist>
@@ -32,7 +32,7 @@
         <div class="w-full">
           <div class="flex justify-between items-center mb-10 mt-8">
             <h3 class="text-lg font-medium">Descripción del subproducto</h3>
-            <div class="text-[#64748B] text-sm font-medium cursor-pointer">Ver detalle</div>
+            <div class="text-[#64748B] text-sm font-medium cursor-pointer" (click)="dialogVisible.set({ value: true })">Ver detalle</div>
           </div>
 
           <!-- Cuadrícula de información -->
@@ -112,7 +112,7 @@
               </div>
               <div class="flex justify-end w-[400px]">
                 <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
-                <button pButton type="button" icon="pi pi-upload" label="Cargar entregable"></button>
+                <button pButton type="button" icon="pi pi-plus-circle" label="Cargar entregable"></button>
               </div>
             </div>
           </div>
@@ -121,3 +121,58 @@
     </div>
   </div>
 </div>
+
+<p-dialog [modal]="true" [(visible)]="dialogVisible().value" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-bold whitespace-nowrap text-[#111827] text-lg">Información del subproducto</span>
+    </div>
+  </ng-template>
+  <div class="p-5 flex flex-col gap-6">
+    <!-- ¿Qué se hará? -->
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
+      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Qué se hará?</h3>
+      <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
+        <p class="text-gray-700">
+          Diseño e implementación de un plan de manejo detallado para dieciocho (18) parcelas de producción de ganadería convencional y sostenible
+          implementadas en 2024 para el monitoreo de impactos ambientales.
+        </p>
+      </div>
+    </div>
+
+    <!-- Metodología -->
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
+      <h3 class="text-lg font-medium text-[#024955] mb-3">Metodología</h3>
+      <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
+        <p class="text-gray-700">
+          La metodología para el análisis exploratorio de la información agroclimática disponible se basará en la recopilación y organización de datos
+          relevantes, incluyendo variables climáticas, presencia de plagas, enfermedades y otros factores de interés. Se aplicarán técnicas de
+          exploración y visualización de datos para identificar tendencias y relaciones significativas. Además, se evaluarán posibles patrones y
+          riesgos asociados a la variabilidad agroclimática con el fin de proporcionar información útil anticipada para la gestión fitosanitaria.
+        </p>
+      </div>
+    </div>
+
+    <!-- ¿Dónde se hará? -->
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
+      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Dónde se hará?</h3>
+      <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
+        <div class="flex flex-wrap gap-2">
+          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en San Onofre (Sucre)</span>
+          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en Tame (Arauca)</span>
+          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en Guachucal (Nariño)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ¿Cómo se reportará? -->
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
+      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Cómo se reportará?</h3>
+      <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
+        <p class="text-gray-700">
+          Un (1) Documento en Word con actualizaciones por capítulos según período de reporte y anexos con información colectada en las parcelas.
+        </p>
+      </div>
+    </div>
+  </div>
+</p-dialog>
