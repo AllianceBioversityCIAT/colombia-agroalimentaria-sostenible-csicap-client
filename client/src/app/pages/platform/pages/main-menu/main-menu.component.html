@@ -128,7 +128,7 @@
         <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
 
         <!-- Análisis de entregables -->
-        <div class="mb-10">
+        <div class="mb-6">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
             <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
@@ -137,7 +137,7 @@
           <p class="text-sm text-gray-500 mb-3">Estados</p>
 
           <!-- Estados con números -->
-          <div class="grid grid-cols-3 gap-2 mb-4">
+          <div class="grid grid-cols-3 gap-2 mb-2">
             <div>
               <p class="text-sm text-gray-500">Borrador</p>
               <p class="text-xl font-bold text-[#F0983A]">12</p>
@@ -153,7 +153,7 @@
           </div>
 
           <div class="flex justify-center w-full">
-            <p-chart type="doughnut" [data]="data()" [options]="options()" class="w-[20rem]" />
+            <p-chart type="doughnut" [data]="data()" [options]="options()" class="w-[20rem] h-60" />
           </div>
         </div>
 

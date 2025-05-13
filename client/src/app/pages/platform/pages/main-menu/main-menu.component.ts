@@ -42,9 +42,16 @@ interface ChartOptions {
   circumference: number;
   plugins: {
     legend: {
-      labels: {
+      display?: boolean;
+      labels?: {
         color: string;
+        font?: {
+          size: number;
+        };
+        padding?: number;
       };
+      position?: 'top' | 'bottom' | 'left' | 'right' | 'chartArea';
+      align?: 'start' | 'center' | 'end';
     };
   };
 }
@@ -76,7 +83,6 @@ export default class MainMenuComponent implements OnInit {
 
   initChart() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
 
     this.data.set({
       labels: ['A', 'B', 'C'],
@@ -103,9 +109,7 @@ export default class MainMenuComponent implements OnInit {
       circumference: 180,
       plugins: {
         legend: {
-          labels: {
-            color: textColor
-          }
+          display: false
         }
       }
     });
