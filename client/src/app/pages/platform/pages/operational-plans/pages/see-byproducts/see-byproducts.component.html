@@ -122,15 +122,15 @@
   </div>
 </div>
 
-<p-dialog
-  header="Información del subproducto"
-  [modal]="true"
-  [(visible)]="dialogVisible().value"
-  [style]="{ width: '50rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+<p-dialog [modal]="true" [(visible)]="dialogVisible().value" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-bold whitespace-nowrap text-[#111827] text-lg">Información del subproducto</span>
+    </div>
+  </ng-template>
   <div class="p-5 flex flex-col gap-6">
     <!-- ¿Qué se hará? -->
-    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Qué se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
@@ -141,7 +141,7 @@
     </div>
 
     <!-- Metodología -->
-    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
       <h3 class="text-lg font-medium text-[#024955] mb-3">Metodología</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
@@ -154,7 +154,7 @@
     </div>
 
     <!-- ¿Dónde se hará? -->
-    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Dónde se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <div class="flex flex-wrap gap-2">
@@ -166,7 +166,7 @@
     </div>
 
     <!-- ¿Cómo se reportará? -->
-    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Cómo se reportará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
