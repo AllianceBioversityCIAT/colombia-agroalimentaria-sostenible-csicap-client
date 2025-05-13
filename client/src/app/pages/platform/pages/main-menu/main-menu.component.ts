@@ -82,23 +82,13 @@ export default class MainMenuComponent implements OnInit {
   }
 
   initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-
     this.data.set({
       labels: ['A', 'B', 'C'],
       datasets: [
         {
           data: [300, 50, 100],
-          backgroundColor: [
-            documentStyle.getPropertyValue('--p-cyan-500'),
-            documentStyle.getPropertyValue('--p-orange-500'),
-            documentStyle.getPropertyValue('--p-gray-500')
-          ],
-          hoverBackgroundColor: [
-            documentStyle.getPropertyValue('--p-cyan-400'),
-            documentStyle.getPropertyValue('--p-orange-400'),
-            documentStyle.getPropertyValue('--p-gray-400')
-          ]
+          backgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B'],
+          hoverBackgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B']
         }
       ]
     });
