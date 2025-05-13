@@ -11,6 +11,7 @@ import { CacheService } from '@shared/services/cache/cache.service';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 interface Tabs {
   title: string;
@@ -52,6 +53,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeIndex = 0;
   api = inject(ApiService);
   cache = inject(CacheService);
+  route = inject(ActivatedRoute);
   loadingDownload = signal<boolean>(false);
 
   columns: TableColumn[] = [
@@ -71,6 +73,8 @@ export default class OperationalPlanCiatComponent implements OnInit {
   currentActivities = signal<Actividad[]>([]);
 
   ngOnInit() {
+    // const id = this.route.snapshot.paramMap.get('id');
+    // console.log('ID de la ruta:', id);
     this.getPlanOperativoCiat();
   }
 

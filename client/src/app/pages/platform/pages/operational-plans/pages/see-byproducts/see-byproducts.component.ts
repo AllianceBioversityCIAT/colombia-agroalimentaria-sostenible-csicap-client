@@ -11,7 +11,7 @@ import { DialogModule } from 'primeng/dialog';
   templateUrl: './see-byproducts.component.html'
 })
 export default class SeeByproductsComponent {
-  dialogVisible = signal({ value: true });
+  dialogVisible = signal({ value: false });
   subproductos = [
     { id: 1, nombre: 'Subproducto 1', activo: true },
     { id: 2, nombre: 'Subproducto 2', activo: false },
