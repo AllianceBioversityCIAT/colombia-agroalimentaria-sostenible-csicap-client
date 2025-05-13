@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-see-byproducts',
-  imports: [TabViewModule, ButtonModule, TooltipModule, CommonModule, RouterModule],
+  imports: [ButtonModule, TooltipModule, CommonModule, RouterModule, TabsModule],
   templateUrl: './see-byproducts.component.html'
 })
 export default class SeeByproductsComponent {
