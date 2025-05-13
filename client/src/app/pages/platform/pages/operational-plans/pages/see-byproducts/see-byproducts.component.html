@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="bg-white">
+  <div class="bg-white rounded-lg shadow-md">
     <!-- Tabs de subproductos -->
     <p-tabs value="/dashboard">
       <p-tablist>
@@ -38,7 +38,7 @@
           <!-- Cuadrícula de información -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <!-- ¿Qué se hará? -->
-            <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Qué se hará?</h4>
               <p class="text-sm text-gray-700">
                 Diseño e implementación de un plan de manejo detallado para dieciocho (18) parcelas de producción de ganadería convencional y
@@ -47,7 +47,7 @@
             </div>
 
             <!-- Metodología -->
-            <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">Metodología</h4>
               <p class="text-sm text-gray-700">
                 Las parcelas instaladas corresponden a áreas piloto de manejo de ganadería convencional y ganadería sostenible que fueron instaladas
@@ -56,7 +56,7 @@
             </div>
 
             <!-- ¿Dónde se hará? -->
-            <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Dónde se hará?</h4>
               <ul class="text-sm text-gray-700 list-none pl-0 gap-2 flex flex-col">
                 <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">3 fincas en San Onofre (Sucre)</li>
@@ -66,7 +66,7 @@
             </div>
 
             <!-- ¿Cómo se reportará? -->
-            <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Cómo se reportará?</h4>
               <p class="text-sm text-gray-700">
                 Un (1) Documento en Word con actualizaciones por capítulos según período de reporte y anexos con información colectada en las
@@ -83,18 +83,19 @@
 
         @for (hito of subproductos; track hito.id) {
           <!-- Hito 1 -->
-          <div class="shadow-sm border border-[#E9EEF3] rounded-lg p-4">
+          <div
+            class="shadow-[0_4px_12px_rgba(0,0,0,0.06)] border border-[#E9EEF3] rounded-lg p-4 hover:shadow-[0_6px_16px_rgba(0,0,0,0.1)] transition-shadow duration-300">
             <div class="mb-6 border-2 border-[#F9F9F9] rounded-lg p-6 flex justify-between items-center">
               <div>
                 <div class="flex items-center mb-4">
-                  <div class="bg-[#059BB4] text-white rounded-full w-11 h-11 flex items-center justify-center mr-2">
+                  <div class="bg-[#059BB4] text-white rounded-full w-11 h-11 flex items-center justify-center mr-2 shadow-md">
                     <span class="text-xs">25%</span>
                   </div>
                   <div>
-                    <span class="font-medium">Hito 1</span>
+                    <span class="font-medium">Hito {{ hito.id }}</span>
                     <span class="text-gray-500 text-sm ml-2">Fecha esperada el viernes 30 de mayo 2025</span>
                   </div>
-                  <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full">Pendiente</div>
+                  <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div>
                 </div>
 
                 <h4 class="text-md font-medium mb-2">Recolección y organización de datos</h4>
