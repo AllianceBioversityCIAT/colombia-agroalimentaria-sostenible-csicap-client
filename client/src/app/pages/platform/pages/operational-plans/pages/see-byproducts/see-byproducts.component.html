@@ -12,7 +12,7 @@
 
   <div class="bg-white rounded-lg shadow-md">
     <!-- Tabs de subproductos -->
-    <p-tabs value="/dashboard">
+    <p-tabs [value]="1">
       <p-tablist>
         @for (subproducto of subproductos; track subproducto.id) {
           <p-tab [value]="subproducto.id" class="flex items-center !gap-2 text-inherit">
@@ -111,6 +111,7 @@
                 <a class="text-sm text-[#059BB4] font-medium underline">Ver más</a>
               </div>
               <div class="flex justify-end w-[400px]">
+                <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
                 <button pButton type="button" icon="pi pi-upload" label="Cargar entregable"></button>
               </div>
             </div>
