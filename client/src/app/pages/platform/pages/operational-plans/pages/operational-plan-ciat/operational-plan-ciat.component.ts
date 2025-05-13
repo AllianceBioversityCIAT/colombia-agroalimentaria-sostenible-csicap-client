@@ -71,11 +71,21 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeObjectiveIndex = signal<number>(0);
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
+  isCiat = signal<boolean>(false);
 
   ngOnInit() {
-    // const id = this.route.snapshot.paramMap.get('id');
-    // console.log('ID de la ruta:', id);
-    this.getPlanOperativoCiat();
+    this.mainAction();
+  }
+
+  mainAction() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.isCiat.set(id == 'ciat');
+    if (this.isCiat()) return this.getPlanOperativoCiat();
+    return this.getDynamicOperationalPlan();
+  }
+
+  getDynamicOperationalPlan() {
+    console.log('test');
   }
 
   calculateTotalRows(activity: Activity): number {
