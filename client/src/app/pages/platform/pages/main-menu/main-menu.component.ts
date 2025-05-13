@@ -204,7 +204,7 @@ export default class MainMenuComponent implements OnInit {
       fecha: 'Enviado en diciembre 6/2024',
       titulo: 'Entregable 4 - Producto 1',
       estado: 'Borrador',
-      estadoColor: '#EAB308',
+      estadoColor: 'orange',
       descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
       avatarLabel: 'AS'
     },
@@ -214,7 +214,7 @@ export default class MainMenuComponent implements OnInit {
       fecha: 'Enviado en enero 15/2024',
       titulo: 'Entregable 5 - Producto 2',
       estado: 'Borrador',
-      estadoColor: '#EAB308',
+      estadoColor: 'orange',
       descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
       avatarLabel: 'AS'
     },
