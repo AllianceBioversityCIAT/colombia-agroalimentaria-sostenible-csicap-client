@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { UserFormData } from '../../pages/platform/pages/user-management/components/user-form/user-form.component';
 import { GetCutOffDates } from '../interfaces/get/get-cut-off-dates.interface';
+import { GetCurrentUser } from '../interfaces/get-current-user.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -119,6 +120,11 @@ export class ApiService {
   getCutOffDates = (): Promise<MainResponse<GetCutOffDates[]>> => {
     const url = () => `fechas-corte/fechas-corte`;
     return this.TP.get(url(), {});
+  };
+
+  getCurrentUser = (): Promise<MainResponse<GetCurrentUser[]>> => {
+    const url = () => `users/current-user`;
+    return this.TP.get(url(), { useManagementApi: true });
   };
 
   downloadPlanOperativoCiatExcel = (): void => {
