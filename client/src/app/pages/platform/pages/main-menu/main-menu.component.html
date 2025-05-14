@@ -19,7 +19,7 @@
           <div class="w-full md:w-[62%] p-6">
             <h1 class="text-3xl lg:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
             <h2 class="text-xl font-medium text-[#C79807] mb-4">
-              Panel de {{ getUserPanelData()?.title }} de {{ this.cache.currentUser().org_nombre ?? 'CAS Reporting Tool' }}
+              Panel de {{ getUserPanelData()?.title }} de {{ this.cache.currentUser()?.org_nombre ?? 'CAS Reporting Tool' }}
             </h2>
             <p class="text-base text-gray-700">
               Desde este panel, puede gestionar los entregables asignados a su organización en el marco del proyecto CSICAP, consultar las fechas
