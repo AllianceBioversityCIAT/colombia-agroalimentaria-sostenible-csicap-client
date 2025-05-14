@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, OnInit } from '@angular/core';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,7 @@ import { AuthPermissionsService } from 'src/app/shared/services/auth-permissions
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { AvatarModule } from 'primeng/avatar';
 import { CacheService } from '@shared/services/cache/cache.service';
+import { ChartModule } from 'primeng/chart';
 
 interface PanelOption {
   img: string;
@@ -14,6 +15,7 @@ interface PanelOption {
   title: string;
   description: string;
   buttonLabel?: string;
+  disabled?: boolean;
 }
 
 interface UserPanelData {
@@ -35,15 +37,74 @@ interface Entregable {
   avatarLabel: string;
 }
 
+interface ChartOptions {
+  cutout: string;
+  rotation: number;
+  circumference: number;
+  plugins: {
+    legend: {
+      display?: boolean;
+      labels?: {
+        color: string;
+        font?: {
+          size: number;
+        };
+        padding?: number;
+      };
+      position?: 'top' | 'bottom' | 'left' | 'right' | 'chartArea';
+      align?: 'start' | 'center' | 'end';
+    };
+  };
+}
+
+interface ChartData {
+  labels: string[];
+  datasets: {
+    data: number[];
+    backgroundColor: string[];
+    hoverBackgroundColor: string[];
+  }[];
+}
+
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [ButtonModule, RouterLink, AvatarModule, OverlayBadgeModule],
+  imports: [ButtonModule, RouterLink, AvatarModule, OverlayBadgeModule, ChartModule],
   templateUrl: './main-menu.component.html'
 })
-export default class MainMenuComponent {
+export default class MainMenuComponent implements OnInit {
   authPermissions = inject(AuthPermissionsService);
   cache = inject(CacheService);
+  options = signal<ChartOptions>(null!);
+  data = signal<ChartData>(null!);
+
+  ngOnInit() {
+    this.initChart();
+  }
+
+  initChart() {
+    this.data.set({
+      labels: ['A', 'B', 'C'],
+      datasets: [
+        {
+          data: [300, 50, 100],
+          backgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B'],
+          hoverBackgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B']
+        }
+      ]
+    });
+
+    this.options.set({
+      cutout: '60%',
+      rotation: -90,
+      circumference: 180,
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    });
+  }
 
   getUserPanelData = computed<UserPanelData | null>(() => {
     if (this.authPermissions.isAdmin())
@@ -53,22 +114,22 @@ export default class MainMenuComponent {
         title: 'Administrador',
         options: [
           {
-            img: '/images/img1.jpg',
-            path: '/Planes operativos',
+            img: '/hero-section/accion-1.png',
+            path: '/planes-operativos',
             title: 'Planes operativos',
             description: 'Acceda a los elementos transversales de CAS.',
             buttonLabel: 'Ver planes operativos'
           },
           {
-            img: '/images/img1.jpg',
-            path: '/Gestión de usuarios',
+            img: '/hero-section/accion-2.png',
+            path: '/gestion-usuarios',
             title: 'Gestión de usuarios',
             description: 'Explore los planes operativos de las organizaciones del proyecto.',
             buttonLabel: 'Ver gestión de usuarios'
           },
           {
-            img: '/images/img1.jpg',
-            path: '/Arquitectura',
+            img: '/hero-section/accion-3.png',
+            path: '/arquitectura',
             title: 'Arquitectura',
             description: 'Acceda a los elementos transversales de CAS.',
             buttonLabel: 'Ver arquitectura'
@@ -77,46 +138,39 @@ export default class MainMenuComponent {
         description:
           'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
       };
-    if (this.authPermissions.isPuntoFocal())
-      return {
-        path: '/hero-section/character-focal.png',
-        alt: 'Punto Focal',
-        title: 'Punto focal',
-        options: [
-          {
-            img: '/images/img1.jpg',
-            path: '/Mi plan operativo',
-            title: 'Mi plan operativo',
-            description: 'Consolidación de informacion para generar el reporte técnico consolidado.',
-            buttonLabel: 'Ver plan operativo'
-          },
-          {
-            img: '/images/img1.jpg',
-            path: '/Mis entregables',
-            title: 'Mis entregables',
-            description: 'Gestione la documentación requerida según los entregables definidos.',
-            buttonLabel: 'Ver mis entregables'
-          },
-          {
-            img: '/images/img1.jpg',
-            path: '/Generar reportes',
-            title: 'Generar reportes',
-            description: 'Consolidación de información para generar el reporte técnico consolidado.',
-            buttonLabel: 'Generar reportes'
-          }
-        ],
-        description:
-          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
-      };
-    if (this.authPermissions.isObservador())
-      return {
-        path: '/hero-section/character-focal.png',
-        alt: 'Observador',
-        title: 'Observador',
-        options: [],
-        description: ''
-      };
-    return null;
+
+    return {
+      path: '/hero-section/character-focal.png',
+      alt: 'Punto Focal',
+      title: 'Punto focal',
+      options: [
+        {
+          img: '/hero-section/accion-1.png',
+          path: `/planes-operativos/${4}`,
+          title: 'Plan operativo',
+          description: 'Acceda al Plan Operativo establecido para la vigencia actual. &nbsp;',
+          buttonLabel: 'Ver plan operativo'
+        },
+        {
+          img: '/hero-section/accion-2.png',
+          path: '/Mis entregables',
+          title: 'Mis entregables',
+          description: 'Gestione la documentación requerida según los entregables definidos.',
+          buttonLabel: 'Ver mis entregables',
+          disabled: true
+        },
+        {
+          img: '/hero-section/accion-3.png',
+          path: '/Generación de reportes',
+          title: 'Generación de reportes',
+          description: 'Consolidación de información para generar el reporte técnico consolidado.',
+          buttonLabel: 'Ver generaración de reportes',
+          disabled: true
+        }
+      ],
+      description:
+        'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+    };
   });
 
   getNameInitiales = computed(() => {
@@ -127,36 +181,42 @@ export default class MainMenuComponent {
     return userData.nombre.charAt(0) + userData.apellido.charAt(0);
   });
 
-  entregables = signal<Entregable[]>([
-    {
-      id: '1',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en diciembre 6/2024',
-      titulo: 'Entregable 4 - Producto 1',
-      estado: 'Borrador',
-      estadoColor: '#EAB308',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '2',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en enero 15/2024',
-      titulo: 'Entregable 5 - Producto 2',
-      estado: 'Borrador',
-      estadoColor: '#EAB308',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
-    },
-    {
-      id: '3',
-      nombre: 'Andrea Silva',
-      fecha: 'Enviado en febrero 1/2024',
-      titulo: 'Entregable 6 - Producto 3',
-      estado: 'Aprobado',
-      estadoColor: '#22C55E',
-      descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
-      avatarLabel: 'AS'
+  getEntregables = computed<Entregable[] | null>(() => {
+    if (!this.authPermissions.isPuntoFocal()) {
+      return null;
     }
-  ]);
+
+    return [
+      {
+        id: '1',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en diciembre 6/2024',
+        titulo: 'Entregable 4 - Producto 1',
+        estado: 'Borrador',
+        estadoColor: 'orange',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '2',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en enero 15/2024',
+        titulo: 'Entregable 5 - Producto 2',
+        estado: 'Borrador',
+        estadoColor: 'orange',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '3',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en febrero 1/2024',
+        titulo: 'Entregable 6 - Producto 3',
+        estado: 'Aprobado',
+        estadoColor: '#22C55E',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      }
+    ];
+  });
 }

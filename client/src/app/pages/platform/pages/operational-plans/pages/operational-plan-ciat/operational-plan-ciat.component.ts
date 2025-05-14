@@ -11,6 +11,7 @@ import { CacheService } from '@shared/services/cache/cache.service';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 interface Tabs {
   title: string;
@@ -52,6 +53,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeIndex = 0;
   api = inject(ApiService);
   cache = inject(CacheService);
+  route = inject(ActivatedRoute);
   loadingDownload = signal<boolean>(false);
 
   columns: TableColumn[] = [
@@ -69,9 +71,21 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeObjectiveIndex = signal<number>(0);
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
+  isCiat = signal<boolean>(false);
 
   ngOnInit() {
-    this.getPlanOperativoCiat();
+    this.mainAction();
+  }
+
+  mainAction() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.isCiat.set(id == 'ciat');
+    if (this.isCiat()) return this.getPlanOperativoCiat();
+    return this.getDynamicOperationalPlan();
+  }
+
+  getDynamicOperationalPlan() {
+    console.log('test');
   }
 
   calculateTotalRows(activity: Activity): number {

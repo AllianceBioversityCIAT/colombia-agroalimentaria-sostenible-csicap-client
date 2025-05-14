@@ -25,6 +25,7 @@ interface SidebarItem {
   disabled?: boolean;
   options?: SidebarSubItem[];
   expanded?: boolean;
+  unauthorized?: boolean;
 }
 
 @Component({
@@ -68,7 +69,7 @@ export default class SidebarComponent implements OnInit {
       label: this.authPermissions.isAdmin() ? 'Planes operativos' : 'Mi Plan operativo',
       path: this.authPermissions.isAdmin() ? 'planes-operativos' : 'planes-operativos/4'
     },
-    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios' },
+    { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios', unauthorized: !this.authPermissions.isAdmin() },
     { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
     {
       icon: 'pi-calendar',

@@ -7,7 +7,7 @@
       <div class="bg-[#FFF8E1] rounded-xl overflow-hidden mb-8 relative">
         <div class="flex flex-col md:flex-row relative z-10">
           <!-- Imagen del personaje -->
-          <div class="w-full md:w-[38%] md:h-[240px] overflow-hidden">
+          <div class="w-full md:w-[38%] md:h-[260px] overflow-hidden">
             <img
               [src]="getUserPanelData()?.path"
               [alt]="getUserPanelData()?.alt"
@@ -20,8 +20,9 @@
             <h1 class="text-3xl lg:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
             <h2 class="text-xl font-medium text-[#C79807] mb-4">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
             <p class="text-base text-gray-700">
-              Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto
-              CSICAP.
+              Desde este panel, puede gestionar los entregables asignados a su organización en el marco del proyecto CSICAP, consultar las fechas
+              clave para el envío de entregables, acceder al plan operativo para consultar y gestionar subproductos, así como también generar y
+              consolidar reportes técnicos requeridos por el CIAT.
             </p>
           </div>
 
@@ -48,17 +49,22 @@
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
               <!-- Imagen de la tarjeta -->
               <div class="p-3">
-                <img [src]="option.img" alt="{{ option.title }}" class="w-full h-48 object-cover rounded-xl" />
+                <img [src]="option.img" [alt]="option.title" class="w-full h-48 object-cover rounded-xl" />
               </div>
 
               <!-- Contenido de la tarjeta -->
               <div class="p-5">
                 <h3 class="text-xl font-semibold text-[#024955] mb-3">{{ option.title }}</h3>
-                <p class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5">{{ option.description }}</p>
+                <p
+                  class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5"
+                  [innerHTML]="option.description"></p>
 
                 <!-- Botón de acción -->
                 <a [routerLink]="option.path">
-                  <button class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-full border border-[#047F94]">
+                  <button
+                    size="small"
+                    class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-max border border-[#047F94]"
+                    [disabled]="option.disabled">
                     {{ option.buttonLabel ?? 'Ver' }}
                   </button>
                 </a>
@@ -68,78 +74,76 @@
         </div>
       </div>
 
-      <div class="mt-8 flex justify-between">
-        <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Mis últimos entregables</h2>
-        <p-button
-          label="Cargar entregable"
-          size="small"
-          variant="outlined"
-          icon="pi pi-plus-circle"
-          iconPos="left"
-          [style]="{ color: '#047F94', 'border-color': '#047F94' }"
-          severity="info" />
-      </div>
+      @if (getEntregables()) {
+        <div class="mt-8 flex justify-between">
+          <h2 class="font-inter font-medium text-2xl leading-[150%] tracking-[0px] align-middle text-[#047F94] mb-6">Mis últimos entregables</h2>
+          <!-- <p-button
+            label="Cargar entregable"
+            size="small"
+            variant="outlined"
+            icon="pi pi-plus-circle"
+            iconPos="left"
+            [style]="{ color: '#047F94', 'border-color': '#047F94' }"
+            severity="info" /> -->
+        </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @for (entregable of entregables(); track entregable.id) {
-          <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4 mb-4 w-full">
-            <div class="border border-[#F9F9F9] rounded-2xl p-4">
-              <!-- Header: Avatar, Nombre, Estado y Fecha -->
-              <div class="flex items-center gap-2 mb-4">
-                <p-avatar [label]="getNameInitiales()" styleClass="mr-2" size="xlarge" shape="circle" size="large" />
-                <div class="flex flex-col flex-1">
-                  <div class="flex items-center gap-2">
-                    <span class="font-inter font-semibold text-[11.73px] leading-[100%] tracking-[-1%] align-middle"
-                      >{{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}</span
-                    >
-                    <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
-                    <span class="text-gray-400 text-sm">{{ entregable.fecha }}</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          @for (entregable of getEntregables() ?? []; track entregable.id) {
+            <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4 mb-4 w-full">
+              <div class="border border-[#F9F9F9] rounded-2xl p-4">
+                <!-- Header: Avatar, Nombre, Estado y Fecha -->
+                <div class="flex items-center gap-2 mb-4">
+                  <p-avatar [label]="getNameInitiales()" styleClass="mr-2" size="xlarge" shape="circle" size="large" />
+                  <div class="flex flex-col flex-1">
+                    <div class="flex items-center gap-2">
+                      <span class="font-inter font-semibold text-[11.73px] leading-[100%] tracking-[-1%] align-middle text-[#024955]"
+                        >{{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}</span
+                      >
+                      <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
+                      <span class="text-gray-400 text-sm">{{ entregable.fecha }}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- Título y estado -->
-              <div class="flex items-center gap-3">
-                <span class="font-inter font-semibold text-[16.75px] leading-[156%] tracking-[0%] align-middle text-[#195B5B]">
-                  {{ entregable.titulo }}
-                </span>
-                <span
-                  class="text-white font-inter font-semibold text-[8.79px] leading-[150%] tracking-[0%] align-middle rounded-full px-4 py-1"
-                  [style.background-color]="entregable.estadoColor">
-                  {{ entregable.estado }}
-                </span>
-              </div>
-              <!-- Descripción -->
-              <div class="mt-4">
-                <p class="font-inter font-normal text-[13.4px] leading-[21.78px] tracking-[-1%] align-middle text-[#818EA1]">
-                  {{ entregable.descripcion }}
-                </p>
+                <!-- Título y estado -->
+                <div class="flex items-center gap-3">
+                  <span class="font-inter font-semibold text-[16.75px] leading-[156%] tracking-[0%] align-middle text-[#195B5B]">
+                    {{ entregable.titulo }}
+                  </span>
+                  <span
+                    class="text-white font-inter font-semibold text-[8.79px] leading-[150%] tracking-[0%] align-middle rounded-full px-4 py-1"
+                    [style.background-color]="entregable.estadoColor">
+                    {{ entregable.estado }}
+                  </span>
+                </div>
+                <!-- Descripción -->
+                <div class="mt-4">
+                  <p class="font-inter font-normal text-[13.4px] leading-[21.78px] tracking-[-1%] align-middle text-[#818EA1]">
+                    {{ entregable.descripcion }}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
-
-      @if (entregables().length === 0) {
-        <div class="bg-white rounded-2xl shadow-md p-6 text-center text-gray-500">No hay entregables disponibles</div>
+          }
+        </div>
       }
     </div>
 
     <!-- Columna derecha (30%) - Dashboard -->
     <div class="w-full xl:w-[30%] bg-[#F5F7F8] p-4 lg:p-6">
       <div class="bg-white rounded-lg p-5 shadow-sm w-full">
-        <h2 class="text-2xl font-medium text-[#195B5B] mb-5">Dashboard</h2>
+        <h2 class="text-2xl font-medium text-[#047F94] mb-5">Dashboard</h2>
 
         <!-- Análisis de entregables -->
-        <div class="mb-10">
+        <div class="mb-6 border border-[#F9F9F9] rounded-2xl p-4 shadow-sm">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Análisis de entregables</h3>
-            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+            <span class="text-sm cursor-pointer hover:underline text-[#64748B]">Ver detalle</span>
           </div>
 
           <p class="text-sm text-gray-500 mb-3">Estados</p>
 
           <!-- Estados con números -->
-          <div class="grid grid-cols-3 gap-2 mb-4">
+          <div class="grid grid-cols-3 gap-2 mb-2">
             <div>
               <p class="text-sm text-gray-500">Borrador</p>
               <p class="text-xl font-bold text-[#F0983A]">12</p>
@@ -153,18 +157,22 @@
               <p class="text-xl font-bold text-[#8BD16B]">23</p>
             </div>
           </div>
+
+          <div class="flex justify-center w-full">
+            <p-chart type="doughnut" [data]="data()" [options]="options()" class="w-[15rem] h-60" />
+          </div>
         </div>
 
         <!-- Estado subproducto -->
-        <div>
+        <div class="border border-[#F9F9F9] rounded-2xl p-4 shadow-sm">
           <div class="flex justify-between items-center mb-3">
             <h3 class="text-lg font-medium text-[#195B5B]">Estado subproducto 2.1</h3>
-            <span class="text-sm text-blue-500 cursor-pointer hover:underline">Ver detalle</span>
+            <span class="text-sm text-[#64748B] cursor-pointer hover:underline">Ver detalle</span>
           </div>
 
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2 mb-4">
             <p class="text-2xl font-bold text-[#195B5B]">35%</p>
-            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center">
+            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs flex items-center border border-[#45B36933]">
               1 hito completado
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -173,44 +181,69 @@
           </div>
 
           <!-- Hitos con porcentajes -->
-          <div class="space-y-3 mb-4">
+          <div class="space-y-3 mb-4 mr-6 ml-6">
             <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <span class="text-sm text-gray-600 mr-2">Hito 1</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 1</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="flex items-center w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">35%</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 ml-2" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="text-lg font-medium">35%</span>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 2</span>
-              <span class="text-lg font-medium">10%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 2</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">10%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 3</span>
-              <span class="text-lg font-medium">15%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 3</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">15%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 4</span>
-              <span class="text-lg font-medium">40%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 4</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">40%</span>
+                </div>
+              </div>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Hito 5</span>
-              <span class="text-lg font-medium">05%</span>
+              <span class="font-medium text-base leading-6 align-middle text-gray-600">Hito 5</span>
+              <div class="flex-1 mx-2 border-b border-dashed border-gray-300"></div>
+              <div class="w-28">
+                <div class="w-16 text-right">
+                  <span class="text-lg font-medium">05%</span>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- Barra de progreso -->
-          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-            <div class="bg-[#F5C748] h-2.5 rounded-full" style="width: 35%"></div>
+          <div class="w-full bg-gray-200 rounded-full h-4 mb-2 relative">
+            <div class="bg-[#F5C748] h-4 rounded-full relative" style="width: 35%">
+              <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xs font-medium">35%</span>
+            </div>
           </div>
         </div>
       </div>

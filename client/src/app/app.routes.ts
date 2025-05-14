@@ -83,19 +83,19 @@ export const routes: Routes = [
           breadcrumb: [{ path: 'planes-operativos', label: 'Planes operativos' }]
         }
       },
-      {
-        path: 'planes-operativos/ciat',
-        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan-ciat/operational-plan-ciat.component'),
-        data: {
-          breadcrumb: [
-            { path: 'planes-operativos', label: 'Planes operativos' },
-            { path: 'ciat', label: 'CIAT' }
-          ]
-        }
-      },
+      // {
+      //   path: 'planes-operativos/ciat',
+      //   loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan-ciat/operational-plan-ciat.component'),
+      //   data: {
+      //     breadcrumb: [
+      //       { path: 'planes-operativos', label: 'Planes operativos' },
+      //       { path: 'ciat', label: 'CIAT' }
+      //     ]
+      //   }
+      // },
       {
         path: 'planes-operativos/:id',
-        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/partner-operational-plan/partner-operational-plan.component'),
+        loadComponent: () => import('./pages/platform/pages/operational-plans/pages/operational-plan-ciat/operational-plan-ciat.component'),
         data: {
           breadcrumb: [{ path: 'planes-operativos', label: 'Planes operativos' }]
         }
