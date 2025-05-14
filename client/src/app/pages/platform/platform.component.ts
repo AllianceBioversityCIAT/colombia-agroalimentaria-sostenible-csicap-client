@@ -19,7 +19,6 @@ export default class PlatformComponent implements OnInit {
   }
   async getCurrentUser() {
     const response = await this.api.getCurrentUser();
-    console.log(response.data[0]);
     if (response.successfulRequest) this.cache.currentUser.set(response.data[0]);
   }
 }
