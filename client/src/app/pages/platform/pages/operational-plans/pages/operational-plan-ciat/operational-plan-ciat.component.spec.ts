@@ -4,6 +4,9 @@ import { ApiService } from '../../../../../../shared/services/api.service';
 import { TableModule } from 'primeng/table';
 import { TabsModule } from 'primeng/tabs';
 import { SectionHeaderComponent } from '../../../../../../shared/components/section-header/section-header.component';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { CacheService } from '../../../../../../shared/services/cache/cache.service';
 
 jest.mock('../../../../../../shared/services/api.service');
 
@@ -31,12 +34,30 @@ describe('OperationalPlanCiatComponent', () => {
             actividades: []
           }
         ]
-      })
+      }),
+      downloadPlanOperativoCiatExcel: jest.fn()
+    };
+
+    const mockCacheService = {
+      isSidebarCollapsed: jest.fn().mockReturnValue(false)
     };
 
     await TestBed.configureTestingModule({
       imports: [OperationalPlanCiatComponent, TableModule, TabsModule, SectionHeaderComponent],
-      providers: [{ provide: ApiService, useValue: mockApiService }]
+      providers: [
+        { provide: ApiService, useValue: mockApiService },
+        { provide: CacheService, useValue: mockCacheService },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: jest.fn().mockReturnValue('ciat')
+              }
+            }
+          }
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(OperationalPlanCiatComponent);
