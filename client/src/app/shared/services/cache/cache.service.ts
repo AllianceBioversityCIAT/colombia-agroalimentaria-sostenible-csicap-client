@@ -1,7 +1,7 @@
 import { computed, Injectable, signal, WritableSignal } from '@angular/core';
 import { DataCache } from '../../interfaces/cache.interface';
 import { GreenChecks } from '../../interfaces/get/get-green-checks.interface';
-
+import { GetCurrentUser } from '../../interfaces/get-current-user.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +17,7 @@ export class CacheService {
   hasSmallScreen = computed(() => this.windowHeight() < 768);
   hasSmallScreenWidth = computed(() => this.windowWidth() <= 1280);
   isSidebarCollapsed = signal<boolean>(localStorage.getItem('isSidebarCollapsed') === 'true');
+  currentUser = signal<GetCurrentUser>(null!);
 
   toggleSidebar() {
     this.isSidebarCollapsed.update(isCollapsed => !isCollapsed);

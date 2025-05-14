@@ -101,6 +101,11 @@
   <div class="border-b pb-4 mx-8" style="border-color: #047f94" [ngClass]="{ hidden: cache.isSidebarCollapsed() }"></div>
 
   <div class="flex items-center justify-center" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
-    <div class="font-inter font-normal text-[8px] leading-[12px] text-[#059BB4] mt-6">Estás conectado como Administrador</div>
+    <div class="font-inter font-normal text-[8px] leading-[12px] text-[#65D2E4] mt-6">
+      Estás conectado como {{ this.cache.dataCache().user.rolesPersonas[0].rol.nombre }}
+    </div>
+  </div>
+  <div class="flex items-center justify-center mt-4">
+    <img [src]="this.cache.currentUser().org_logo" alt="" class="w-[150px]" />
   </div>
 </div>
