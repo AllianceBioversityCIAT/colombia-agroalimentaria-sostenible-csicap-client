@@ -15,6 +15,7 @@ interface PanelOption {
   title: string;
   description: string;
   buttonLabel?: string;
+  disabled?: boolean;
 }
 
 interface UserPanelData {
@@ -114,21 +115,21 @@ export default class MainMenuComponent implements OnInit {
         options: [
           {
             img: '/hero-section/accion-1.png',
-            path: '/Planes operativos',
+            path: '/planes-operativos',
             title: 'Planes operativos',
             description: 'Acceda a los elementos transversales de CAS.',
             buttonLabel: 'Ver planes operativos'
           },
           {
             img: '/hero-section/accion-2.png',
-            path: '/Gestión de usuarios',
+            path: '/gestion-usuarios',
             title: 'Gestión de usuarios',
             description: 'Explore los planes operativos de las organizaciones del proyecto.',
             buttonLabel: 'Ver gestión de usuarios'
           },
           {
             img: '/hero-section/accion-3.png',
-            path: '/Arquitectura',
+            path: '/arquitectura',
             title: 'Arquitectura',
             description: 'Acceda a los elementos transversales de CAS.',
             buttonLabel: 'Ver arquitectura'
@@ -137,46 +138,39 @@ export default class MainMenuComponent implements OnInit {
         description:
           'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
       };
-    if (this.authPermissions.isPuntoFocal())
-      return {
-        path: '/hero-section/character-focal.png',
-        alt: 'Punto Focal',
-        title: 'Punto focal',
-        options: [
-          {
-            img: '/hero-section/accion-1.png',
-            path: '/Plan operativo',
-            title: 'Plan operativo',
-            description: 'Acceda al Plan Operativo establecido para la vigencia actual.',
-            buttonLabel: 'Ver plan operativo'
-          },
-          {
-            img: '/hero-section/accion-2.png',
-            path: '/Mis entregables',
-            title: 'Mis entregables',
-            description: 'Gestione la documentación requerida según los entregables definidos.',
-            buttonLabel: 'Ver mis entregables'
-          },
-          {
-            img: '/hero-section/accion-3.png',
-            path: '/Generación de reportes',
-            title: 'Generación de reportes',
-            description: 'Consolidación de información para generar el reporte técnico consolidado.',
-            buttonLabel: 'Ver generaración de reportes'
-          }
-        ],
-        description:
-          'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
-      };
-    if (this.authPermissions.isObservador())
-      return {
-        path: '/hero-section/character-focal.png',
-        alt: 'Observador',
-        title: 'Observador',
-        options: [],
-        description: ''
-      };
-    return null;
+
+    return {
+      path: '/hero-section/character-focal.png',
+      alt: 'Punto Focal',
+      title: 'Punto focal',
+      options: [
+        {
+          img: '/hero-section/accion-1.png',
+          path: `/planes-operativos/${4}`,
+          title: 'Plan operativo',
+          description: 'Acceda al Plan Operativo establecido para la vigencia actual. &nbsp;',
+          buttonLabel: 'Ver plan operativo'
+        },
+        {
+          img: '/hero-section/accion-2.png',
+          path: '/Mis entregables',
+          title: 'Mis entregables',
+          description: 'Gestione la documentación requerida según los entregables definidos.',
+          buttonLabel: 'Ver mis entregables',
+          disabled: true
+        },
+        {
+          img: '/hero-section/accion-3.png',
+          path: '/Generación de reportes',
+          title: 'Generación de reportes',
+          description: 'Consolidación de información para generar el reporte técnico consolidado.',
+          buttonLabel: 'Ver generaración de reportes',
+          disabled: true
+        }
+      ],
+      description:
+        'Desde este panel puede gestionar entregables, consultar fechas clave, acceder al plan operativo y generar reportes técnicos del proyecto CSICAP.'
+    };
   });
 
   getNameInitiales = computed(() => {

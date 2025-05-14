@@ -55,11 +55,16 @@
               <!-- Contenido de la tarjeta -->
               <div class="p-5">
                 <h3 class="text-xl font-semibold text-[#024955] mb-3">{{ option.title }}</h3>
-                <p class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5">{{ option.description }}</p>
+                <p
+                  class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5"
+                  [innerHTML]="option.description"></p>
 
                 <!-- Botón de acción -->
                 <a [routerLink]="option.path">
-                  <button size="small" class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-max border border-[#047F94]">
+                  <button
+                    size="small"
+                    class="bg-[#059BB4] hover:bg-[#3E8A96] text-white py-2 px-4 rounded-md w-max border border-[#047F94]"
+                    [disabled]="option.disabled">
                     {{ option.buttonLabel ?? 'Ver' }}
                   </button>
                 </a>
