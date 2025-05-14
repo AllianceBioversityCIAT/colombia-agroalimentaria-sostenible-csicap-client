@@ -18,7 +18,9 @@
           <!-- Contenido del banner -->
           <div class="w-full md:w-[62%] p-6">
             <h1 class="text-3xl lg:text-4xl font-bold text-[#024955] mb-2">¡Bienvenido!</h1>
-            <h2 class="text-xl font-medium text-[#C79807] mb-4">Panel de {{ getUserPanelData()?.title }} de CAS Reporting Tool</h2>
+            <h2 class="text-xl font-medium text-[#C79807] mb-4">
+              Panel de {{ getUserPanelData()?.title }} de {{ this.cache.currentUser().org_nombre ?? 'CAS Reporting Tool' }}
+            </h2>
             <p class="text-base text-gray-700">
               Desde este panel, puede gestionar los entregables asignados a su organización en el marco del proyecto CSICAP, consultar las fechas
               clave para el envío de entregables, acceder al plan operativo para consultar y gestionar subproductos, así como también generar y
@@ -46,14 +48,14 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           @for (option of getUserPanelData()?.options ?? []; track option.title) {
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col">
               <!-- Imagen de la tarjeta -->
               <div class="p-3">
                 <img [src]="option.img" [alt]="option.title" class="w-full h-48 object-cover rounded-xl" />
               </div>
 
               <!-- Contenido de la tarjeta -->
-              <div class="p-5">
+              <div class="pl-5 pr-5 pb-5 pt-2 flex flex-col flex-1">
                 <h3 class="text-xl font-semibold text-[#024955] mb-3">{{ option.title }}</h3>
                 <p
                   class="font-inter font-normal text-base leading-6 tracking-[0%] align-middle text-[#4B5563] mb-5"
@@ -90,7 +92,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           @for (entregable of getEntregables() ?? []; track entregable.id) {
             <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4 mb-4 w-full">
-              <div class="border border-[#F9F9F9] rounded-2xl p-4">
+              <div class="border border-[#F9F9F9] rounded-2xl p-4 h-full">
                 <!-- Header: Avatar, Nombre, Estado y Fecha -->
                 <div class="flex items-center gap-2 mb-4">
                   <p-avatar [label]="getNameInitiales()" styleClass="mr-2" size="xlarge" shape="circle" size="large" />
@@ -99,7 +101,7 @@
                       <span class="font-inter font-semibold text-[11.73px] leading-[100%] tracking-[-1%] align-middle text-[#024955]"
                         >{{ this.cache.dataCache().user.nombre }} {{ this.cache.dataCache().user.apellido }}</span
                       >
-                      <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
+                      <span class="w-2 h-2 bg-gray-300 rounded-full shrink-0"></span>
                       <span class="text-gray-400 text-sm">{{ entregable.fecha }}</span>
                     </div>
                   </div>
@@ -144,17 +146,26 @@
 
           <!-- Estados con números -->
           <div class="grid grid-cols-3 gap-2 mb-2">
-            <div>
-              <p class="text-sm text-gray-500">Borrador</p>
-              <p class="text-xl font-bold text-[#F0983A]">12</p>
+            <div class="flex gap-3">
+              <div class="h-full min-w-1 bg-[#F0983A] rounded-full"></div>
+              <div class="flex flex-col gap-2">
+                <p class="text-sm text-gray-500">Borrador</p>
+                <p class="text-xl font-semibold">12</p>
+              </div>
             </div>
-            <div>
-              <p class="text-sm text-gray-500">Sometidos</p>
-              <p class="text-xl font-bold text-[#F5C748]">9</p>
+            <div class="flex gap-3">
+              <div class="h-full min-w-1 bg-[#F5C748] rounded-full"></div>
+              <div class="flex flex-col gap-2">
+                <p class="text-sm text-gray-500">Sometidos</p>
+                <p class="text-xl font-semibold">9</p>
+              </div>
             </div>
-            <div>
-              <p class="text-sm text-gray-500">Aprobados</p>
-              <p class="text-xl font-bold text-[#8BD16B]">23</p>
+            <div class="flex gap-3">
+              <div class="h-full min-w-1 bg-[#8BD16B] rounded-full"></div>
+              <div class="flex flex-col gap-2">
+                <p class="text-sm text-gray-500">Aprobados</p>
+                <p class="text-xl font-semibold">23</p>
+              </div>
             </div>
           </div>
 

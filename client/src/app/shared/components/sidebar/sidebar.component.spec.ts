@@ -22,7 +22,7 @@ describe('SidebarComponent', () => {
     };
 
     mockCacheService = {
-      dataCache: jest.fn().mockReturnValue({
+      dataCache: signal({
         user: {
           nombre: 'Test',
           apellido: 'User',
@@ -36,9 +36,12 @@ describe('SidebarComponent', () => {
           ]
         }
       }),
-      hasSmallScreenWidth: jest.fn().mockReturnValue(false),
-      hasSmallScreen: jest.fn().mockReturnValue(false),
-      isSidebarCollapsed: jest.fn().mockReturnValue(false),
+      currentUser: signal({
+        org_logo: 'logo.png'
+      }),
+      hasSmallScreenWidth: () => false,
+      hasSmallScreen: () => false,
+      isSidebarCollapsed: signal(false),
       toggleSidebar: jest.fn()
     };
 

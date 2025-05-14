@@ -29,7 +29,7 @@ describe('PlatformComponent', () => {
 
   beforeEach(async () => {
     mockCacheService = {
-      dataCache: jest.fn().mockReturnValue({
+      dataCache: signal({
         user: {
           nombre: 'Test',
           apellido: 'User',
@@ -46,10 +46,13 @@ describe('PlatformComponent', () => {
           items: []
         }
       }),
-      isLoggedIn: { set: jest.fn() },
-      hasSmallScreenWidth: jest.fn().mockReturnValue(false),
-      hasSmallScreen: jest.fn().mockReturnValue(false),
-      isSidebarCollapsed: jest.fn().mockReturnValue(false),
+      currentUser: signal({
+        org_logo: 'logo.png'
+      }),
+      isLoggedIn: signal(true),
+      hasSmallScreenWidth: () => false,
+      hasSmallScreen: () => false,
+      isSidebarCollapsed: signal(false),
       toggleSidebar: jest.fn()
     };
 
