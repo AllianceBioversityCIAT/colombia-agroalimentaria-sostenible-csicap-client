@@ -193,7 +193,7 @@ export default class MainMenuComponent implements OnInit {
         fecha: 'Enviado en diciembre 6/2024',
         titulo: 'Entregable 4 - Producto 1',
         estado: 'Borrador',
-        estadoColor: 'orange',
+        estadoColor: '#F97316',
         descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
         avatarLabel: 'AS'
       },
@@ -203,7 +203,7 @@ export default class MainMenuComponent implements OnInit {
         fecha: 'Enviado en enero 15/2024',
         titulo: 'Entregable 5 - Producto 2',
         estado: 'Borrador',
-        estadoColor: 'orange',
+        estadoColor: '#F97316',
         descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
         avatarLabel: 'AS'
       },
@@ -212,6 +212,16 @@ export default class MainMenuComponent implements OnInit {
         nombre: 'Andrea Silva',
         fecha: 'Enviado en febrero 1/2024',
         titulo: 'Entregable 6 - Producto 3',
+        estado: 'Aprobado',
+        estadoColor: '#22C55E',
+        descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
+        avatarLabel: 'AS'
+      },
+      {
+        id: '4',
+        nombre: 'Andrea Silva',
+        fecha: 'Enviado en febrero 1/2024',
+        titulo: 'Entregable 1 - Producto 1',
         estado: 'Aprobado',
         estadoColor: '#22C55E',
         descripcion: 'Documento técnico - Evaluación de gases de efecto invernadero en Casanare',
