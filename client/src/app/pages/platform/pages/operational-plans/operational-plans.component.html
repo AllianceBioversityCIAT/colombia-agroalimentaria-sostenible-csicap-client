@@ -28,9 +28,11 @@
     } @else {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (org of filteredOrganizations(); track org.org_id) {
-          <a class="flex items-center justify-center min-h-[200px] p-6 cursor-pointer" [routerLink]="org.org_id === 1 ? 'ciat' : null">
-            <img [src]="org?.org_logo" [alt]="org.org_nombre_corto" class="w-[170px] object-contain" />
-          </a>
+          @if (org.org_id !== 16) {
+            <a class="flex items-center justify-center min-h-[200px] p-6 cursor-pointer" [routerLink]="org.org_id === 1 ? 'ciat' : null">
+              <img [src]="org?.org_logo" [alt]="org.org_nombre_corto" class="w-[170px] object-contain" />
+            </a>
+          }
         }
       </div>
     }
