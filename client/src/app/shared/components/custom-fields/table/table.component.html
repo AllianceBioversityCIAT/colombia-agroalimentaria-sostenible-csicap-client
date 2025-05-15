@@ -7,7 +7,7 @@
             {{ col.header }}
           </th>
         }
-        <th class="text-sm p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Acciones</th>
+        <th class="text-sm p-3 text-white rounded-tr-lg" style="background-color: #f5f6fa">Equipos</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
@@ -19,21 +19,13 @@
         <td class="text-sm">{{ rowData.axis }}</td>
         <td class="text-sm">{{ rowData.axisDescription }}</td>
 
-          <td class="text-sm">
-            <p-button
-              icon="pi pi-users"
-              size="small"
-              [style]="{
-                'background-color': '#CAF1D8',
-                border: 'none',
-                color: '#136C34',
-                'white-space': 'nowrap',
-                'min-width': 'fit-content',
-                cursor: 'pointer'
-              }"
-              label="Ver equipos del eje"></p-button>
-          </td>
-
+        <td class="text-sm">
+          <a
+            class="font-inter font-normal text-[16px] leading-6 align-middle underline decoration-solid decoration-0 underline-offset-0 whitespace-nowrap cursor-pointer"
+            style="color: #047f94">
+            Ver equipos del eje
+          </a>
+        </td>
       </tr>
     </ng-template>
   </p-table>
