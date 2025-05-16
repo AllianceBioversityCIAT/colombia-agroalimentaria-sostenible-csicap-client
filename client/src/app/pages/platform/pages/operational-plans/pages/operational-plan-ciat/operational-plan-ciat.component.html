@@ -19,17 +19,17 @@
   </div>
 </div>
 
-<app-section-header [showBorder]="false" [showVerticalPadding]="false">
-  <div class="mx-8">
-    <p-tabs [value]="1">
-      <p-tablist>
-        @for (objective of isCiat() ? objectives() : currentObjectives(); track $index) {
-          @let index = $index + 1;
-          <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
-        }
-      </p-tablist>
-    </p-tabs>
+<app-section-header [showBorder]="false" [showVerticalPadding]="false" [showHorizontalPadding]="false">
+  <p-tabs [value]="1">
+    <p-tablist>
+      @for (objective of isCiat() ? objectives() : currentObjectives(); track $index) {
+        @let index = $index + 1;
+        <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
+      }
+    </p-tablist>
+  </p-tabs>
 
+  <div class="mx-8">
     @if (objectives()[activeObjectiveIndex()]) {
       <div class="flex items-center justify-between my-8 gap-6">
         <div class="flex font-inter font-normal leading-6 text-[#6B7280]">

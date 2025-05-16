@@ -1,5 +1,8 @@
 <div class="bg-white rounded-t-xl relative shadow-xs">
-  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 flex justify-between items-center" [class.py-4]="showVerticalPadding">
+  <div
+    class="font-inter font-semibold text-[18px] text-[#036475] flex justify-between items-center"
+    [class.px-6]="showHorizontalPadding"
+    [class.py-4]="showVerticalPadding">
     <div class="flex items-center">
       {{ header }}
       @if (tagName) {
@@ -13,7 +16,7 @@
   @if (showBorder) {
     <div class="border-b border-gray-300"></div>
   }
-  <div class="py-2" [class.items-start]="!centered" [class.items-center]="centered">
+  <div class="py-1 px-1" [class.items-start]="!centered" [class.items-center]="centered">
     <ng-content></ng-content>
   </div>
 </div>

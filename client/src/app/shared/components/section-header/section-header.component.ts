@@ -14,4 +14,5 @@ export class SectionHeaderComponent {
   @Input() centered = true;
   @Input() showBorder = true;
   @Input() showVerticalPadding = true;
+  @Input() showHorizontalPadding = true;
 }
