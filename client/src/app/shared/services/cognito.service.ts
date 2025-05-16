@@ -31,7 +31,11 @@ export class CognitoService {
       this.actions.showGlobalAlert({
         severity: 'warning',
         summary: 'Advertencia',
-        detail: loginResponse.errorDetail.errors,
+        hideCancelButton: true,
+        detail:
+          loginResponse.errorDetail.errors === 'Bad Request Exception'
+            ? 'Hubo un error al iniciar sesión, por favor reintente'
+            : loginResponse.errorDetail.errors,
         confirmCallback: {
           label: 'Reintentar',
           event: () => this.redirectToCognito()
@@ -49,9 +53,7 @@ export class CognitoService {
   }
 
   updateCacheService() {
-    this.cache.dataCache.set(
-      localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data') ?? '') : {}
-    );
+    this.cache.dataCache.set(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data') ?? '') : {});
     this.cache.isLoggedIn.set(true);
     this.cache.isValidatingToken.set(false);
     this.clarity.updateUserInfo();

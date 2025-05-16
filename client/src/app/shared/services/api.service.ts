@@ -14,6 +14,10 @@ import { environment } from '@envs/environment';
 import { UserFormData } from '../../pages/platform/pages/user-management/components/user-form/user-form.component';
 import { GetCutOffDates } from '../interfaces/get/get-cut-off-dates.interface';
 import { GetCurrentUser } from '../interfaces/get-current-user.interface';
+import { GetPlanOperativoSocio } from '../interfaces/get/get-plan-pperativo-socio.interface';
+import { GetActividades } from '../interfaces/get/get-actividades.interface';
+import { GetSubActividades } from '../interfaces/get/get-sub-actividades.interface';
+import { GetProductos } from '../interfaces/get/get-productos.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -125,6 +129,26 @@ export class ApiService {
   getCurrentUser = (): Promise<MainResponse<GetCurrentUser[]>> => {
     const url = () => `users/current-user`;
     return this.TP.get(url(), { useManagementApi: true });
+  };
+
+  getPlanOperativoSocio = (): Promise<MainResponse<GetPlanOperativoSocio[]>> => {
+    const url = () => `bpin-objetivos/plan-operativo-socio`;
+    return this.TP.get(url(), {});
+  };
+
+  getActividades = (): Promise<MainResponse<GetActividades[]>> => {
+    const url = () => `actividades/id-nombres`;
+    return this.TP.get(url(), {});
+  };
+
+  getSubActividades = (): Promise<MainResponse<GetSubActividades[]>> => {
+    const url = () => `subactividades/id-nombres`;
+    return this.TP.get(url(), {});
+  };
+
+  getProductos = (): Promise<MainResponse<GetProductos[]>> => {
+    const url = () => `productos/id-nombres`;
+    return this.TP.get(url(), {});
   };
 
   downloadPlanOperativoCiatExcel = (): void => {

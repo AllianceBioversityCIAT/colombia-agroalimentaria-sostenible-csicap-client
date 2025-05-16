@@ -11,9 +11,7 @@ export class GetEjeByRoleService {
   loading = signal(true);
   isOpenSearch = signal(false);
 
-  getInstance = async (endpointParams: {
-    roleId: number;
-  }): Promise<WritableSignal<GetGCFComponentesIdsFilter[]>> => {
+  getInstance = async (endpointParams: { roleId: number }): Promise<WritableSignal<GetGCFComponentesIdsFilter[]>> => {
     const newSignal = signal<GetGCFComponentesIdsFilter[]>([]);
     const response = await this.api.getEjeByRole(endpointParams.roleId);
 
