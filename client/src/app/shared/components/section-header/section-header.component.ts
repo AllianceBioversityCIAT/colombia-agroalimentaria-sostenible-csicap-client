@@ -13,4 +13,5 @@ export class SectionHeaderComponent {
   @Input() tagName = '';
   @Input() centered = true;
   @Input() showBorder = true;
+  @Input() showVerticalPadding = true;
 }

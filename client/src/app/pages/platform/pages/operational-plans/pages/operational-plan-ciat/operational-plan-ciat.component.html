@@ -1,4 +1,25 @@
-<app-section-header header="Plan Operativo - Alliance Bioversity & CIAT" tagName="2025" [centered]="false">
+<div class="flex items-center justify-between pt-2 pb-6 px-4">
+  <span class="font-inter font-medium text-2xl leading-[1.5] tracking-normal align-middle text-[#047F94]">Plan operativo CIAT</span>
+  <div class="flex items-center gap-4">
+    <span class="font-inter font-medium text-sm leading-7 tracking-normal align-middle text-[#9E9E9E]">Plan Operativo 2025</span>
+    <p-button
+      icon="pi pi-download"
+      [loading]="loadingDownload()"
+      size="small"
+      [style]="{
+        'background-color': '#059BB4',
+        border: '1px solid #047F94',
+        color: 'white',
+        'white-space': 'nowrap',
+        'min-width': 'fit-content',
+        cursor: 'pointer'
+      }"
+      label="Descargar plan operativo"
+      (click)="downloadExcel()"></p-button>
+  </div>
+</div>
+
+<app-section-header [showBorder]="false" [showVerticalPadding]="false">
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
@@ -14,20 +35,6 @@
         <div class="flex font-inter font-normal leading-6 text-[#6B7280]">
           {{ objectives()[activeObjectiveIndex()].nombre_obj }}
         </div>
-        <p-button
-          icon="pi pi-download"
-          [loading]="loadingDownload()"
-          size="small"
-          [style]="{
-            'background-color': '#059BB4',
-            border: '1px solid #047F94',
-            color: 'white',
-            'white-space': 'nowrap',
-            'min-width': 'fit-content',
-            cursor: 'pointer'
-          }"
-          label="Descargar plan operativo"
-          (click)="downloadExcel()"></p-button>
       </div>
     }
 
