@@ -1,16 +1,16 @@
-<app-section-header [header]="'Ficha BPIN'" [centered]="false">
+<div class="bg-white rounded-lg pb-10 p-1">
+  <p-tabs [value]="1">
+    <p-tablist>
+      @for (tab of fichaBpinData(); track tab.id) {
+        @let index = $index + 1;
+        <p-tab (click)="setCurrentObjective($index)" [value]="tab.id">Objetivo {{ index }}</p-tab>
+      }
+    </p-tablist>
+  </p-tabs>
   <div class="mx-8">
-    <p-tabs [value]="1">
-      <p-tablist>
-        @for (tab of fichaBpinData(); track tab.id) {
-          @let index = $index + 1;
-          <p-tab (click)="setCurrentObjective($index)" [value]="tab.id">Objetivo {{ index }}</p-tab>
-        }
-      </p-tablist>
-    </p-tabs>
     <div class="text-sm flex font-inter font-normal leading-6 text-[#6B7280] my-8">
-      Generar oferta tecnológica y conocimiento por parte de los productores para la adaptación y mitigación del cambio climático.
+      {{ currentDescription() }}
     </div>
     <app-table-ficha-bpin [currentObjective]="currentObjective"></app-table-ficha-bpin>
   </div>
-</app-section-header>
+</div>
