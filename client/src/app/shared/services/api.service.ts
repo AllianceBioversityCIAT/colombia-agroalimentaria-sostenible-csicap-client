@@ -131,8 +131,10 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getPlanOperativoSocio = (): Promise<MainResponse<GetPlanOperativoSocio[]>> => {
-    const url = () => `bpin-objetivos/plan-operativo-socio`;
+  getPlanOperativoSocio = (objectiveId?: number): Promise<MainResponse<GetPlanOperativoSocio>> => {
+    const queryParams = objectiveId ? `?objetivo=${objectiveId}` : '';
+    const url = () => `bpin-objetivos/plan-operativo-socio${queryParams}`;
+    console.log(url());
     return this.TP.get(url(), {});
   };
 
