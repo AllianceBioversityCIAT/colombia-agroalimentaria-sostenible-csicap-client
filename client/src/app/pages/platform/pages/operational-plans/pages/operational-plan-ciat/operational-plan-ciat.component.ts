@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-
+import { Objetivo } from '../../../../../../shared/interfaces/get/get-plan-pperativo-socio.interface';
 interface Tabs {
   title: string;
   value: number;
@@ -71,6 +71,7 @@ export default class OperationalPlanCiatComponent implements OnInit {
   activeObjectiveIndex = signal<number>(0);
   objectives = signal<GetOperationalPlanCiat[]>([]);
   currentActivities = signal<Actividad[]>([]);
+  currentObjectives = signal<Objetivo[]>([]);
   isCiat = signal<boolean>(false);
 
   ngOnInit() {
@@ -81,13 +82,14 @@ export default class OperationalPlanCiatComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.isCiat.set(id == 'ciat');
     if (this.isCiat()) return this.getPlanOperativoCiat();
-    return this.getDynamicOperationalPlan();
+    return this.getDynamicOperationalPlan(1);
   }
 
-  async getDynamicOperationalPlan() {
-    console.log('test');
-    const response = await this.api.getPlanOperativoSocio();
-    console.log(response);
+  async getDynamicOperationalPlan(objectiveId?: number) {
+    const response = await this.api.getPlanOperativoSocio(objectiveId);
+    this.objectives.set(response.data.planOperativo);
+    this.currentObjectives.set(response.data.objetivos);
+    this.currentActivities.set(this.objectives()[0]?.actividades || []);
   }
 
   calculateTotalRows(activity: Activity): number {
@@ -114,11 +116,14 @@ export default class OperationalPlanCiatComponent implements OnInit {
   setCurrentActivities = (index: number) => {
     this.currentActivities.set(this.objectives()[index]?.actividades || []);
     this.activeObjectiveIndex.set(index);
+    console.log(this.currentObjectives()[index]?.id);
+    if (!this.isCiat()) this.getDynamicOperationalPlan(this.currentObjectives()[index]?.id);
   };
 
   async getPlanOperativoCiat() {
     const response = await this.api.getPlanOperativoCiat();
     this.objectives.set(response.data);
+    console.log(response.data);
     this.currentActivities.set(this.objectives()[0]?.actividades || []);
   }
 
