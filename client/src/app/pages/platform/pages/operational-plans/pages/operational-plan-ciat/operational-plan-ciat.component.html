@@ -2,7 +2,7 @@
   <div class="mx-8">
     <p-tabs [value]="1">
       <p-tablist>
-        @for (objective of objectives(); track objective.id_obj) {
+        @for (objective of isCiat() ? objectives() : currentObjectives(); track $index) {
           @let index = $index + 1;
           <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
         }

@@ -1,7 +1,11 @@
+import { GetOperationalPlanCiat } from './get-operational-plan-ciat.interface';
+
 export interface GetPlanOperativoSocio {
+  objetivos: Objetivo[];
+  planOperativo: GetOperationalPlanCiat[];
+}
+
+export interface Objetivo {
   id: number;
   nombre: string;
-  descripcion: string;
-  fechaInicio: string;
-  fechaFin: string;
 }
