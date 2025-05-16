@@ -1,4 +1,4 @@
-<app-section-header [header]="'Organizaciones'">
+<app-section-header [showBorder]="false">
   <div class="flex flex-col items-center pt-6">
     <span class="font-inter font-semibold text-[30px] leading-[150%] text-[#024955] mb-6">Planes operativos</span>
     <span class="font-inter font-normal text-[16px] leading-[24px] text-[#4B5563] mb-6 mx-10"
@@ -28,10 +28,11 @@
     } @else {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (org of filteredOrganizations(); track org.org_id) {
-          <a class="grid p-6 justify-center items-end cursor-pointer" [routerLink]="org.org_id === 1 ? 'ciat' : null">
-            <img [src]="org?.org_logo" [alt]="org.org_nombre_corto" class="w-[170px] object-contain mb-10" />
-            <h3 class="font-inter font-semibold text-[20px] leading-[150%] text-[#024955] text-center">{{ org.org_nombre_corto }}</h3>
-          </a>
+          @if (org.org_id !== 16) {
+            <a class="flex items-center justify-center min-h-[200px] p-6 cursor-pointer" [routerLink]="org.org_id === 1 ? 'ciat' : null">
+              <img [src]="org?.org_logo" [alt]="org.org_nombre_corto" class="w-[170px] object-contain" />
+            </a>
+          }
         }
       </div>
     }

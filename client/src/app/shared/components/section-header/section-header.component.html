@@ -10,7 +10,9 @@
       <ng-content select="[actions]"></ng-content>
     </div>
   </div>
-  <div class="border-b border-gray-300"></div>
+  @if (showBorder) {
+    <div class="border-b border-gray-300"></div>
+  }
   <div class="py-2" [class.items-start]="!centered" [class.items-center]="centered">
     <ng-content></ng-content>
   </div>
