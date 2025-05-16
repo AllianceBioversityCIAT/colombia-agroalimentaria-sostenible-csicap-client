@@ -84,8 +84,10 @@ export default class OperationalPlanCiatComponent implements OnInit {
     return this.getDynamicOperationalPlan();
   }
 
-  getDynamicOperationalPlan() {
+  async getDynamicOperationalPlan() {
     console.log('test');
+    const response = await this.api.getPlanOperativoSocio();
+    console.log(response);
   }
 
   calculateTotalRows(activity: Activity): number {

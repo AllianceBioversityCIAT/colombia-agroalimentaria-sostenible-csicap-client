@@ -14,6 +14,7 @@ import { environment } from '@envs/environment';
 import { UserFormData } from '../../pages/platform/pages/user-management/components/user-form/user-form.component';
 import { GetCutOffDates } from '../interfaces/get/get-cut-off-dates.interface';
 import { GetCurrentUser } from '../interfaces/get-current-user.interface';
+import { GetPlanOperativoSocio } from '../interfaces/get/get-plan-pperativo-socio.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -125,6 +126,11 @@ export class ApiService {
   getCurrentUser = (): Promise<MainResponse<GetCurrentUser[]>> => {
     const url = () => `users/current-user`;
     return this.TP.get(url(), { useManagementApi: true });
+  };
+
+  getPlanOperativoSocio = (): Promise<MainResponse<GetPlanOperativoSocio[]>> => {
+    const url = () => `bpin-objetivos/plan-operativo-socio`;
+    return this.TP.get(url(), {});
   };
 
   downloadPlanOperativoCiatExcel = (): void => {

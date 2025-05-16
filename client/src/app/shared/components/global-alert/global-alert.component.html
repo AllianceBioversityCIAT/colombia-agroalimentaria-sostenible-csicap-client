@@ -14,7 +14,9 @@
           [isRequired]="alert.commentRequired || false"></app-input>
       }
       <div class="actions">
-        <p-button [label]="alert.cancelCallback?.label" (onClick)="alert.cancelCallback?.event?.(); closeAlert($index)" variant="outlined" />
+        @if (!alert.hideCancelButton) {
+          <p-button [label]="alert.cancelCallback?.label" (onClick)="alert.cancelCallback?.event?.(); closeAlert($index)" variant="outlined" />
+        }
         @if (alert.confirmCallback?.event) {
           <p-button
             [label]="alert.confirmCallback?.label"
