@@ -15,6 +15,7 @@ import { GetBpinForm } from '../../../../../../shared/interfaces/get/get-bpin-fo
 export default class BpinFormComponent implements OnInit {
   api = inject(ApiService);
   activeIndex = 0;
+  currentDescription = signal<string>('');
   fichaBpinData = signal<GetBpinForm[]>([]);
 
   tableColumns = [
@@ -32,7 +33,7 @@ export default class BpinFormComponent implements OnInit {
 
   setCurrentObjective(index: number) {
     this.currentObjective.set(this.fichaBpinData()[index]);
-    console.log(this.currentObjective());
+    this.currentDescription.set(this.fichaBpinData()[index].nombre);
   }
 
   async getFichaBpin() {
@@ -41,6 +42,7 @@ export default class BpinFormComponent implements OnInit {
     this.fichaBpinData.set(res.data);
     if (res.data.length > 0) {
       this.currentObjective.set(res.data[0]);
+      this.currentDescription.set(res.data[0].nombre);
       this.activeIndex = 0;
     }
   }

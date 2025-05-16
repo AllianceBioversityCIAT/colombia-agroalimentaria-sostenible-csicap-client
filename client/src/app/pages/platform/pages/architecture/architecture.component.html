@@ -1,79 +1,43 @@
-<app-section-header [header]="'Elementos'">
-  <div class="container mx-auto px-4 py-8">
+<app-section-header [showBorder]="false">
+  <div class="mx-auto px-4 py-20 h-full">
     <!-- Título principal -->
-    <h1 class="font-inter font-medium text-[24px] leading-[150%] tracking-[0px] text-center text-[#C79807] mb-4">Arquitectura CAS</h1>
+    <h1 class="font-inter font-medium text-[30px] leading-[150%] tracking-[0px] text-center text-[#183462] mb-4">Arquitectura CAS</h1>
 
     <!-- Descripción -->
-    <p class="font-inter font-normal text-[13px] leading-[24px] tracking-[0%] text-[#4B5563] text-center mb-10 max-w-4xl mx-auto">
+    <p class="font-inter font-normal text-[16px] leading-[24px] tracking-[0%] text-[#4B5563] text-center mb-25 max-w-4xl mx-auto">
       La Arquitectura CAS agrupa y establece los elementos que permitirán dar dirección y organización a la definición del plan operativo del CIAT y
       Asociados en cada vigencia de ejecución del proyecto.
     </p>
 
-    <!-- Tarjetas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-5">
-      <!-- Tarjeta 1: Componentes y ejes -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 p-1">
-        <img src="/images/arquitectura/rounded-3.png" alt="Componentes y ejes" class="w-full h-48 object-cover rounded-xl" />
-        <div class="p-5 flex flex-col flex-grow items-center justify-center">
-          <h2 class="text-lg text-center font-semibold text-[#036475] mb-2">Componentes y ejes</h2>
-          <p class="text-sm text-[#4B5563] mb-3 text-center flex-grow">Estructuras que organizan y agrupan actividades dentro del plan operativo.</p>
-          <button
-            pButton
-            type="button"
-            class="w-full"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/arquitectura/componentes-y-ejes">
-            Ver componentes
-          </button>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-16 gap-y-10 w-full justify-items-center">
+      <!-- Opción 1 -->
+      <a [routerLink]="'/arquitectura/componentes-y-ejes'" class="flex flex-col items-center group cursor-pointer gap-8">
+        <img src="/images/arquitectura/rounded-1.png" alt="Componentes y ejes" class="w-48 h-48 min-w-48 min-h-48 object-cover rounded-full mb-4" />
+        <span class="block font-inter font-semibold text-[20px] leading-[150%] tracking-[0px] text-center align-middle text-[#195B5B] text-center"
+          >Componentes y ejes</span
+        >
+      </a>
+      <!-- Opción 2 -->
+      <a [routerLink]="'/arquitectura/ficha-bpin'" class="flex flex-col items-center group cursor-pointer gap-8">
+        <img src="/images/arquitectura/rounded-2.png" alt="Ficha BPIN" class="w-48 h-48 min-w-48 min-h-48 object-cover rounded-full mb-4" />
+        <span class="block font-inter font-semibold text-[20px] leading-[150%] tracking-[0px] text-center align-middle text-[#195B5B] text-center"
+          >Ficha BPIN</span
+        >
+      </a>
+      <!-- Opción 3 -->
+      <div class="flex flex-col items-center gap-8 opacity-50 cursor-not-allowed">
+        <img src="/images/arquitectura/rounded-3.png" alt="Ficha GCF" class="w-48 h-48 min-w-48 min-h-48 object-cover rounded-full mb-4" />
+        <span class="block font-inter font-semibold text-[20px] leading-[150%] tracking-[0px] text-center align-middle text-[#195B5B] text-center"
+          >Ficha GCF</span
+        >
       </div>
-
-      <!-- Tarjeta 2: Ficha BPIN -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <img src="/images/arquitectura/rounded-2.png" alt="Ficha BPIN" class="w-full h-48 object-cover rounded-t-lg" />
-        <div class="p-5 flex flex-col flex-grow items-center justify-center">
-          <h2 class="text-lg text-center font-semibold text-[#036475] mb-2">Ficha BPIN</h2>
-          <p class="text-sm text-[#4B5563] mb-3 text-center flex-grow">Documento que describe objetivos y actividades del proyecto a nivel MADR.</p>
-          <button pButton type="button" class="w-full" style="background-color: #1da750; border-color: #1da750" routerLink="/arquitectura/ficha-bpin">
-            Ver ficha
-          </button>
-        </div>
-      </div>
-
-      <!-- Tarjeta 3: Ficha GCF -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <img src="/images/arquitectura/rounded-1.png" alt="Ficha GCF" class="w-full h-48 object-cover rounded-t-lg" />
-        <div class="p-5 flex flex-col flex-grow items-center justify-center">
-          <h2 class="text-lg text-center font-semibold text-[#036475] mb-2">Ficha GCF</h2>
-          <div class="text-sm text-[#4B5563] mb-3 text-center flex-grow">Actividades y subactividades esperadas por el GCF.</div>
-          <button
-            disabled
-            pButton
-            type="button"
-            class="w-full"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/arquitectura/ficha-gcf">
-            Ver ficha
-          </button>
-        </div>
-      </div>
-
-      <!-- Tarjeta 4: Organizaciones -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-        <img src="/images/arquitectura/rounded.png" alt="Organizaciones" class="w-full h-48 object-cover rounded-t-lg" />
-        <div class="p-5 flex flex-col flex-grow items-center justify-center">
-          <h2 class="text-lg text-center font-semibold text-[#036475] mb-2">Organizaciones</h2>
-          <span class="text-sm text-[#4B5563] mb-3 text-center flex-grow">Entidades responsables de la ejecución y actividades del proyecto.</span>
-          <button
-            pButton
-            type="button"
-            class="w-full"
-            style="background-color: #1da750; border-color: #1da750"
-            routerLink="/arquitectura/organizaciones">
-            Ver organizaciones
-          </button>
-        </div>
-      </div>
+      <!-- Opción 4 -->
+      <a [routerLink]="'/arquitectura/organizaciones'" class="flex flex-col items-center group cursor-pointer gap-8">
+        <img src="/images/arquitectura/rounded-4.png" alt="Organizaciones" class="w-48 h-48 min-w-48 min-h-48 object-cover rounded-full mb-4" />
+        <span class="block font-inter font-semibold text-[20px] leading-[150%] tracking-[0px] text-center align-middle text-[#195B5B] text-center"
+          >Organizaciones</span
+        >
+      </a>
     </div>
   </div>
 </app-section-header>
