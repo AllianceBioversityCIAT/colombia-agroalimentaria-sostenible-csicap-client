@@ -33,7 +33,7 @@ export default class CutOffDatesComponent implements OnInit {
     this.api.getCutOffDates().then(res => {
       console.log(res.data);
       res.data.forEach(date => {
-        date.stateClass = date.estado === 'ABIERTO' ? 'bg-green-500' : date.estado === 'CERRADO' ? 'bg-red-500' : 'bg-orange-500';
+        date.stateClass = date.estado === 'ABIERTO' ? 'bg-[#22C55E]' : date.estado === 'CERRADO' ? 'bg-[#EF4444]' : 'bg-[#F97316]';
       });
       this.dates.set(res.data);
     });
