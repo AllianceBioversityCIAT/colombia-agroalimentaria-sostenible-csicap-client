@@ -1,5 +1,5 @@
 <div class="bg-white rounded-t-xl relative shadow-xs">
-  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 py-4 flex justify-between items-center">
+  <div class="font-inter font-semibold text-[18px] text-[#036475] px-6 flex justify-between items-center" [class.py-4]="showVerticalPadding">
     <div class="flex items-center">
       {{ header }}
       @if (tagName) {
