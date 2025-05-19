@@ -12,23 +12,23 @@
   <!-- <div class="mt-[40px]"></div> -->
 
   <div class="p-[40px]">
-    <p-table [value]="dates()" [tableStyle]="{ 'min-width': '60rem' }">
+    <p-table [value]="dates()" [tableStyle]="{ 'min-width': '60rem' }" [showGridlines]="true">
       <ng-template #header>
         <tr>
-          <th class="bg-red-500" pSortableColumn="corte" style="width: 20%">
+          <th class="bg-red-500" pSortableColumn="corte" style="width: 15%">
             <div class="flex gap-4">Corte <p-sortIcon field="corte" /></div>
           </th>
-          <th class="bg-gray-500" pSortableColumn="finicio" style="width: 20%">
+          <th class="bg-gray-500" pSortableColumn="finicio" style="width: 25%">
             <div class="flex gap-2">Fecha de inicio <p-sortIcon field="finicio" /></div>
           </th>
-          <th class="bg-gray-500" pSortableColumn="ffin" style="width: 20%">
+          <th class="bg-gray-500" pSortableColumn="ffin" style="width: 25%">
             <div class="flex gap-2">Fecha de fin (corte) <p-sortIcon field="ffin" /></div>
           </th>
-          <th class="bg-gray-500" pSortableColumn="estado" style="width: 20%">
-            <div class="flex gap-2">Estado <p-sortIcon field="estado" /></div>
+          <th class="bg-gray-500 text-center" pSortableColumn="estado" style="width: 15%">
+            <div class="flex justify-center items-center h-full">Estado</div>
           </th>
           <th class="bg-gray-500" pSortableColumn="dclose" style="width: 20%">
-            <div class="flex gap-2">Días para cerrar <p-sortIcon field="dclose" /></div>
+            <div class="flex gap-2">Días para cerrar</div>
           </th>
         </tr>
       </ng-template>
@@ -37,8 +37,10 @@
           <td>{{ product.corte }}</td>
           <td>{{ product.fechaInicio | date: 'MMMM dd/yyyy' | titlecase }}</td>
           <td>{{ product.fechaFin | date: 'MMMM dd/yyyy' | titlecase }}</td>
-          <td>
-            <span class="{{ product.stateClass }} text-white px-2 py-1 text-xs rounded-[12px] max-content">{{ product.estado | titlecase }}</span>
+          <td class="text-center align-middle h-[60px]">
+            <div class="flex justify-center items-center h-full">
+              <span class="{{ product.stateClass }} text-white px-2 py-1 text-xs rounded-[12px]">{{ product.estado | titlecase }}</span>
+            </div>
           </td>
           <td>{{ product.diasRestantes }} días</td>
         </tr>
