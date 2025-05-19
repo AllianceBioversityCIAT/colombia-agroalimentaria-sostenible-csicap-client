@@ -119,7 +119,7 @@
                     @if (!isCiat()) {
                       <td>
                         <a
-                          routerLink="/planes-operativos/ver-subproductos/5"
+                          [routerLink]="['/planes-operativos/ver-subproductos', product.id]"
                           routerLinkActive="router-link-active"
                           class="text-blue-500 cursor-pointer underline"
                           >Ver detalle</a

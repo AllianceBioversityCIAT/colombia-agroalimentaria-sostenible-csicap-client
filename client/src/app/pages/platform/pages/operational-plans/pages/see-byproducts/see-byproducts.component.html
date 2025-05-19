@@ -14,17 +14,16 @@
     <!-- Tabs de subproductos -->
     <p-tabs [value]="1">
       <p-tablist>
-        @for (subproducto of subproductos; track subproducto.id) {
-          <p-tab [value]="subproducto.id" class="flex items-center !gap-2 text-inherit">
-            <span>{{ subproducto.nombre }}</span>
+        @for (subproducto of data().subproductos; track subproducto.sp_id) {
+          <p-tab [value]="subproducto.sp_id" class="flex items-center !gap-2 text-inherit">
+            <span>{{ subproducto.subproducto_index }}</span>
           </p-tab>
         }
       </p-tablist>
     </p-tabs>
     <div class="mb-8 mt-4 py-5 px-10">
       <h2 class="text-xl font-semibold mb-4 text-[#024955]">
-        Manejo de dieciocho parcelas de producción de ganadería convencional y sostenible establecidas en 2024 para el monitoreo de impactos
-        ambientales.
+        {{ currentSubproducto().nombre_subproducto }}
       </h2>
 
       <!-- Sección de descripción y detalles -->
@@ -41,8 +40,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Qué se hará?</h4>
               <p class="text-sm text-gray-700">
-                Diseño e implementación de un plan de manejo detallado para dieciocho (18) parcelas de producción de ganadería convencional y
-                sostenible implementadas en 2024 para el monitoreo de impactos ambientales.
+                {{ currentSubproducto().que_se_hara }}
               </p>
             </div>
 
@@ -50,8 +48,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">Metodología</h4>
               <p class="text-sm text-gray-700">
-                Las parcelas instaladas corresponden a áreas piloto de manejo de ganadería convencional y ganadería sostenible que fueron instaladas
-                en 2024 en las regiones priorizadas. Para su mantenimiento se debe generar e implementar un plan detallado.
+                {{ currentSubproducto().metodologia }}
               </p>
             </div>
 
@@ -59,9 +56,9 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Dónde se hará?</h4>
               <ul class="text-sm text-gray-700 list-none pl-0 gap-2 flex flex-col">
-                <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">3 fincas en San Onofre (Sucre)</li>
-                <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">3 fincas en Tame (Arauca)</li>
-                <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">3 fincas en Guachucal (Nariño)</li>
+                @for (lugar of currentSubproducto().lugares; track $index) {
+                  <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">{{ lugar.nombre }}</li>
+                }
               </ul>
             </div>
 
@@ -69,8 +66,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Cómo se reportará?</h4>
               <p class="text-sm text-gray-700">
-                Un (1) Documento en Word con actualizaciones por capítulos según período de reporte y anexos con información colectada en las
-                parcelas.
+                {{ currentSubproducto().como_se_reportara }}
               </p>
             </div>
           </div>
@@ -81,7 +77,7 @@
       <div class="mb-8 flex flex-col gap-8">
         <h3 class="text-lg font-medium mb-4">Hitos del subproducto</h3>
 
-        @for (hito of subproductos; track hito.id) {
+        @for (hito of currentSubproducto().hitos; track $index) {
           <!-- Hito 1 -->
           <div
             class="shadow-[0_4px_12px_rgba(0,0,0,0.06)] border border-[#E9EEF3] rounded-lg p-4 hover:shadow-[0_6px_16px_rgba(0,0,0,0.1)] transition-shadow duration-300">
@@ -89,23 +85,25 @@
               <div>
                 <div class="flex items-center mb-4">
                   <div class="bg-[#059BB4] text-white rounded-full w-11 h-11 flex items-center justify-center mr-2 shadow-md">
-                    <span class="text-xs">25%</span>
+                    <span class="text-xs">%{{ hito.porcentaje }}</span>
                   </div>
                   <div>
-                    <span class="font-medium">Hito {{ hito.id }}</span>
-                    <span class="text-gray-500 text-sm ml-2">Fecha esperada el viernes 30 de mayo 2025</span>
+                    <span class="font-medium">Hito </span>
+                    <span class="text-gray-500 text-sm ml-2">Fecha esperada: {{ hito.fecha_esperada }}</span>
                   </div>
                   <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div>
                 </div>
 
-                <h4 class="text-md font-medium mb-2">Recolección y organización de datos</h4>
+                <h4 class="text-md font-medium mb-2">{{ hito.nombre_hito }}</h4>
 
                 <div class="mb-2">
                   <span class="text-sm font-medium">Entregables:</span>
-                  <span class="text-sm text-gray-700 ml-1"
-                    >Documento que detalla el proceso de recolección y organización de los datos agroclimáticos - Información agroclimática
-                    recolectada - Diccionario de datos de la información recolectada.</span
-                  >
+                  @for (entregable of hito.entregables; track $index) {
+                    @if ($index !== 0) {
+                      -
+                    }
+                    <span class="text-sm text-gray-700 ml-1">{{ entregable.nombre }}</span>
+                  }
                 </div>
 
                 <a class="text-sm text-[#059BB4] font-medium underline">Ver más</a>
@@ -134,8 +132,7 @@
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Qué se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
-          Diseño e implementación de un plan de manejo detallado para dieciocho (18) parcelas de producción de ganadería convencional y sostenible
-          implementadas en 2024 para el monitoreo de impactos ambientales.
+          {{ currentSubproducto().que_se_hara }}
         </p>
       </div>
     </div>
@@ -145,10 +142,7 @@
       <h3 class="text-lg font-medium text-[#024955] mb-3">Metodología</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
-          La metodología para el análisis exploratorio de la información agroclimática disponible se basará en la recopilación y organización de datos
-          relevantes, incluyendo variables climáticas, presencia de plagas, enfermedades y otros factores de interés. Se aplicarán técnicas de
-          exploración y visualización de datos para identificar tendencias y relaciones significativas. Además, se evaluarán posibles patrones y
-          riesgos asociados a la variabilidad agroclimática con el fin de proporcionar información útil anticipada para la gestión fitosanitaria.
+          {{ currentSubproducto().metodologia }}
         </p>
       </div>
     </div>
@@ -158,9 +152,9 @@
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Dónde se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <div class="flex flex-wrap gap-2">
-          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en San Onofre (Sucre)</span>
-          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en Tame (Arauca)</span>
-          <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">3 fincas en Guachucal (Nariño)</span>
+          @for (lugar of currentSubproducto().lugares; track $index) {
+            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">{{ lugar.nombre }}</span>
+          }
         </div>
       </div>
     </div>
@@ -170,7 +164,7 @@
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Cómo se reportará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
-          Un (1) Documento en Word con actualizaciones por capítulos según período de reporte y anexos con información colectada en las parcelas.
+          {{ currentSubproducto().como_se_reportara }}
         </p>
       </div>
     </div>

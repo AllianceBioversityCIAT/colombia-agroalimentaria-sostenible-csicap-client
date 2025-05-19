@@ -18,6 +18,7 @@ import { GetPlanOperativoSocio } from '../interfaces/get/get-plan-pperativo-soci
 import { GetActividades } from '../interfaces/get/get-actividades.interface';
 import { GetSubActividades } from '../interfaces/get/get-sub-actividades.interface';
 import { GetProductos } from '../interfaces/get/get-productos.interface';
+import { GetSubProductos } from '../interfaces/get/get-sub-productos.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -150,6 +151,15 @@ export class ApiService {
 
   getProductos = (): Promise<MainResponse<GetProductos[]>> => {
     const url = () => `productos/id-nombres`;
+    return this.TP.get(url(), {});
+  };
+
+  getSubProductos = (productoId?: number, subproductoId?: number): Promise<MainResponse<GetSubProductos>> => {
+    const params = new URLSearchParams();
+    if (productoId) params.append('producto_id', String(productoId));
+    if (subproductoId) params.append('subproducto_id', String(subproductoId));
+    const query = params.toString();
+    const url = () => `subproductos/subproductos${query ? `?${query}` : ''}`;
     return this.TP.get(url(), {});
   };
 
