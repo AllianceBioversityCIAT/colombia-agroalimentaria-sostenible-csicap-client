@@ -105,7 +105,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/operational-plans/pages/see-byproducts/see-byproducts.component'),
         data: {
           breadcrumb: [
-            { path: 'planes-operativos', label: 'Mi plan operativo' },
+            { path: 'planes-operativos', label: 'Mi plan operativo', ifIsAdmin: true },
             { path: 'ver-subproductos', label: 'Ver subproductos' }
           ]
         }

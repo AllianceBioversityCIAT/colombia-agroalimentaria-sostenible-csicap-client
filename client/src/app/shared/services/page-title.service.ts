@@ -3,7 +3,7 @@ import { Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
 import { BehaviorSubject, Subject, filter, takeUntil } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { MenuItem } from 'primeng/api';
-
+import { AuthPermissionsService } from './auth-permissions.service';
 interface BreadcrumbItem {
   path: string;
   label: string;
@@ -13,6 +13,7 @@ interface BreadcrumbItem {
   providedIn: 'root'
 })
 export class PageTitleService implements OnDestroy {
+  authPermissions = inject(AuthPermissionsService);
   private readonly APP_NAME = 'CAS Reporting Tool';
   private titleService = inject(Title);
   private router = inject(Router);
@@ -61,9 +62,10 @@ export class PageTitleService implements OnDestroy {
 
     // Update breadcrumb items
     if (breadcrumbs.length > 0) {
+      console.log(breadcrumbs);
       const breadcrumbItems = breadcrumbs.map(item => ({
         label: item.label,
-        routerLink: `/${item.path}`
+        routerLink: `/${item.path}${!this.authPermissions.isAdmin() ? '/cenicafe' : ''}`
       }));
       this.breadcrumbSubject.next(breadcrumbItems);
     } else {
