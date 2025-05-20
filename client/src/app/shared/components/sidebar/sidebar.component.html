@@ -1,111 +1,117 @@
 <div
-  class="w-70 bg-[#1B4B5A] text-white h-full transition-all duration-300"
+  class="w-70 bg-[#1B4B5A] text-white h-full transition-all duration-300 flex flex-col"
   [ngClass]="{ '!w-[68px]': cache.isSidebarCollapsed(), '!min-w-auto': cache.isSidebarCollapsed() }">
-  <div
-    class="flex items-center justify-center h-[70px] border-b cursor-pointer"
-    style="border-color: #047f94"
-    [ngClass]="{ 'h-[80px]': cache.isSidebarCollapsed() }"
-    routerLink="/">
-    <img src="logo.png" alt="" class="h-[80px]" [ngClass]="{ hidden: cache.isSidebarCollapsed() }" />
-    <img src="logo-white.png" alt="" class="h-[60px]" [ngClass]="{ hidden: !cache.isSidebarCollapsed() }" />
+  <!-- Encabezado fijo con logo y botón de explorar -->
+  <div class="flex-shrink-0">
+    <div
+      class="flex items-center justify-center h-[70px] border-b cursor-pointer"
+      style="border-color: #047f94"
+      [ngClass]="{ 'h-[80px]': cache.isSidebarCollapsed() }"
+      routerLink="/">
+      <img src="logo.png" alt="" class="h-[80px]" [ngClass]="{ hidden: cache.isSidebarCollapsed() }" />
+      <img src="logo-white.png" alt="" class="h-[60px]" [ngClass]="{ hidden: !cache.isSidebarCollapsed() }" />
+    </div>
+
+    <div class="flex items-center pl-8 pt-8 gap-4 mb-2" [ngClass]="{ '!pl-5': cache.isSidebarCollapsed(), '!pt-4': cache.isSidebarCollapsed() }">
+      <div class="font-inter font-medium text-[14px] leading-[21px] text-[#BDBDBD]" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">Explorar</div>
+
+      <i
+        class="pi pi-chevron-left bg-white text-[#EAB308] rounded-full p-2 cursor-pointer"
+        style="font-size: 10px"
+        [ngClass]="{ 'pi-chevron-right': cache.isSidebarCollapsed(), 'pi-chevron-left': !cache.isSidebarCollapsed() }"
+        (click)="cache.toggleSidebar()"></i>
+    </div>
   </div>
 
-  <div class="flex items-center pl-8 pt-8 gap-4 mb-2" [ngClass]="{ '!pl-5': cache.isSidebarCollapsed(), '!pt-4': cache.isSidebarCollapsed() }">
-    <div class="font-inter font-medium text-[14px] leading-[21px] text-[#BDBDBD]" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">Explorar</div>
-
-    <i
-      class="pi pi-chevron-left bg-white text-[#EAB308] rounded-full p-2 cursor-pointer"
-      style="font-size: 10px"
-      [ngClass]="{ 'pi-chevron-right': cache.isSidebarCollapsed(), 'pi-chevron-left': !cache.isSidebarCollapsed() }"
-      (click)="cache.toggleSidebar()"></i>
-  </div>
-
-  @for (item of menuItems(); track item.label) {
-    @if (!item.unauthorized) {
-      <div class="menu-item-container">
-        <!-- Elemento principal del menú -->
-        <div
-          class="flex items-center justify-between px-8 py-4 hover:bg-[#165863] hover:text-[#ffe100] rounded cursor-pointer"
-          [ngClass]="{
-            'opacity-50 cursor-not-allowed': item.disabled,
-            '!px-6': cache.isSidebarCollapsed(),
-            'bg-[#165863] text-[#ffe100]': !item.options && item.path && $any(item.path) === $any(location.path())
-          }"
-          [routerLink]="item.disabled || item.options?.length ? null : item.path"
-          routerLinkActive="bg-[#165863] text-[#ffe100]"
-          [routerLinkActiveOptions]="{ exact: item.options ? false : true }"
-          [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
-          tooltipPosition="right"
-          (click)="item.options?.length ? toggleSubmenu(item) : item.action ? item.action() : null">
-          <div class="flex items-center gap-2">
-            <div class="pi {{ item.icon }} text-white" [ngStyle]="{ 'font-size': cache.isSidebarCollapsed() ? '18px' : '16px' }"></div>
-            <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
-          </div>
-
-          <!-- Icono de expansión solo si tiene opciones y el sidebar no está colapsado -->
-          <div class="flex items-center" *ngIf="item.options?.length && !cache.isSidebarCollapsed()">
-            <i
-              class="pi {{ isExpanded(item) && 'text-[#ffe100]' }}"
-              [ngClass]="isExpanded(item) ? 'pi-chevron-down' : 'pi-chevron-right'"
-              style="font-size: 12px">
-            </i>
-          </div>
-        </div>
-
-        <!-- Submenú desplegable -->
-        @if (item.options?.length) {
+  <!-- Contenedor con scroll para todas las opciones de menú -->
+  <div class="flex-1 overflow-y-auto overflow-x-hidden">
+    @for (item of menuItems(); track item.label) {
+      @if (!item.unauthorized) {
+        <div class="menu-item-container">
+          <!-- Elemento principal del menú -->
           <div
-            class="submenu pl-12 bg-[#165863] overflow-hidden"
-            [ngClass]="{ hidden: cache.isSidebarCollapsed() }"
-            [@submenuAnimation]="isExpanded(item) ? 'expanded' : 'collapsed'">
-            @for (subItem of item.options; track subItem.label) {
-              <div
-                class="flex items-center gap-2 py-3 hover:text-[#ffe100] cursor-pointer"
-                [ngClass]="{ 'opacity-50 cursor-not-allowed': subItem.disabled }"
-                [routerLink]="subItem.disabled ? null : subItem.path"
-                routerLinkActive="text-[#ffe100]">
-                <div class="pi {{ subItem.icon }}" style="font-size: 14px"></div>
-                <div class="text-nowrap text-sm">{{ subItem.label }}</div>
-              </div>
-            }
+            class="flex items-center justify-between px-8 py-4 hover:bg-[#165863] hover:text-[#ffe100] rounded cursor-pointer"
+            [ngClass]="{
+              'opacity-50 cursor-not-allowed': item.disabled,
+              '!px-6': cache.isSidebarCollapsed(),
+              'bg-[#165863] text-[#ffe100]': !item.options && item.path && $any(item.path) === $any(location.path())
+            }"
+            [routerLink]="item.disabled || item.options?.length ? null : item.path"
+            routerLinkActive="bg-[#165863] text-[#ffe100]"
+            [routerLinkActiveOptions]="{ exact: item.options ? false : true }"
+            [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
+            tooltipPosition="right"
+            (click)="item.options?.length ? toggleSubmenu(item) : item.action ? item.action() : null">
+            <div class="flex items-center gap-2">
+              <div class="pi {{ item.icon }} text-white" [ngStyle]="{ 'font-size': cache.isSidebarCollapsed() ? '18px' : '16px' }"></div>
+              <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
+            </div>
+
+            <!-- Icono de expansión solo si tiene opciones y el sidebar no está colapsado -->
+            <div class="flex items-center" *ngIf="item.options?.length && !cache.isSidebarCollapsed()">
+              <i
+                class="pi {{ isExpanded(item) && 'text-[#ffe100]' }}"
+                [ngClass]="isExpanded(item) ? 'pi-chevron-down' : 'pi-chevron-right'"
+                style="font-size: 12px">
+              </i>
+            </div>
           </div>
-        }
+
+          <!-- Submenú desplegable -->
+          @if (item.options?.length) {
+            <div
+              class="submenu pl-12 bg-[#165863] overflow-hidden"
+              [ngClass]="{ hidden: cache.isSidebarCollapsed() }"
+              [@submenuAnimation]="isExpanded(item) ? 'expanded' : 'collapsed'">
+              @for (subItem of item.options; track subItem.label) {
+                <div
+                  class="flex items-center gap-2 py-3 hover:text-[#ffe100] cursor-pointer"
+                  [ngClass]="{ 'opacity-50 cursor-not-allowed': subItem.disabled }"
+                  [routerLink]="subItem.disabled ? null : subItem.path"
+                  routerLinkActive="text-[#ffe100]">
+                  <div class="pi {{ subItem.icon }}" style="font-size: 14px"></div>
+                  <div class="text-nowrap text-sm">{{ subItem.label }}</div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+
+    <div
+      class="border-b pb-4 mx-8"
+      style="border-color: #047f94"
+      [ngClass]="{ '!mx-0': cache.isSidebarCollapsed(), '!pb-0': cache.isSidebarCollapsed() }"></div>
+
+    <div
+      class="font-inter font-medium pl-8 pt-4 text-[14px] leading-[21px] mt-4 mb-2 text-[#BDBDBD]"
+      [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
+      Cuenta
+    </div>
+
+    @for (item of accountItems(); track item.label) {
+      <div
+        class="flex items-center gap-2 px-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
+        [ngClass]="{ 'opacity-50 cursor-not-allowed': item.disabled, '!px-6': cache.isSidebarCollapsed() }"
+        [routerLink]="item.disabled ? null : item.path"
+        routerLinkActive="bg-[#165863] text-[#34ca6b]"
+        [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
+        tooltipPosition="right"
+        (click)="item.action ? item.action() : null">
+        <div class="pi {{ item.icon }}"></div>
+        <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
       </div>
     }
-  }
+    <div class="border-b pb-4 mx-8" style="border-color: #047f94" [ngClass]="{ hidden: cache.isSidebarCollapsed() }"></div>
 
-  <div
-    class="border-b pb-4 mx-8"
-    style="border-color: #047f94"
-    [ngClass]="{ '!mx-0': cache.isSidebarCollapsed(), '!pb-0': cache.isSidebarCollapsed() }"></div>
-
-  <div
-    class="font-inter font-medium pl-8 pt-4 text-[14px] leading-[21px] mt-4 mb-2 text-[#BDBDBD]"
-    [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
-    Cuenta
-  </div>
-
-  @for (item of accountItems(); track item.label) {
-    <div
-      class="flex items-center gap-2 px-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
-      [ngClass]="{ 'opacity-50 cursor-not-allowed': item.disabled, '!px-6': cache.isSidebarCollapsed() }"
-      [routerLink]="item.disabled ? null : item.path"
-      routerLinkActive="bg-[#165863] text-[#34ca6b]"
-      [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
-      tooltipPosition="right"
-      (click)="item.action ? item.action() : null">
-      <div class="pi {{ item.icon }}"></div>
-      <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
+    <div class="flex items-center justify-center" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
+      <div class="font-inter font-normal text-[10px] leading-[12px] text-[#65D2E4] mt-6">
+        Estás conectado como {{ this.cache.dataCache().user.rolesPersonas[0].rol.nombre }}
+      </div>
     </div>
-  }
-  <div class="border-b pb-4 mx-8" style="border-color: #047f94" [ngClass]="{ hidden: cache.isSidebarCollapsed() }"></div>
-
-  <div class="flex items-center justify-center" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
-    <div class="font-inter font-normal text-[10px] leading-[12px] text-[#65D2E4] mt-6">
-      Estás conectado como {{ this.cache.dataCache().user.rolesPersonas[0].rol.nombre }}
+    <div class="flex items-center justify-center mt-4 mb-4" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
+      <img [src]="this.cache.currentUser()?.org_logo" alt="" class="w-[150px] filter invert brightness-0 invert" />
     </div>
-  </div>
-  <div class="flex items-center justify-center mt-4" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">
-    <img [src]="this.cache.currentUser()?.org_logo" alt="" class="w-[150px] filter invert brightness-0 invert" />
   </div>
 </div>
