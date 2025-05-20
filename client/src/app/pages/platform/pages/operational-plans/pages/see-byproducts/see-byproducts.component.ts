@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 import { ApiService } from '../../../../../../shared/services/api.service';
-import { GetSubProductos, Subproducto, Subproducto2 } from '../../../../../../shared/interfaces/get/get-sub-productos.interface';
+import { GetSubProductos, Hitosxsubproducto, Subproducto, Subproducto2 } from '../../../../../../shared/interfaces/get/get-sub-productos.interface';
 import { TextLimiterPipe } from '../../../../../../shared/pipes/text-limiter.pipe';
 import { DateFormatterPipe } from '../../../../../../shared/pipes/date-formatter.pipe';
 
@@ -22,6 +22,7 @@ export default class SeeByproductsComponent implements OnInit {
   subproductoIndex = signal(0);
   subproductos = signal<Subproducto[]>([]);
   currentSubproducto = signal<Subproducto2>({} as Subproducto2);
+  currentProducto = signal<Hitosxsubproducto>({} as Hitosxsubproducto);
   data = signal<GetSubProductos>({} as GetSubProductos);
 
   ngOnInit() {
@@ -37,7 +38,9 @@ export default class SeeByproductsComponent implements OnInit {
     const res = await this.api.getSubProductos(productId, this.subproductos()[this.subproductoIndex()]?.sp_id);
 
     this.data.set(res.data);
+    console.log(res.data);
     this.subproductos.set(res.data.subproductos);
     this.currentSubproducto.set(res.data.hitosxsubproducto[0]?.subproductos[0]);
+    this.currentProducto.set(res.data.hitosxsubproducto[0]);
   }
 }
