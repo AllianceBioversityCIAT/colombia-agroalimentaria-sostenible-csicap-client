@@ -9,10 +9,11 @@ import { DialogModule } from 'primeng/dialog';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { GetSubProductos, Subproducto, Subproducto2 } from '../../../../../../shared/interfaces/get/get-sub-productos.interface';
 import { TextLimiterPipe } from '../../../../../../shared/pipes/text-limiter.pipe';
+import { DateFormatterPipe } from '../../../../../../shared/pipes/date-formatter.pipe';
 
 @Component({
   selector: 'app-see-byproducts',
-  imports: [ButtonModule, TooltipModule, CommonModule, FormsModule, RouterModule, TabsModule, DialogModule, TextLimiterPipe],
+  imports: [ButtonModule, TooltipModule, CommonModule, FormsModule, RouterModule, TabsModule, DialogModule, TextLimiterPipe, DateFormatterPipe],
   templateUrl: './see-byproducts.component.html'
 })
 export default class SeeByproductsComponent implements OnInit {
