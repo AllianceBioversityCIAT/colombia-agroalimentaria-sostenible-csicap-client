@@ -12,10 +12,10 @@
 
   <div class="bg-white rounded-lg shadow-md p-1">
     <!-- Tabs de subproductos -->
-    <p-tabs [value]="1">
+    <p-tabs [value]="0">
       <p-tablist>
-        @for (subproducto of data().subproductos; track subproducto.sp_id) {
-          <p-tab [value]="subproducto.sp_id" class="flex items-center !gap-2 text-inherit">
+        @for (subproducto of data().subproductos; track $index) {
+          <p-tab (click)="getSubProductos($index)" [value]="$index" class="flex items-center !gap-2 text-inherit">
             <span>{{ subproducto.subproducto_index }}</span>
           </p-tab>
         }
@@ -23,7 +23,7 @@
     </p-tabs>
     <div class="mb-8 mt-4 py-5 px-10">
       <h2 class="text-xl font-semibold mb-4 text-[#024955]">
-        {{ currentSubproducto().nombre_subproducto }}
+        {{ currentSubproducto()?.nombre_subproducto }}
       </h2>
 
       <!-- Sección de descripción y detalles -->

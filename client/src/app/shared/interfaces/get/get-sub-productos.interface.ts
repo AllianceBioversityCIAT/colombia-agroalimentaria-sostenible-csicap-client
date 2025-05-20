@@ -41,7 +41,7 @@ interface Lugare {
   nombre: string;
 }
 
-interface Subproducto {
+export interface Subproducto {
   sp_id: number;
   sp_nombre: string;
   subproducto_index: string;
