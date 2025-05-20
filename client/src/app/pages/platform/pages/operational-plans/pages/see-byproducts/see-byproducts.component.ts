@@ -2,7 +2,6 @@ import { Component, signal, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
@@ -13,7 +12,7 @@ import { DateFormatterPipe } from '../../../../../../shared/pipes/date-formatter
 
 @Component({
   selector: 'app-see-byproducts',
-  imports: [ButtonModule, TooltipModule, CommonModule, FormsModule, RouterModule, TabsModule, DialogModule, TextLimiterPipe, DateFormatterPipe],
+  imports: [ButtonModule, TooltipModule, CommonModule, RouterModule, TabsModule, DialogModule, TextLimiterPipe, DateFormatterPipe],
   templateUrl: './see-byproducts.component.html'
 })
 export default class SeeByproductsComponent implements OnInit {
@@ -24,7 +23,6 @@ export default class SeeByproductsComponent implements OnInit {
   subproductos = signal<Subproducto[]>([]);
   currentSubproducto = signal<Subproducto2>({} as Subproducto2);
   data = signal<GetSubProductos>({} as GetSubProductos);
-  characterLimit = signal<number>(300);
 
   ngOnInit() {
     this.getSubProductos();
@@ -42,9 +40,5 @@ export default class SeeByproductsComponent implements OnInit {
     this.data.set(res.data);
     this.subproductos.set(res.data.subproductos);
     this.currentSubproducto.set(res.data.hitosxsubproducto[0]?.subproductos[0]);
-  }
-
-  updateCharacterLimit(newLimit: number): void {
-    this.characterLimit.set(newLimit);
   }
 }

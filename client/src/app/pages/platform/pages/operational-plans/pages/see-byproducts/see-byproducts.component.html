@@ -12,7 +12,7 @@
 
   <div class="bg-white rounded-lg shadow-md p-1">
     <!-- Tabs de subproductos -->
-    <p-tabs [value]="1">
+    <p-tabs [value]="0">
       <p-tablist>
         @for (subproducto of data().subproductos; track subproducto.sp_id) {
           <p-tab [value]="subproducto.sp_id" class="flex items-center !gap-2 text-inherit">
@@ -31,20 +31,7 @@
         <div class="w-full">
           <div class="flex justify-between items-center mb-10 mt-8">
             <h3 class="text-lg font-medium text-[#024955]">Descripción del subproducto</h3>
-            <div class="flex items-center gap-4">
-              <div class="flex items-center gap-2">
-                <label for="charLimit" class="text-sm text-gray-500">Límite de caracteres:</label>
-                <input
-                  id="charLimit"
-                  type="number"
-                  [ngModel]="characterLimit()"
-                  (ngModelChange)="updateCharacterLimit($event)"
-                  min="5"
-                  max="200"
-                  class="w-16 p-1 border border-gray-300 rounded text-sm" />
-              </div>
-              <div class="text-[#64748B] text-sm font-medium cursor-pointer" (click)="dialogVisible.set({ value: true })">Ver detalle</div>
-            </div>
+            <div class="text-[#64748B] text-sm font-medium cursor-pointer" (click)="dialogVisible.set({ value: true })">Ver detalle</div>
           </div>
 
           <!-- Cuadrícula de información -->
@@ -53,7 +40,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Qué se hará?</h4>
               <p class="text-sm text-gray-500">
-                {{ currentSubproducto().que_se_hara | textLimiter: characterLimit() }}
+                {{ currentSubproducto().que_se_hara | textLimiter: 300 }}
               </p>
             </div>
 
@@ -61,7 +48,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">Metodología</h4>
               <p class="text-sm text-gray-500">
-                {{ currentSubproducto().metodologia | textLimiter: characterLimit() }}
+                {{ currentSubproducto().metodologia | textLimiter: 300 }}
               </p>
             </div>
 
@@ -81,7 +68,7 @@
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Cómo se reportará?</h4>
               <p class="text-sm text-gray-500">
-                {{ currentSubproducto().como_se_reportara | textLimiter: characterLimit() }}
+                {{ currentSubproducto().como_se_reportara | textLimiter: 300 }}
               </p>
             </div>
           </div>
