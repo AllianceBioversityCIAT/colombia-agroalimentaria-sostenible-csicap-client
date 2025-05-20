@@ -35,7 +35,6 @@ export default class SeeByproductsComponent implements OnInit {
     const productId = this.route.snapshot.params['id'];
     this.currentSubproducto.set({} as Subproducto2);
     const res = await this.api.getSubProductos(productId, this.subproductos()[this.subproductoIndex()]?.sp_id);
-    console.log(res.data);
 
     this.data.set(res.data);
     this.subproductos.set(res.data.subproductos);

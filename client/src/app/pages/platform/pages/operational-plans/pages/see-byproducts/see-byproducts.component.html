@@ -14,8 +14,8 @@
     <!-- Tabs de subproductos -->
     <p-tabs [value]="0">
       <p-tablist>
-        @for (subproducto of data().subproductos; track subproducto.sp_id) {
-          <p-tab [value]="subproducto.sp_id" class="flex items-center !gap-2 text-inherit">
+        @for (subproducto of data().subproductos; track $index) {
+          <p-tab (click)="getSubProductos($index)" [value]="$index" class="flex items-center !gap-2 text-inherit">
             <span>{{ subproducto.subproducto_index }}</span>
           </p-tab>
         }
