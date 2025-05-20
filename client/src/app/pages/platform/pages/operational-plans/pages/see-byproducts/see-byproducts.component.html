@@ -156,9 +156,7 @@
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <div class="flex flex-wrap gap-2 w-full">
           @for (lugar of currentSubproducto().lugares; track $index) {
-            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate inline-block max-w-[180px]" [title]="lugar.nombre">{{
-              lugar.nombre
-            }}</span>
+            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate inline-block" [title]="lugar.nombre">{{ lugar.nombre }}</span>
           }
         </div>
       </div>
