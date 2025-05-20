@@ -55,9 +55,11 @@
             <!-- ¿Dónde se hará? -->
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Dónde se hará?</h4>
-              <ul class="text-sm text-gray-700 list-none pl-0 gap-2 flex flex-col">
+              <ul class="text-sm text-gray-700 list-none pl-0 gap-2 flex flex-col max-w-full">
                 @for (lugar of currentSubproducto().lugares; track $index) {
-                  <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] w-max rounded-[20px] py-1 px-3">{{ lugar.nombre }}</li>
+                  <li class="mb-1 bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate max-w-[100%] inline-block" [title]="lugar.nombre">
+                    {{ lugar.nombre }}
+                  </li>
                 }
               </ul>
             </div>
@@ -151,9 +153,11 @@
     <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
       <h3 class="text-lg font-medium text-[#024955] mb-3">¿Dónde se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 w-full">
           @for (lugar of currentSubproducto().lugares; track $index) {
-            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3">{{ lugar.nombre }}</span>
+            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate inline-block max-w-[180px]" [title]="lugar.nombre">{{
+              lugar.nombre
+            }}</span>
           }
         </div>
       </div>
