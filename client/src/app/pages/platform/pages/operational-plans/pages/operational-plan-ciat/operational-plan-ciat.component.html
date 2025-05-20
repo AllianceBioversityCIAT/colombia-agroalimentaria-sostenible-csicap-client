@@ -1,10 +1,16 @@
 <div class="flex items-center justify-between pt-2 pb-6 px-4">
-  <span class="font-inter font-medium text-2xl leading-[1.5] tracking-normal align-middle text-[#047F94]">Plan operativo CIAT</span>
+  <span class="font-inter font-medium text-2xl leading-[1.5] tracking-normal align-middle text-[#047F94]">
+    @if (this.planService.isCiat()) {
+      Plan operativo CIAT
+    } @else {
+      Plan operativo {{ this.cache.currentUser()?.org_nombre }}
+    }
+  </span>
   <div class="flex items-center gap-4">
     <span class="font-inter font-medium text-sm leading-7 tracking-normal align-middle text-[#9E9E9E]">Plan Operativo 2025</span>
     <p-button
       icon="pi pi-download"
-      [loading]="loadingDownload()"
+      [loading]="this.planService.loadingDownload()"
       size="small"
       [style]="{
         'background-color': '#059BB4',
@@ -15,25 +21,103 @@
         cursor: 'pointer'
       }"
       label="Descargar plan operativo"
-      (click)="downloadExcel()"></p-button>
+      (click)="downloadExcel()">
+    </p-button>
   </div>
 </div>
 
 <app-section-header [showBorder]="false" [showVerticalPadding]="false" [showHorizontalPadding]="false">
   <p-tabs [value]="1">
     <p-tablist>
-      @for (objective of isCiat() ? objectives() : currentObjectives(); track $index) {
+      @for (objective of this.planService.isCiat() ? this.planService.objectives() : this.planService.currentObjectives(); track $index) {
         @let index = $index + 1;
-        <p-tab (click)="setCurrentActivities($index)" [value]="index">Objetivo {{ index }} </p-tab>
+        <p-tab (click)="this.setCurrentActivities($index)" [value]="index">Objetivo {{ index }}</p-tab>
       }
     </p-tablist>
   </p-tabs>
 
+  @if (!this.planService.isCiat()) {
+    <div class="mx-8 mb-5 mt-8">
+      <div class="flex items-center justify-between gap-2.5 flex-wrap xl:flex-nowrap">
+        <div class="flex items-center gap-2.5 w-full flex-wrap xl:flex-nowrap">
+          <p-select
+            #activityFilter
+            class="max-w-[150px] w-full"
+            [options]="this.filterService.activityOptions()"
+            optionLabel="resumen"
+            optionValue="id"
+            placeholder="Actividad"
+            [showClear]="true"
+            (onChange)="onActivityChange($event)">
+          </p-select>
+          <p-select
+            #subactivityFilter
+            class="max-w-[150px] w-full"
+            [options]="this.filterService.subactivityOptions()"
+            optionLabel="resumen"
+            optionValue="id"
+            placeholder="Subactividad"
+            [showClear]="true"
+            (onChange)="onSubactivityChange($event)">
+          </p-select>
+          <p-select
+            #ejeFilter
+            class="max-w-[150px] w-full"
+            [options]="this.filterService.ejeOptions()"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Eje"
+            [showClear]="true"
+            (onChange)="onEjeChange($event)">
+          </p-select>
+          <p-select
+            #productoFilter
+            class="max-w-[150px] w-full"
+            [options]="this.filterService.productoOptions()"
+            optionLabel="resumen"
+            optionValue="id"
+            placeholder="Producto"
+            [showClear]="true"
+            (onChange)="onProductoChange($event)">
+          </p-select>
+
+          <p-button
+            class="max-w-[150px] w-full"
+            (click)="clearFilters()"
+            [disabled]="!this.filterService.hasFilters()"
+            icon="pi pi-filter-slash"
+            label="Limpiar"
+            variant="text"
+            severity="secondary" />
+        </div>
+
+        <p-iconfield iconPosition="left">
+          <p-inputicon>
+            <i class="pi pi-search"></i>
+          </p-inputicon>
+
+          <input
+            pInputText
+            class="w-50"
+            type="text"
+            [(ngModel)]="this.filterService.searchInput"
+            (ngModelChange)="operationalPlanTable.filterGlobal($event, 'contains')"
+            placeholder="Buscar" />
+        </p-iconfield>
+      </div>
+    </div>
+  }
+
   <div class="mx-8">
-    @if (objectives()[activeObjectiveIndex()]) {
-      <div class="flex items-center justify-between my-8 gap-6">
+    @if (this.planService.objectives()[this.planService.activeObjectiveIndex()]) {
+      <div
+        class="flex items-center justify-between gap-6"
+        [ngClass]="{
+          'mb-8': !this.planService.isCiat(),
+          'my-8': this.planService.isCiat()
+        }">
         <div class="flex font-inter font-normal leading-6 text-[#6B7280]">
-          {{ objectives()[activeObjectiveIndex()].nombre_obj }}
+          {{ this.planService.objectives()[this.planService.activeObjectiveIndex()].nombre_obj }}
         </div>
       </div>
     }
@@ -45,27 +129,42 @@
         'max-w-[calc(100vw-392px)]': !cache.isSidebarCollapsed()
       }">
       <p-table
-        [value]="currentActivities()"
+        #operationalPlanTable
+        [value]="this.planService.currentActivities()"
         [scrollable]="false"
         styleClass="p-datatable-gridlines rounded-table"
         [tableStyle]="{ border: 'solid 1px #f5f6fa' }"
         showGridlines
         [scrollable]="true"
-        scrollHeight="calc(100vh - 430px)">
+        scrollHeight="calc(100vh - 430px)"
+        [globalFilterFields]="[
+          'nombre_actv',
+          'nombre_subActv',
+          'presupuesto',
+          'product.ejes',
+          'responsables',
+          'codigo',
+          'nombre_prod',
+          'descripcion',
+          'fechaEntrega'
+        ]">
         <ng-template pTemplate="header">
           <tr>
             @for (col of columns; track $index) {
-              <th
-                class="text-base p-3 text-white"
-                [class.rounded-tl-lg]="$index === 0"
-                [class.rounded-tr-lg]="$index === columns.length - 1"
-                [style.min-width]="col.minWidth"
-                style="background-color: #f5f6fa">
-                {{ col.header }}
-              </th>
+              @if (this.planService.isCiat() || !col.hideWhenNotCiat) {
+                <th
+                  [id]="col.field"
+                  class="text-base p-3 text-white"
+                  [class.rounded-tl-lg]="$index === 0"
+                  [class.rounded-tr-lg]="$index === columns.length - 1"
+                  [style.min-width]="col.minWidth"
+                  style="background-color: #f5f6fa">
+                  {{ col.header }} {{ col.hide }}
+                </th>
+              }
             }
-            @if (!isCiat()) {
-              <th>información</th>
+            @if (!this.planService.isCiat()) {
+              <th id="information">información</th>
             }
           </tr>
         </ng-template>
@@ -82,29 +181,34 @@
                 @for (product of subactivity?.productos; track product.id; let productIndex = $index) {
                   <tr>
                     @if (isFirst && productIndex === 0) {
-                      <td [attr.rowspan]="calculateTotalRows(activity)">Actividad {{ activity?.nombre_actv || '' }}</td>
+                      <td [attr.rowspan]="this.utilityService.calculateTotalRows(activity)">Actividad {{ activity?.nombre_actv || '' }}</td>
                     }
 
                     @if (productIndex === 0) {
                       <td [attr.rowspan]="subactivity?.productos?.length">Subactividad {{ subactivity?.nombre_subActv || '' }}</td>
                     }
-                    @if (productIndex === 0) {
+
+                    @if (productIndex === 0 && this.planService.isCiat()) {
                       <td [attr.rowspan]="subactivity?.productos?.length">
-                        {{ formatCurrency(subactivity?.presupuesto) }}
+                        {{ this.utilityService.formatCurrency(subactivity?.presupuesto) }}
                       </td>
                     }
 
                     <td>
-                      {{ formatArrayWithConjunction(product?.ejes) }}
+                      {{ this.utilityService.formatArrayWithConjunction(product?.ejes) }}
                     </td>
 
-                    <td>
-                      {{ formatArrayWithConjunction(product?.responsables) }}
-                    </td>
+                    @if (this.planService.isCiat()) {
+                      <td>
+                        {{ this.utilityService.formatArrayWithConjunction(product?.responsables) }}
+                      </td>
+                    }
 
-                    <td>
-                      {{ product?.codigo || '' }}
-                    </td>
+                    @if (this.planService.isCiat()) {
+                      <td>
+                        {{ product?.codigo || '' }}
+                      </td>
+                    }
 
                     <td>
                       Producto {{ product?.codigo }}.
@@ -113,17 +217,20 @@
 
                     <td>{{ product?.descripcion || '' }}</td>
 
-                    <td class="capitalize">
-                      {{ (product?.fechaEntrega | date: 'MMMM yyyy') || '' }}
-                    </td>
-                    @if (!isCiat()) {
+                    @if (this.planService.isCiat()) {
+                      <td class="capitalize">
+                        {{ (product?.fechaEntrega | date: 'MMMM yyyy') || '' }}
+                      </td>
+                    }
+
+                    @if (!this.planService.isCiat()) {
                       <td>
                         <a
                           [routerLink]="['/planes-operativos/ver-subproductos', product.id]"
                           routerLinkActive="router-link-active"
-                          class="text-blue-500 cursor-pointer underline"
-                          >Ver detalle</a
-                        >
+                          class="text-blue-500 cursor-pointer underline">
+                          Ver detalle
+                        </a>
                       </td>
                     }
                   </tr>
@@ -131,7 +238,7 @@
               } @else {
                 <tr>
                   @if (isFirst) {
-                    <td [attr.rowspan]="calculateTotalRows(activity)">
+                    <td [attr.rowspan]="this.utilityService.calculateTotalRows(activity)">
                       {{ activity?.nombre_actv }}
                     </td>
                   }
@@ -140,13 +247,22 @@
                     {{ subactivity?.nombre_subActv }}
                   </td>
 
-                  <td>{{ formatCurrency(subactivity?.presupuesto) }}</td>
+                  @if (this.planService.isCiat()) {
+                    <td>{{ this.utilityService.formatCurrency(subactivity?.presupuesto) }}</td>
+                  }
 
                   <td [attr.colspan]="6">No hay informacion de productos</td>
                 </tr>
               }
             }
           }
+        </ng-template>
+
+        <!-- empty  -->
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="100%">No se encontraron resultados</td>
+          </tr>
         </ng-template>
       </p-table>
     </div>

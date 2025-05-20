@@ -67,12 +67,7 @@ export default class UserManagementComponent implements OnInit {
   }
 
   get hasFilters() {
-    return (
-      !!this.organizationSelected() ||
-      !!this.roleSelected() ||
-      !!this.gcfComponenteSelected() ||
-      this.searchInput() !== null
-    );
+    return !!this.organizationSelected() || !!this.roleSelected() || !!this.gcfComponenteSelected() || this.searchInput() !== null;
   }
 
   clearFilters() {
