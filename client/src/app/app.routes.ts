@@ -122,7 +122,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/platform/pages/key-dates/pages/cut-off-dates/cut-off-dates.component'),
         data: {
           breadcrumb: [
-            { path: 'fechas-clave', label: 'Fechas clave' },
+            // { path: 'fechas-clave', label: 'Fechas clave' },
             { path: 'fechas-de-corte', label: 'Fechas de corte' }
           ]
         }
