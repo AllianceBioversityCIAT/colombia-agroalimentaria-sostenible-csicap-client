@@ -3,7 +3,7 @@ export interface GetSubProductos {
   hitosxsubproducto: Hitosxsubproducto[];
 }
 
-interface Hitosxsubproducto {
+export interface Hitosxsubproducto {
   id_producto: number;
   nombre_producto: string;
   ejes: string[];
