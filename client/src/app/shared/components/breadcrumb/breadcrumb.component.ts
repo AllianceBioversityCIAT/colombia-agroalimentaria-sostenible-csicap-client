@@ -3,7 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { PageTitleService } from '../../services/page-title.service';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthPermissionsService } from '../../services/auth-permissions.service';
 
 @Component({
   selector: 'app-breadcrumb',

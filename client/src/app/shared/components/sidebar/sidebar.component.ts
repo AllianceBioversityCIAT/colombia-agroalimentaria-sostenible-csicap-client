@@ -67,7 +67,7 @@ export default class SidebarComponent implements OnInit {
     {
       icon: 'pi-chart-line',
       label: this.authPermissions.isAdmin() ? 'Planes operativos' : 'Mi Plan operativo',
-      path: this.authPermissions.isAdmin() ? 'planes-operativos' : 'planes-operativos/4'
+      path: this.authPermissions.isAdmin() ? 'planes-operativos' : 'planes-operativos/cenicafe'
     },
     { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios', unauthorized: !this.authPermissions.isAdmin() },
     { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
