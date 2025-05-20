@@ -26,7 +26,7 @@
   <!-- Contenedor con scroll para todas las opciones de menú -->
   <div class="flex-1 overflow-y-auto overflow-x-hidden">
     @for (item of menuItems(); track item.label) {
-      @if (!item.unauthorized) {
+      @if (!item.unauthorized && !item.hidden) {
         <div class="menu-item-container">
           <!-- Elemento principal del menú -->
           <div
@@ -64,14 +64,16 @@
               [ngClass]="{ hidden: cache.isSidebarCollapsed() }"
               [@submenuAnimation]="isExpanded(item) ? 'expanded' : 'collapsed'">
               @for (subItem of item.options; track subItem.label) {
-                <div
-                  class="flex items-center gap-2 py-3 hover:text-[#ffe100] cursor-pointer"
-                  [ngClass]="{ 'opacity-50 cursor-not-allowed': subItem.disabled }"
-                  [routerLink]="subItem.disabled ? null : subItem.path"
-                  routerLinkActive="text-[#ffe100]">
-                  <div class="pi {{ subItem.icon }}" style="font-size: 14px"></div>
-                  <div class="text-nowrap text-sm">{{ subItem.label }}</div>
-                </div>
+                @if (!subItem.hidden) {
+                  <div
+                    class="flex items-center gap-2 py-3 hover:text-[#ffe100] cursor-pointer"
+                    [ngClass]="{ 'opacity-50 cursor-not-allowed': subItem.disabled }"
+                    [routerLink]="subItem.disabled ? null : subItem.path"
+                    routerLinkActive="text-[#ffe100]">
+                    <div class="pi {{ subItem.icon }}" style="font-size: 14px"></div>
+                    <div class="text-nowrap text-sm">{{ subItem.label }}</div>
+                  </div>
+                }
               }
             </div>
           }
@@ -91,17 +93,19 @@
     </div>
 
     @for (item of accountItems(); track item.label) {
-      <div
-        class="flex items-center gap-2 px-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
-        [ngClass]="{ 'opacity-50 cursor-not-allowed': item.disabled, '!px-6': cache.isSidebarCollapsed() }"
-        [routerLink]="item.disabled ? null : item.path"
-        routerLinkActive="bg-[#165863] text-[#34ca6b]"
-        [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
-        tooltipPosition="right"
-        (click)="item.action ? item.action() : null">
-        <div class="pi {{ item.icon }}"></div>
-        <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
-      </div>
+      @if (!item.hidden) {
+        <div
+          class="flex items-center gap-2 px-8 py-4 hover:bg-[#165863] hover:text-[#34ca6b] rounded cursor-pointer"
+          [ngClass]="{ 'opacity-50 cursor-not-allowed': item.disabled, '!px-6': cache.isSidebarCollapsed() }"
+          [routerLink]="item.disabled ? null : item.path"
+          routerLinkActive="bg-[#165863] text-[#34ca6b]"
+          [pTooltip]="cache.isSidebarCollapsed() ? item.label : ''"
+          tooltipPosition="right"
+          (click)="item.action ? item.action() : null">
+          <div class="pi {{ item.icon }}"></div>
+          <div class="text-nowrap" [ngClass]="{ hidden: cache.isSidebarCollapsed() }">{{ item.label }}</div>
+        </div>
+      }
     }
     <div class="border-b pb-4 mx-8" style="border-color: #047f94" [ngClass]="{ hidden: cache.isSidebarCollapsed() }"></div>
 

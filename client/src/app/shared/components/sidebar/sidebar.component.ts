@@ -1,20 +1,19 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { ActionsService } from '../../services/actions.service';
-import { RouterLink } from '@angular/router';
-import { RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CacheService } from '../../services/cache/cache.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthPermissionsService } from '../../services/auth-permissions.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Location } from '@angular/common';
 
 interface SidebarSubItem {
   icon: string;
   label: string;
   path?: string;
   disabled?: boolean;
+  hidden?: boolean;
 }
 
 interface SidebarItem {
@@ -26,6 +25,7 @@ interface SidebarItem {
   options?: SidebarSubItem[];
   expanded?: boolean;
   unauthorized?: boolean;
+  hidden?: boolean;
 }
 
 @Component({
@@ -63,14 +63,15 @@ export default class SidebarComponent implements OnInit {
 
   menuItems = computed<SidebarItem[]>(() => [
     { icon: 'pi-home', label: 'Menú principal', path: 'menu-principal' },
-    { icon: 'pi-sitemap', label: 'Arquitectura', path: 'arquitectura' },
+    { icon: 'pi-sitemap', label: 'Arquitectura', path: 'arquitectura', hidden: !this.authPermissions.isAdmin() },
     {
       icon: 'pi-chart-line',
-      label: this.authPermissions.isAdmin() ? 'Planes operativos' : 'Mi Plan operativo',
+      label: this.authPermissions.isAdmin() ? 'Planes operativos' : 'Plan operativo',
       path: this.authPermissions.isAdmin() ? 'planes-operativos' : 'planes-operativos/cenicafe'
     },
+    { icon: 'pi-folder', label: 'Gestión de entregables.', path: 'gestion-entregables', disabled: true, hidden: this.authPermissions.isAdmin() },
+    { icon: 'pi-users', label: 'Mi equipo de trabajo.', path: 'mi-equipo-trabajo', disabled: true, hidden: this.authPermissions.isAdmin() },
     { icon: 'pi-user-edit', label: 'Gestión de usuarios', path: 'gestion-usuarios', unauthorized: !this.authPermissions.isAdmin() },
-    { icon: 'pi-question-circle', label: 'Acerca de roles', path: 'acerca-roles', disabled: true },
     {
       icon: 'pi-calendar',
       label: 'Fechas clave',
@@ -78,6 +79,13 @@ export default class SidebarComponent implements OnInit {
         { icon: 'pi-box', label: 'Fechas de corte', path: 'fechas-clave/fechas-de-corte' },
         { icon: 'pi-box', label: 'Fechas de subprod', path: 'fechas-clave/fechas-subprod', disabled: true }
       ]
+    },
+    { icon: 'pi-file', label: 'Indicadores', path: 'indicadores', disabled: true, hidden: this.authPermissions.isAdmin() },
+    {
+      icon: 'pi-question-circle',
+      label: this.authPermissions.isAdmin() ? 'Acerca de roles' : 'Acerca de mi rol',
+      path: 'acerca-roles',
+      disabled: true
     }
   ]);
 

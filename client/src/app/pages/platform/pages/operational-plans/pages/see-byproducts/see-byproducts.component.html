@@ -92,7 +92,7 @@
                   <div>
                     <span class="font-medium">Hito {{ $index + 1 }} </span>
                     <span class="inline-block w-2 h-2 rounded-full bg-gray-300 mx-1"></span>
-                    <span class="text-gray-500 text-sm ml-2">Fecha esperada {{ hito.fecha_esperada | dateFormatter }}</span>
+                    <span class="text-gray-500 text-sm ml-2">Fecha esperada: {{ hito.fecha_esperada | dateFormatter }}</span>
                   </div>
                   <!-- <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div> -->
                 </div>
@@ -156,9 +156,7 @@
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <div class="flex flex-wrap gap-2 w-full">
           @for (lugar of currentSubproducto().lugares; track $index) {
-            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate inline-block max-w-[180px]" [title]="lugar.nombre">{{
-              lugar.nombre
-            }}</span>
+            <span class="bg-[#E5E7EB] text-[#4B5563] rounded-[20px] py-1 px-3 truncate inline-block" [title]="lugar.nombre">{{ lugar.nombre }}</span>
           }
         </div>
       </div>
