@@ -30,7 +30,7 @@
       <div class="flex justify-between mb-8">
         <div class="w-full">
           <div class="flex justify-between items-center mb-10 mt-8">
-            <h3 class="text-lg font-medium">Descripción del subproducto</h3>
+            <h3 class="text-lg font-medium text-[#024955]">Descripción del subproducto</h3>
             <div class="text-[#64748B] text-sm font-medium cursor-pointer" (click)="dialogVisible.set({ value: true })">Ver detalle</div>
           </div>
 
@@ -87,19 +87,20 @@
               <div>
                 <div class="flex items-center mb-4">
                   <div class="bg-[#059BB4] text-white rounded-full w-11 h-11 flex items-center justify-center mr-2 shadow-md">
-                    <span class="text-xs">%{{ hito.porcentaje }}</span>
+                    <span class="text-xs">{{ hito.porcentaje }}%</span>
                   </div>
                   <div>
-                    <span class="font-medium">Hito </span>
-                    <span class="text-gray-500 text-sm ml-2">Fecha esperada: {{ hito.fecha_esperada }}</span>
+                    <span class="font-medium">Hito {{ $index + 1 }} </span>
+                    <span class="inline-block w-2 h-2 rounded-full bg-gray-300 mx-1"></span>
+                    <span class="text-gray-500 text-sm ml-2">Fecha esperada {{ hito.fecha_esperada }}</span>
                   </div>
-                  <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div>
+                  <!-- <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div> -->
                 </div>
 
-                <h4 class="text-md font-medium mb-2">{{ hito.nombre_hito }}</h4>
+                <h4 class="text-md font-medium mb-2 text-[#024955]">{{ hito.nombre_hito }}</h4>
 
                 <div class="mb-2">
-                  <span class="text-sm font-medium">Entregables:</span>
+                  <span class="text-sm font-medium text-[#556376]">Entregables:</span>
                   @for (entregable of hito.entregables; track $index) {
                     @if ($index !== 0) {
                       -
@@ -112,7 +113,7 @@
               </div>
               <div class="flex justify-end w-[400px]">
                 <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
-                <button pButton type="button" icon="pi pi-plus-circle" label="Cargar entregable"></button>
+                <button disabled pButton type="button" icon="pi pi-plus-circle" label="Cargar entregable"></button>
               </div>
             </div>
           </div>
