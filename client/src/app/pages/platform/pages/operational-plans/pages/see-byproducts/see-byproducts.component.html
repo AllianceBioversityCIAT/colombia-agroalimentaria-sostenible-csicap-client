@@ -12,10 +12,10 @@
 
   <div class="bg-white rounded-lg shadow-md p-1">
     <!-- Tabs de subproductos -->
-    <p-tabs [value]="1">
+    <p-tabs [value]="0">
       <p-tablist>
-        @for (subproducto of data().subproductos; track subproducto.sp_id) {
-          <p-tab [value]="subproducto.sp_id" class="flex items-center !gap-2 text-inherit">
+        @for (subproducto of data().subproductos; track $index) {
+          <p-tab (click)="getSubProductos($index)" [value]="$index" class="flex items-center !gap-2 text-inherit">
             <span>{{ subproducto.subproducto_index }}</span>
           </p-tab>
         }
@@ -39,16 +39,16 @@
             <!-- ¿Qué se hará? -->
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Qué se hará?</h4>
-              <p class="text-sm text-gray-700">
-                {{ currentSubproducto().que_se_hara }}
+              <p class="text-sm text-gray-500">
+                {{ currentSubproducto().que_se_hara | textLimiter: 300 }}
               </p>
             </div>
 
             <!-- Metodología -->
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">Metodología</h4>
-              <p class="text-sm text-gray-700">
-                {{ currentSubproducto().metodologia }}
+              <p class="text-sm text-gray-500">
+                {{ currentSubproducto().metodologia | textLimiter: 300 }}
               </p>
             </div>
 
@@ -67,8 +67,8 @@
             <!-- ¿Cómo se reportará? -->
             <div class="bg-white p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.08)]">
               <h4 class="text-md font-medium text-[#024955] mb-2">¿Cómo se reportará?</h4>
-              <p class="text-sm text-gray-700">
-                {{ currentSubproducto().como_se_reportara }}
+              <p class="text-sm text-gray-500">
+                {{ currentSubproducto().como_se_reportara | textLimiter: 300 }}
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@
                   <div>
                     <span class="font-medium">Hito {{ $index + 1 }} </span>
                     <span class="inline-block w-2 h-2 rounded-full bg-gray-300 mx-1"></span>
-                    <span class="text-gray-500 text-sm ml-2">Fecha esperada {{ hito.fecha_esperada }}</span>
+                    <span class="text-gray-500 text-sm ml-2">Fecha esperada {{ hito.fecha_esperada | dateFormatter }}</span>
                   </div>
                   <!-- <div class="ml-2 px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full shadow-sm">Pendiente</div> -->
                 </div>

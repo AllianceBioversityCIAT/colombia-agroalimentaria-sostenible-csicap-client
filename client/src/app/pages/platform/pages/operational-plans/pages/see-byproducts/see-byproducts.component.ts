@@ -6,10 +6,13 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TabsModule } from 'primeng/tabs';
 import { DialogModule } from 'primeng/dialog';
 import { ApiService } from '../../../../../../shared/services/api.service';
-import { GetSubProductos, Subproducto2 } from '../../../../../../shared/interfaces/get/get-sub-productos.interface';
+import { GetSubProductos, Subproducto, Subproducto2 } from '../../../../../../shared/interfaces/get/get-sub-productos.interface';
+import { TextLimiterPipe } from '../../../../../../shared/pipes/text-limiter.pipe';
+import { DateFormatterPipe } from '../../../../../../shared/pipes/date-formatter.pipe';
+
 @Component({
   selector: 'app-see-byproducts',
-  imports: [ButtonModule, TooltipModule, CommonModule, RouterModule, TabsModule, DialogModule],
+  imports: [ButtonModule, TooltipModule, CommonModule, RouterModule, TabsModule, DialogModule, TextLimiterPipe, DateFormatterPipe],
   templateUrl: './see-byproducts.component.html'
 })
 export default class SeeByproductsComponent implements OnInit {
@@ -17,6 +20,7 @@ export default class SeeByproductsComponent implements OnInit {
   route = inject(ActivatedRoute);
   dialogVisible = signal({ value: false });
   subproductoIndex = signal(0);
+  subproductos = signal<Subproducto[]>([]);
   currentSubproducto = signal<Subproducto2>({} as Subproducto2);
   data = signal<GetSubProductos>({} as GetSubProductos);
 
@@ -24,12 +28,16 @@ export default class SeeByproductsComponent implements OnInit {
     this.getSubProductos();
   }
 
-  async getSubProductos() {
+  async getSubProductos(index?: number) {
     // get product id from url
+    this.subproductoIndex.set(index ?? 0);
+
     const productId = this.route.snapshot.params['id'];
-    const res = await this.api.getSubProductos(productId);
+    this.currentSubproducto.set({} as Subproducto2);
+    const res = await this.api.getSubProductos(productId, this.subproductos()[this.subproductoIndex()]?.sp_id);
+
     this.data.set(res.data);
-    this.currentSubproducto.set(res.data.hitosxsubproducto[0].subproductos[0]);
-    console.log(res.data);
+    this.subproductos.set(res.data.subproductos);
+    this.currentSubproducto.set(res.data.hitosxsubproducto[0]?.subproductos[0]);
   }
 }
