@@ -132,9 +132,22 @@ export class ApiService {
     return this.TP.get(url(), { useManagementApi: true });
   };
 
-  getPlanOperativoSocio = (objectiveId?: number): Promise<MainResponse<GetPlanOperativoSocio>> => {
-    const queryParams = objectiveId ? `?objetivo=${objectiveId}` : '';
-    const url = () => `bpin-objetivos/plan-operativo-socio${queryParams}`;
+  getPlanOperativoSocio = (
+    objectiveId: number,
+    activityId: number | null,
+    subactivityId: number | null,
+    ejeId: number | null,
+    productoId: number | null
+  ): Promise<MainResponse<GetPlanOperativoSocio>> => {
+    const queryParams = new URLSearchParams();
+    if (objectiveId) queryParams.append('objetivo', objectiveId.toString());
+    if (activityId) queryParams.append('actividad_id', activityId.toString());
+    if (subactivityId) queryParams.append('subactividad_id', subactivityId.toString());
+    if (ejeId) queryParams.append('eje_id', ejeId.toString());
+    if (productoId) queryParams.append('producto_id', productoId.toString());
+
+    const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+    const url = () => `bpin-objetivos/plan-operativo-socio${queryString}`;
     console.log(url());
     return this.TP.get(url(), {});
   };
