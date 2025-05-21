@@ -110,7 +110,11 @@
                   }
                 </div>
 
-                <a class="text-sm text-[#059BB4] font-medium underline">Ver más</a>
+                <a
+                  class="text-sm text-[#059BB4] font-medium underline cursor-pointer"
+                  (click)="showCurrentHito.set({ value: true }); currentHito.set(hito)"
+                  >Ver más</a
+                >
               </div>
               <div class="flex justify-end w-[400px]">
                 <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
@@ -172,5 +176,24 @@
         </p>
       </div>
     </div>
+  </div>
+</p-dialog>
+
+<p-dialog [modal]="true" [(visible)]="showCurrentHito().value" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="font-bold whitespace-nowrap text-[#111827] text-lg">Información del subproducto</span>
+    </div>
+  </ng-template>
+  <div class="p-5 flex flex-col gap-6">
+    @for (entregable of currentHito().entregables; track $index) {
+      <div>
+        <h3 class="text-lg font-medium text-[#024955] mb-3">{{ entregable.nombre }}</h3>
+        <p class="text-gray-700">
+          {{ entregable.descripcion }}
+        </p>
+      </div>
+    }
+    <div></div>
   </div>
 </p-dialog>

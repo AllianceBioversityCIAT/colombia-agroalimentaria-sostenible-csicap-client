@@ -20,7 +20,7 @@ export interface Subproducto2 {
   hitos: Hito[];
 }
 
-interface Hito {
+export interface Hito {
   id_hito: number;
   hito_index: number;
   nombre_hito: string;
