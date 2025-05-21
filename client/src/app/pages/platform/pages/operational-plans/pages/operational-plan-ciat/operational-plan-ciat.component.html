@@ -164,7 +164,7 @@
               }
             }
             @if (!this.planService.isCiat()) {
-              <th id="information" class="text-base p-3 text-white" style="background-color: #f5f6fa">Subproductos</th>
+              <th id="information" class="text-base p-3 text-white sticky right-0 z-10" style="background-color: #f5f6fa">Subproductos</th>
             }
           </tr>
         </ng-template>
@@ -224,11 +224,11 @@
                     }
 
                     @if (!this.planService.isCiat()) {
-                      <td>
+                      <td class="sticky right-0 z-10 bg-white">
                         <a
                           [routerLink]="['/planes-operativos/ver-subproductos', product.id]"
                           routerLinkActive="router-link-active"
-                          class="text-blue-500 cursor-pointer underline">
+                          class="text-blue-500 cursor-pointer underline whitespace-nowrap">
                           Ver subproductos
                         </a>
                       </td>

@@ -20,7 +20,7 @@ export interface Subproducto2 {
   hitos: Hito[];
 }
 
-interface Hito {
+export interface Hito {
   id_hito: number;
   hito_index: number;
   nombre_hito: string;
@@ -42,7 +42,7 @@ interface Lugare {
 }
 
 export interface Subproducto {
-  sp_id: number;
+  subproducto_id: number;
   sp_nombre: string;
   subproducto_index: string;
 }
