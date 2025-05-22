@@ -87,7 +87,7 @@ export default class MainMenuComponent implements OnInit {
       labels: ['A', 'B', 'C'],
       datasets: [
         {
-          data: [300, 50, 100],
+          data: [12, 9, 23],
           backgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B'],
           hoverBackgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B']
         }
