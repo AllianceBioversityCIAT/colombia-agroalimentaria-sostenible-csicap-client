@@ -77,7 +77,7 @@ export default class SidebarComponent implements OnInit {
       label: 'Fechas clave',
       options: [
         { icon: 'pi-box', label: 'Fechas de corte', path: 'fechas-clave/fechas-de-corte' },
-        { icon: 'pi-box', label: 'Fechas de subprod', path: 'fechas-clave/fechas-subprod', disabled: true }
+        { icon: 'pi-box', label: 'Fechas de subproducto', path: 'fechas-clave/fechas-subproducto', disabled: true }
       ]
     },
     { icon: 'pi-file', label: 'Indicadores', path: 'indicadores', disabled: true, hidden: this.authPermissions.isAdmin() },
