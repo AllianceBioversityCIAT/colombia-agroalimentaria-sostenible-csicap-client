@@ -16,6 +16,7 @@ import { FiltersService } from './services/filters.service';
 import { OperationalPlanService } from './services/operational-plan.service';
 import { UtilityService } from './services/utility.service';
 import { TableColumn } from './interfaces/operational-plan.interface';
+import { OperationalPlansFilterByTextPipe } from './pipes/operational-plans-filter-by-text.pipe';
 
 @Component({
   selector: 'app-operational-plan-ciat',
@@ -33,7 +34,8 @@ import { TableColumn } from './interfaces/operational-plan.interface';
     FormsModule,
     IconFieldModule,
     InputTextModule,
-    InputIconModule
+    InputIconModule,
+    OperationalPlansFilterByTextPipe
   ],
   templateUrl: './operational-plan-ciat.component.html',
   styleUrl: './operational-plan-ciat.component.scss',
