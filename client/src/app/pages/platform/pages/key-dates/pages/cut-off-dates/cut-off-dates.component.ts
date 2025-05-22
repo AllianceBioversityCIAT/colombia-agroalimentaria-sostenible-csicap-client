@@ -28,6 +28,7 @@ export default class CutOffDatesComponent implements OnInit {
     //Add 'implements OnInit' to the class.
     this.getCutOffDates();
   }
+  today = signal<Date>(new Date());
 
   getCutOffDates(): void {
     this.api.getCutOffDates().then(res => {
