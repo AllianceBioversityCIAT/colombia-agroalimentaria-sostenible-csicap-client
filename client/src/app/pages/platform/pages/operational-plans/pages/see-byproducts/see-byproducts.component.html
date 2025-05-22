@@ -91,7 +91,7 @@
                     <span class="text-xs">{{ hito.porcentaje }}%</span>
                   </div>
                   <div>
-                    <span class="font-medium">Hito {{ $index + 1 }} </span>
+                    <span class="font-medium text-[#024955]">Hito {{ $index + 1 }} </span>
                     <span class="inline-block w-2 h-2 rounded-full bg-gray-300 mx-1"></span>
                     <span class="text-gray-500 text-sm ml-2">Fecha esperada: {{ hito.fecha_esperada | dateFormatter }}</span>
                   </div>
@@ -102,17 +102,21 @@
 
                 <div class="mb-2">
                   <span class="text-sm font-medium text-[#556376]">Entregables:</span>
-                  <ul class="mt-1 space-y-1">
-                    @for (entregable of hito.entregables; track entregable.id) {
-                      <li class="text-sm text-gray-700 flex items-center">
-                        <span class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                        {{ entregable.nombre }}
-                        @if (!entregable.descripcion) {
-                          <span class="text-red-500 text-xs ml-2">(Sin descripción)</span>
-                        }
-                      </li>
-                    }
-                  </ul>
+                  @if (hito.entregables && hito.entregables.length > 0) {
+                    <ul class="mt-1 space-y-1">
+                      @for (entregable of hito.entregables; track entregable.id) {
+                        <li class="text-sm text-gray-700 flex items-center">
+                          <span class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                          {{ entregable.nombre }}
+                          @if (!entregable.descripcion) {
+                            <span class="text-red-500 text-xs ml-2">(Sin descripción)</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="text-gray-500 text-sm mt-1">No hay datos disponibles</p>
+                  }
                 </div>
 
                 <a
@@ -142,7 +146,7 @@
   <div class="p-5 flex flex-col gap-6">
     <!-- ¿Qué se hará? -->
     <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
-      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Qué se hará?</h3>
+      <h3 class="text-lg font-medium text-[#036475] mb-3">¿Qué se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
           {{ currentSubproducto().que_se_hara }}
@@ -152,7 +156,7 @@
 
     <!-- Metodología -->
     <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
-      <h3 class="text-lg font-medium text-[#024955] mb-3">Metodología</h3>
+      <h3 class="text-lg font-medium text-[#036475] mb-3">Metodología</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
           {{ currentSubproducto().metodologia }}
@@ -162,7 +166,7 @@
 
     <!-- ¿Dónde se hará? -->
     <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
-      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Dónde se hará?</h3>
+      <h3 class="text-lg font-medium text-[#036475] mb-3">¿Dónde se hará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <div class="flex flex-wrap gap-2 w-full">
           @for (lugar of currentSubproducto().lugares; track $index) {
@@ -174,7 +178,7 @@
 
     <!-- ¿Cómo se reportará? -->
     <div class="border border-[#E9EEF3] rounded-lg p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
-      <h3 class="text-lg font-medium text-[#024955] mb-3">¿Cómo se reportará?</h3>
+      <h3 class="text-lg font-medium text-[#036475] mb-3">¿Cómo se reportará?</h3>
       <div class="bg-white rounded-lg p-4 border border-[#F2F4F7]">
         <p class="text-gray-700">
           {{ currentSubproducto().como_se_reportara }}
@@ -191,22 +195,28 @@
     </div>
   </ng-template>
   <div class="p-5 flex flex-col gap-6">
-    @for (entregable of currentHito().entregables; track $index) {
-      <div class="bg-white rounded-lg p-6 border border-[#E9EEF3] mb-6">
-        <h4 class="font-inter font-semibold text-[18px] leading-[120%] align-middle text-[#036475] mb-4">
-          Entregable {{ $index + 1 }}: {{ entregable.nombre }}
-        </h4>
-        <div class="rounded-lg p-5 border border-[#E5E7EB]">
-          @if (entregable.descripcion) {
-            <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-[#4B5563]">
-              {{ entregable.descripcion }}
-            </p>
-          } @else {
-            <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-red-500">
-              Aún no se ha añadido una descripción del alcance de este entregable
-            </p>
-          }
+    @if (currentHito().entregables && currentHito().entregables.length > 0) {
+      @for (entregable of currentHito().entregables; track $index) {
+        <div class="bg-white rounded-lg p-6 border border-[#E9EEF3] mb-6">
+          <h4 class="font-inter font-semibold text-[18px] leading-[120%] align-middle text-[#036475] mb-4">
+            Entregable {{ $index + 1 }}: {{ entregable.nombre }}
+          </h4>
+          <div class="rounded-lg p-5 border border-[#E5E7EB]">
+            @if (entregable.descripcion) {
+              <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-[#4B5563]">
+                {{ entregable.descripcion }}
+              </p>
+            } @else {
+              <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-red-500">
+                Aún no se ha añadido una descripción del alcance de este entregable1
+              </p>
+            }
+          </div>
         </div>
+      }
+    } @else {
+      <div class="bg-white rounded-lg p-6 border border-[#E9EEF3] mb-6">
+        <p class="text-red-500 text-center">No hay datos disponibles</p>
       </div>
     }
   </div>

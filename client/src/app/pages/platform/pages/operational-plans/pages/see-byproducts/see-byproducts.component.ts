@@ -43,25 +43,12 @@ export default class SeeByproductsComponent implements OnInit {
 
     const productId = this.route.snapshot.params['id'];
     this.currentSubproducto.set({} as Subproducto2);
-
     const res = await this.api.getSubProductos(productId, this.subproductos()[this.subproductoIndex()]?.subproducto_id);
 
     this.data.set(res.data);
+    console.log(res.data);
     this.subproductos.set(res.data.subproductos);
-
-    // Obtener el subproducto actual
-    const hitosxsubproducto = res.data.hitosxsubproducto[0];
-    if (hitosxsubproducto) {
-      const currentSubproductoId = this.subproductos()[this.subproductoIndex()]?.subproducto_id;
-      const subproductoActual =
-        hitosxsubproducto.subproductos.find(sp => sp.id_subproducto === currentSubproductoId) || hitosxsubproducto.subproductos[0];
-
-      if (subproductoActual) {
-        // Ordenar hitos por índice
-        subproductoActual.hitos.sort((a, b) => a.hito_index - b.hito_index);
-        this.currentSubproducto.set(subproductoActual);
-      }
-      this.currentProducto.set(hitosxsubproducto);
-    }
+    this.currentSubproducto.set(res.data.hitosxsubproducto[0]?.subproductos[0]);
+    this.currentProducto.set(res.data.hitosxsubproducto[0]);
   }
 }
