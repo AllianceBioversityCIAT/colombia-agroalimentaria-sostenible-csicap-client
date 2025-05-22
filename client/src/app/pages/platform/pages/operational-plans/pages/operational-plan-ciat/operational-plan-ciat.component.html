@@ -96,13 +96,7 @@
             <i class="pi pi-search"></i>
           </p-inputicon>
 
-          <input
-            pInputText
-            class="w-50"
-            type="text"
-            [(ngModel)]="this.filterService.searchInput"
-            (ngModelChange)="operationalPlanTable.filterGlobal($event, 'contains')"
-            placeholder="Buscar" />
+          <input pInputText class="w-50" type="text" [(ngModel)]="this.filterService.searchInput" placeholder="Buscar" />
         </p-iconfield>
       </div>
     </div>
@@ -130,24 +124,13 @@
       }">
       <p-table
         #operationalPlanTable
-        [value]="this.planService.currentActivities()"
+        [value]="this.planService.currentActivities() | appOperationalPlansFilterByText: this.filterService.searchInput()"
         [scrollable]="false"
         styleClass="p-datatable-gridlines rounded-table"
         [tableStyle]="{ border: 'solid 1px #f5f6fa' }"
         showGridlines
         [scrollable]="true"
-        scrollHeight="calc(100vh - 430px)"
-        [globalFilterFields]="[
-          'nombre_actv',
-          'nombre_subActv',
-          'presupuesto',
-          'product.ejes',
-          'responsables',
-          'codigo',
-          'nombre_prod',
-          'descripcion',
-          'fechaEntrega'
-        ]">
+        scrollHeight="calc(100vh - 430px)">
         <ng-template pTemplate="header">
           <tr>
             @for (col of columns; track $index) {
