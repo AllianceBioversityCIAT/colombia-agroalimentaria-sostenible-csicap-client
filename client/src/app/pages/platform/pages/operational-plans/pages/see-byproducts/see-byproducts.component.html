@@ -202,13 +202,13 @@
             Entregable {{ $index + 1 }}: {{ entregable.nombre }}
           </h4>
           <div class="rounded-lg p-5 border border-[#E5E7EB]">
-            @if (entregable.descripcion) {
+            @if (entregable.descripcion && entregable.descripcion !== 'Aún no se ha añadido una descripción para este entregable') {
               <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-[#4B5563]">
                 {{ entregable.descripcion }}
               </p>
             } @else {
-              <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-red-500">
-                Aún no se ha añadido una descripción del alcance de este entregable1
+              <p class="font-inter font-normal text-[16px] leading-[170%] align-middle text-red-600">
+                Aún no se ha añadido una descripción para este entregable.
               </p>
             }
           </div>
