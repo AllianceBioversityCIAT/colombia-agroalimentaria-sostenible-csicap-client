@@ -84,10 +84,10 @@ export default class MainMenuComponent implements OnInit {
 
   initChart() {
     this.data.set({
-      labels: ['A', 'B', 'C'],
+      labels: ['Borrador', 'Sometido', 'Aprobado'],
       datasets: [
         {
-          data: [12, 9, 23],
+          data: [12, 9, 10],
           backgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B'],
           hoverBackgroundColor: ['#FBA86F', '#F6DE95', '#76DB9B']
         }
